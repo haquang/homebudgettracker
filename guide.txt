@@ -1,0 +1,3 @@
+git add <file to commit>
+git git commit -m "Comments - what is changed"
+git push -u origin master
