@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HomeBudgetTracker</string>
+    <string name="txt_main_header">Espense</string>
+    <string name="txt_date">Date</string>
+    <string name="txt_OK">OK</string>
+    <string name="txt_cancel">Cancel</string>
+    <string name="txt_save">Save</string>
+	<string name="desc">Menu Display</string>
+    <string name="txt_category_food">Food</string>
+    <string name="txt_category_transport">Transportation</string>
+    <string name="txt_category_house">House</string>
+    <string name="txt_category_medical">Medical</string>
+    <string name="txt_category_leisure">Leisure</string>
+    <string name="txt_category_other">Other</string>
+    <string name="txt_category">Category</string>
+    <string name="txt_amount">Amount</string>
+	<string name="txt_desc">Description</string>
+	<string name="txt_desc_default">Add espense descripton here</string>
+    <string name="txt_date_hint">YYYY:MM:DD</string>
+    
+    <string-array name="category_arrays">
+        <item>Food</item>
+        <item>Transportation</item>
+        <item>House</item>
+        <item>Medical</item>
+        <item>Leisure</item>
+        <item>Other</item>
+    </string-array>
+    
+</resources>

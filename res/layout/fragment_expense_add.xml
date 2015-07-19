@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:id="@+id/fragment_expense_add">
+
+    <include
+        android:id="@+id/add_espense_header"
+        layout="@layout/subheader_espense_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_below="@+id/add_espense_header"
+        android:layout_above="@+id/add_espense_footer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dim_10"
+            android:layout_marginRight="@dimen/dim_10"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_50"
+                android:layout_marginTop="@dimen/dim_20"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/add_espense_category"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/txt_category"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+
+                <Spinner
+                    android:id="@+id/spinner_category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:background="@color/black"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/category_arrays"
+                    android:prompt="@string/txt_category" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/divider_size"
+                android:background="@color/gray_boder" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_50"
+                android:layout_marginTop="@dimen/dim_20"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txt_espense_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/txt_amount"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+
+                <EditText
+                    android:id="@+id/edt_espense_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:background="@color/gray_35"
+                    android:text="10000 USD"
+					android:inputType="number"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/divider_size"
+                android:background="@color/gray_boder" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_50"
+                android:layout_marginTop="@dimen/dim_20"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txt_espense_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/txt_date"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+
+                <EditText
+                    android:id="@+id/edt_espense_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:background="@color/gray_35"
+                    android:inputType="datetime"
+                    android:hint="@string/txt_date_hint"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/divider_size"
+                android:background="@color/gray_boder" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_50"
+                android:layout_marginTop="@dimen/dim_20"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/txt_espense_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/txt_desc"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+
+                <EditText
+                    android:id="@+id/edt_espense_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:background="@color/gray_35"
+                    android:hint="@string/txt_desc_default"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/tex_size_large" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/add_espense_footer"
+        layout="@layout/subfooter_espense_layout" />
+
+</RelativeLayout>
