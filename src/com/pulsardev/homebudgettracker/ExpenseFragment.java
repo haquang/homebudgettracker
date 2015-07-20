@@ -1,13 +1,25 @@
+/**
+ * main fragment: manage Expense total and Expense Category
+ * @author ngapham
+ */
+
 package com.pulsardev.homebudgettracker;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
@@ -16,6 +28,11 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	ImageButton btnHouse, btnFood, btnTransportation, btnMedical, btnEntertainment, btnOther;
 	// key of value that will be passed to FragmentAddActivity
 	public static final String INTENT_EXTRA_ADD_EXPENSE = "Add Expense";
+	// main folder in sdcard
+	public static final String DATA_PATH = Environment
+			.getExternalStorageDirectory().toString() + "/HomeBudgetTracker/";
+	// tag
+	private static final String TAG = "ExpenseFragment";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,6 +41,11 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 				container, false);
 		
 		initControls(rootView);
+		try {
+			saveDataToSdCard();
+		} catch (IOException e) {
+			Log.i(TAG, "Failed to copy expense_date.xml to sdcard: " + e);
+		}
 		
 		return rootView;
 	}
@@ -81,5 +103,33 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_EXPENSE, categoryName);
 		startActivity(i);
+	}
+	
+	/**
+	 * Save Expense Date Report data (xml file) to sdcard
+	 * @throws IOException 
+	 */
+	protected void saveDataToSdCard() throws IOException {
+		// Create directory
+		String path = new String(DATA_PATH);
+		File dir = new File(path);
+		if (!dir.exists()) {
+			if (!dir.mkdirs()) {
+				Log.i(TAG, "Creation of directory " + path + " on sdcard failed");
+				return;
+			} else {
+				Log.i(TAG, "Created directory " + path + " on sdcard");
+			}
+		}
+		//Copy file
+		InputStream in = getActivity().getResources().openRawResource(R.xml.expense_date);
+		OutputStream out = new FileOutputStream(DATA_PATH + "expense_date.xml");
+		byte[] buf = new byte[1024];
+		int len;
+		while ((len = in.read(buf)) > 0) {
+			out.write(buf, 0, len);
+		}
+		in.close();
+		out.close();
 	}
 }

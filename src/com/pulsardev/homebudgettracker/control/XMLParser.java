@@ -118,12 +118,13 @@ public class XMLParser {
 	 * @throws TransformerException 
 	 * @date 20/7/2015
 	 */
-	public void saveExpDateReport(InputStream xmlFileIS, ExpenseDateReport currentDateReport) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+	public void saveExpDateReport(String xmlFilePath, ExpenseDateReport currentDateReport) throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
 		
 		builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(xmlFileIS);
+		FileInputStream in = new FileInputStream(xmlFilePath);
+		Document doc = builder.parse(in);
 		
 		// get the root element, which is <expense_date>
 		Node expense_date = doc.getFirstChild();
@@ -158,6 +159,7 @@ public class XMLParser {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(new File(xmlFilePath));
+		transformer.transform(source, result);
 	}
-	
 }

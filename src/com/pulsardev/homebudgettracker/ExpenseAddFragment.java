@@ -1,10 +1,19 @@
 package com.pulsardev.homebudgettracker;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
+
+import com.pulsardev.homebudgettracker.control.XMLParser;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 
 import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +28,9 @@ import android.widget.Toast;
 public class ExpenseAddFragment extends Fragment {
 	
 	// controls
-	EditText txtAmount, txtDescription;
+	EditText edtAmount, edtDate, edtDescription;
 	Button btnSave, btnCancel;
-	TextView lbCategory;
+	TextView txtCategory;
 	Spinner spCategory;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +41,9 @@ public class ExpenseAddFragment extends Fragment {
 		initControls(rootView);
 		// get the default category
 		String defaultCat = (String) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE);
-		lbCategory.setText(lbCategory.getText() + ": " + defaultCat);
+		txtCategory.setText(txtCategory.getText() + ": " + defaultCat);
 		
+		// not save file and return to Main Screen
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -51,11 +61,31 @@ public class ExpenseAddFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				if (String.valueOf(txtAmount.getText()) == null) {
+				if (String.valueOf(edtAmount.getText()) == null) {
 					Toast.makeText(getActivity(), "Please input amount", Toast.LENGTH_SHORT).show();
 				} else {
 					ExpenseDateReport newDateReport = new ExpenseDateReport();
-					InputStream dateReportXmlFile = getActivity().getResources().openRawResource(R.xml.expense_date);
+					newDateReport.setAmount(Float.valueOf(String.valueOf(edtAmount.getText())));
+					newDateReport.setDate(new java.util.Date(System.currentTimeMillis()));
+					newDateReport.setCategoryID(1);
+					newDateReport.setDescription(String.valueOf(edtDescription.getText()));
+					String xmlFilePath = ExpenseFragment.DATA_PATH + "expense_date.xml";
+					XMLParser mParser = new XMLParser();
+					try {
+						mParser.saveExpDateReport(xmlFilePath, newDateReport);
+					} catch (ParserConfigurationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SAXException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (TransformerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});
@@ -64,11 +94,12 @@ public class ExpenseAddFragment extends Fragment {
 	}
 
 	private void initControls(View v) {
-		txtAmount = (EditText) v.findViewById(R.id.edt_espense_amount);
-		txtDescription = (EditText) v.findViewById(R.id.edt_espense_desc);
+		edtAmount = (EditText) v.findViewById(R.id.edt_espense_amount);
+//		dtDate = v.findViewById(R.id.tx);
+		edtDescription = (EditText) v.findViewById(R.id.edt_espense_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
-		lbCategory = (TextView) v.findViewById(R.id.txt_default_category);
+		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
 		
 		// Spinner initialization
