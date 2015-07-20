@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/fragment_expense_add" >
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/main_header_layout" />
+
+    <ScrollView
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" >
+
+                <include
+                    android:id="@+id/main_total"
+                    layout="@layout/main_total_layout" >
+                </include>
+            </LinearLayout>
+
+             <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp" 
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dim_10" >
+
+                    <include
+                        android:id="@+id/income_up"
+                        layout="@layout/income_up_layout" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dim_10" >
+
+                    <include
+                        android:id="@+id/income_down"
+                        layout="@layout/income_down_layout" />
+                </LinearLayout>
+            </LinearLayout>
+        
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

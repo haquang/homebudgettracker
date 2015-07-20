@@ -6,14 +6,14 @@
     android:id="@+id/fragment_expense_add">
 
     <include
-        android:id="@+id/add_espense_header"
-        layout="@layout/subheader_espense_layout" />
+        android:id="@+id/add_expense_header"
+        layout="@layout/subheader_expense_layout" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
-        android:layout_below="@+id/add_espense_header"
-        android:layout_above="@+id/add_espense_footer">
+        android:layout_below="@+id/add_expense_header"
+        android:layout_above="@+id/add_expense_footer">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/add_espense_category"
+                    android:id="@+id/txt_expense_category"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -61,7 +61,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/txt_espense_amount"
+                    android:id="@+id/txt_expense_amount"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -70,7 +70,7 @@
                     android:textSize="@dimen/tex_size_large" />
 
                 <EditText
-                    android:id="@+id/edt_espense_amount"
+                    android:id="@+id/edt_expense_amount"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
@@ -94,7 +94,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/txt_espense_date"
+                    android:id="@+id/txt_expense_date"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -103,7 +103,7 @@
                     android:textSize="@dimen/tex_size_large" />
 
                 <EditText
-                    android:id="@+id/edt_espense_date"
+                    android:id="@+id/edt_expense_date"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
@@ -127,7 +127,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:id="@+id/txt_espense_desc"
+                    android:id="@+id/txt_expense_desc"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -136,7 +136,7 @@
                     android:textSize="@dimen/tex_size_large" />
 
                 <EditText
-                    android:id="@+id/edt_espense_desc"
+                    android:id="@+id/edt_expense_desc"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
@@ -149,7 +149,7 @@
     </ScrollView>
 
     <include
-        android:id="@+id/add_espense_footer"
-        layout="@layout/subfooter_espense_layout" />
+        android:id="@+id/add_expense_footer"
+        layout="@layout/subfooter_expense_layout" />
 
 </RelativeLayout>

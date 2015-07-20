@@ -34,7 +34,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/txt_header"
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"

@@ -3,6 +3,7 @@
 
     <string name="app_name">HomeBudgetTracker</string>
     <string name="txt_main_header">Espense</string>
+    <string name="txt_income_header">Income</string>
     <string name="txt_date">Date</string>
     <string name="txt_OK">OK</string>
     <string name="txt_cancel">Cancel</string>
@@ -19,6 +20,8 @@
 	<string name="txt_desc">Description</string>
 	<string name="txt_desc_default">Add espense descripton here</string>
     <string name="txt_date_hint">YYYY:MM:DD</string>
+    <string name="txt_monthly_income">Monthly Income</string>
+    <string name="txt_other_income">Others</string>
     
     <string-array name="category_arrays">
         <item>Food</item>
