@@ -15,10 +15,12 @@ public class ExpenseCategory {
 	// properties of Crime object
 	private int ID;
 	private String name;
+	private float amount;
 	
 	// keys of JSON Object
 	private static final String JSON_ID = "id";
 	private static final String JSON_NAME = "name";
+	private static final String JSON_AMOUNT = "amount";
 	
 	/**
 	 * Constructor with no specific ID and Name
@@ -51,6 +53,14 @@ public class ExpenseCategory {
 		return ID;
 	}
 
+	public float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+
 	@Override
 	public String toString() {
 		return name;
@@ -65,6 +75,7 @@ public class ExpenseCategory {
 		JSONObject jsonExCatObj = new JSONObject();
 		jsonExCatObj.put(JSON_ID, ID);
 		jsonExCatObj.put(JSON_NAME, name);
+		jsonExCatObj.put(JSON_AMOUNT, amount);
 		return jsonExCatObj;
 	}
 }

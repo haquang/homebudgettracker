@@ -1,5 +1,9 @@
 package com.pulsardev.homebudgettracker;
 
+import java.io.InputStream;
+
+import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ExpenseAddFragment extends Fragment {
 	
@@ -37,11 +42,21 @@ public class ExpenseAddFragment extends Fragment {
 			}
 		});
 		
+		/**
+		 * Save date report to XML file
+		 * @author ngapham
+		 * @date 20/7/2015
+		 */
 		btnSave.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				
+				if (String.valueOf(txtAmount.getText()) == null) {
+					Toast.makeText(getActivity(), "Please input amount", Toast.LENGTH_SHORT).show();
+				} else {
+					ExpenseDateReport newDateReport = new ExpenseDateReport();
+					InputStream dateReportXmlFile = getActivity().getResources().openRawResource(R.xml.expense_date);
+				}
 			}
 		});
 		
