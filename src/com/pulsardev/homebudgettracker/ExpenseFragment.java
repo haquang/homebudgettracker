@@ -5,11 +5,15 @@
 
 package com.pulsardev.homebudgettracker;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -33,6 +37,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 			.getExternalStorageDirectory().toString() + "/HomeBudgetTracker/";
 	// tag
 	private static final String TAG = "ExpenseFragment";
+	// utf-8 encoding String
+	private static final String UTF8 = "utf-8";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,6 +114,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	/**
 	 * Save Expense Date Report data (xml file) to sdcard
 	 * @throws IOException 
+	 * @author ngapham
+	 * @date 20/7/2015
 	 */
 	protected void saveDataToSdCard() throws IOException {
 		// Create directory
@@ -123,11 +131,15 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		}
 		//Copy file
 		InputStream in = getActivity().getResources().openRawResource(R.xml.expense_date);
+		InputStreamReader inReader = new InputStreamReader(in, UTF8);
+		BufferedReader buffReader = new BufferedReader(inReader);
+		
 		OutputStream out = new FileOutputStream(DATA_PATH + "expense_date.xml");
-		byte[] buf = new byte[1024];
-		int len;
-		while ((len = in.read(buf)) > 0) {
-			out.write(buf, 0, len);
+		BufferedWriter buffWriter = new BufferedWriter(new OutputStreamWriter(out, UTF8));
+		char[] buff = new char[1024];
+		int i;
+		while ((i = buffReader.read(buff)) != -1) {
+			buffWriter.write(buff, 0, i);
 		}
 		in.close();
 		out.close();

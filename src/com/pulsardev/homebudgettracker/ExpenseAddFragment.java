@@ -1,20 +1,15 @@
 package com.pulsardev.homebudgettracker;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Date;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
-import com.pulsardev.homebudgettracker.control.XMLParser;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
-
 import android.app.Fragment;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pulsardev.homebudgettracker.control.XMLParser;
+import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
+
 public class ExpenseAddFragment extends Fragment {
 	
 	// controls
@@ -32,6 +30,10 @@ public class ExpenseAddFragment extends Fragment {
 	Button btnSave, btnCancel;
 	TextView txtCategory;
 	Spinner spCategory;
+	
+	// Tag
+	private static final String TAG = "ExpenseAddFragment";
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class ExpenseAddFragment extends Fragment {
 		 * Save date report to XML file
 		 * @author ngapham
 		 * @date 20/7/2015
+		 * @update 21/7/2015
 		 */
 		btnSave.setOnClickListener(new View.OnClickListener() {
 			
@@ -73,18 +76,15 @@ public class ExpenseAddFragment extends Fragment {
 					XMLParser mParser = new XMLParser();
 					try {
 						mParser.saveExpDateReport(xmlFilePath, newDateReport);
+						Log.i(TAG, "save Report successfully");
 					} catch (ParserConfigurationException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.i(TAG, e.getMessage());
 					} catch (SAXException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.i(TAG, e.getMessage());
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.i(TAG, e.getMessage());
 					} catch (TransformerException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Log.i(TAG, e.getMessage());
 					}
 				}
 			}
@@ -94,9 +94,9 @@ public class ExpenseAddFragment extends Fragment {
 	}
 
 	private void initControls(View v) {
-		edtAmount = (EditText) v.findViewById(R.id.edt_espense_amount);
+		edtAmount = (EditText) v.findViewById(R.id.edt_expense_amount);
 //		dtDate = v.findViewById(R.id.tx);
-		edtDescription = (EditText) v.findViewById(R.id.edt_espense_desc);
+		edtDescription = (EditText) v.findViewById(R.id.edt_expense_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
 		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
