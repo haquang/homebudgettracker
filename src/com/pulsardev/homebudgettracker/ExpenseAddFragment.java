@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,9 +42,23 @@ public class ExpenseAddFragment extends Fragment {
 				container, false);
 		
 		initControls(rootView);
-		// get the default category
-		String defaultCat = (String) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE);
-		txtCategory.setText(txtCategory.getText() + ": " + defaultCat);
+		
+		// change the default txtCategory when spinner changed
+		spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View arg1,
+					int position, long arg3) {
+				String selectedItem = (String) parent.getItemAtPosition(position);
+				txtCategory.setText(getResources().getString(R.string.txt_main_header) + ": " + selectedItem);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// no code here
+			}
+			
+		});
 		
 		// not save file and return to Main Screen
 		btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +117,11 @@ public class ExpenseAddFragment extends Fragment {
 		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
 		
+		// get the default category
+		String defaultCat = (String) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE);
+		txtCategory.setText(getResources().getString(R.string.txt_main_header) + ": " + defaultCat);
+				
 		// Spinner initialization
-		
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.category_arrays, R.layout.spinner_item);
 		
@@ -112,5 +130,8 @@ public class ExpenseAddFragment extends Fragment {
 		
 		// Apply the adapter to the spinner
 		spCategory.setAdapter(adapter);
+		// set default category 
+		int spDefaultPosition = adapter.getPosition(defaultCat);
+		spCategory.setSelection(spDefaultPosition);
 	}
 }
