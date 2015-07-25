@@ -13,8 +13,8 @@ public class ExpenseDateReport {
 
 	// properties
 	private UUID ID;
-	private Date mDate;
-	private float mAmount;
+	private Date date;
+	private double amount;
 	private int categoryID;
 	private String description;
 	
@@ -22,42 +22,39 @@ public class ExpenseDateReport {
 	 * Constructor with no specific ID and Name
 	 */
 	public ExpenseDateReport() {
-		super();
 		// Generate unique id
 		ID = UUID.randomUUID();
 	}
 
 	/**
-	 * @param iD
 	 * @param date
 	 * @param amount
 	 * @param categoryID
 	 * @param description
 	 */
-	public ExpenseDateReport(UUID iD, Date date, float amount, int categoryID,
+	public ExpenseDateReport(Date date, double amount, int categoryID,
 			String description) {
-		super();
-		ID = iD;
-		mDate = date;
-		mAmount = amount;
+		ID = UUID.randomUUID();
+		this.date = date;
+		this.amount = amount;
 		this.categoryID = categoryID;
 		this.description = description;
 	}
 
 	public Date getDate() {
-		return mDate;
+		return date;
 	}
 
 	public void setDate(Date date) {
-		mDate = date;
+		this.date = date;
 	}
 
-	public float getAmount() {
-		return mAmount;
+	public double getAmount() {
+		return amount;
 	}
 
-	public void setAmount(float amount) {
-		mAmount = amount;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
 	public int getCategoryID() {
@@ -79,5 +76,4 @@ public class ExpenseDateReport {
 	public UUID getID() {
 		return ID;
 	}
-	
 }

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <expense_date>
-    <item id="0">
+    <item>
+        <id>0</id>
         <date>Sun, Jul 12, 2015</date>
     	<amount>14.58</amount>
     	<categoryId>1</categoryId>
     	<description></description>
     </item>
-    <item id="1">
+    <item>
+        <id>1</id>
         <date>Wed, Mar 04, 2015</date>
     	<amount>4.15</amount>
     	<categoryId>4</categoryId>

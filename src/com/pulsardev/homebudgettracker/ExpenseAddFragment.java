@@ -83,7 +83,7 @@ public class ExpenseAddFragment extends Fragment {
 					Toast.makeText(getActivity(), "Please input amount", Toast.LENGTH_SHORT).show();
 				} else {
 					ExpenseDateReport newDateReport = new ExpenseDateReport();
-					newDateReport.setAmount(Float.valueOf(String.valueOf(edtAmount.getText())));
+					newDateReport.setAmount(Double.valueOf(String.valueOf(edtAmount.getText())));
 					newDateReport.setDate(new java.util.Date(System.currentTimeMillis()));
 					newDateReport.setCategoryID(1);
 					newDateReport.setDescription(String.valueOf(edtDescription.getText()));

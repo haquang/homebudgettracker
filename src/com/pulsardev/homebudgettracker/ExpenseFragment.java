@@ -141,6 +141,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		while ((i = buffReader.read(buff)) != -1) {
 			buffWriter.write(buff, 0, i);
 		}
+		Log.i(TAG, "File expense_date.xml copied");
 		in.close();
 		out.close();
 	}

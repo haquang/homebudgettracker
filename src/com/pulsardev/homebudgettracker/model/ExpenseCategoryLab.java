@@ -7,21 +7,21 @@ package com.pulsardev.homebudgettracker.model;
 
 import android.content.Context;
 
-public class ExpenseCategoryList {
+public class ExpenseCategoryLab {
 	
-	private static ExpenseCategoryList mExpCatList;
+	private static ExpenseCategoryLab mExpCatList;
 	private Context mAppContext;
 	
 	/**
 	 * @param appContext
 	 */
-	public ExpenseCategoryList(Context appContext) {
+	public ExpenseCategoryLab(Context appContext) {
 		mAppContext = appContext;
 	}
 	
-	public static ExpenseCategoryList get(Context appContext) {
+	public static ExpenseCategoryLab get(Context appContext) {
 		if (mExpCatList == null) {
-			mExpCatList = new ExpenseCategoryList(appContext);
+			mExpCatList = new ExpenseCategoryLab(appContext);
 		}
 		return mExpCatList;
 	}
