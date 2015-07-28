@@ -21,6 +21,7 @@ import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -39,6 +40,7 @@ import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 public class XMLParser {
 	
 	// define XML tag of ExpenseDateReport object
+	private static final String EXPENSE_DATE = "expense_date";
 	private static final String EXPENSE_DATE_ITEM = "item";
 	private static final String EXPENSE_DATE_ID = "id";
 	private static final String EXPENSE_DATE_DATE = "date";
@@ -88,7 +90,7 @@ public class XMLParser {
 				
 				// get amount of <item>
 				listChild = item.getElementsByTagName(EXPENSE_DATE_AMOUNT);
-				Float amount = Float.valueOf(listChild.item(0).getTextContent());
+				Double amount = Double.valueOf(listChild.item(0).getTextContent());
 				
 				// get category id of <item>
 				listChild = item.getElementsByTagName(EXPENSE_DATE_CATEGORYID);
@@ -100,7 +102,7 @@ public class XMLParser {
 				String description = new String(descString.getBytes("ISO-8859-1"), "UTF-8");
 				
 				// Create ExpenseDateReport Object with those attributes
-				ExpenseDateReport mDateReport = new ExpenseDateReport(uuid, date, amount, categoryId, description);
+				ExpenseDateReport mDateReport = new ExpenseDateReport(date, amount, categoryId, description);
 				// And add to dateReportList
 				dateReportList.add(mDateReport);
 			}
@@ -121,44 +123,70 @@ public class XMLParser {
 	 */
 	public void saveExpDateReport(String xmlFilePath, ExpenseDateReport currentDateReport) throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
 		DocumentBuilder builder = null;
-		
+
 		builder = factory.newDocumentBuilder();
+
 		FileInputStream in = new FileInputStream(xmlFilePath);
 		Document doc = builder.parse(in);
-		
+
 		// get the root element, which is <expense_date>
-		Node expense_date = doc.getFirstChild();
-		// add new item
+		Node expense_date = doc.getElementsByTagName(EXPENSE_DATE).item(0);
+		// add new <item>
 		Element newItem = doc.createElement(EXPENSE_DATE_ITEM);
+
 		// create each child node of new item from currentDateReport
 		// and add all child node to newItem
-		Element newItemId = doc.createElement(EXPENSE_DATE_ID);
-		newItemId.appendChild(doc.createTextNode(String.valueOf(currentDateReport.getID())));
-		newItem.appendChild(newItemId);
-		
-		Element newItemDate = doc.createElement(EXPENSE_DATE_DATE);
-		newItemDate.appendChild(doc.createTextNode(String.valueOf(currentDateReport.getDate())));
-		newItem.appendChild(newItemDate);
-		
-		Element newItemAmount = doc.createElement(EXPENSE_DATE_AMOUNT);
-		newItemAmount.appendChild(doc.createTextNode(String.valueOf(currentDateReport.getAmount())));
-		newItem.appendChild(newItemAmount);
-		
-		Element newItemCategoryId = doc.createElement(EXPENSE_DATE_CATEGORYID);
-		newItemCategoryId.appendChild(doc.createTextNode(String.valueOf(currentDateReport)));
-		newItem.appendChild(newItemCategoryId);
-		
-		Element newItemDescription = doc.createElement(EXPENSE_DATE_DESCRIPTION);
-		newItemDescription.appendChild(doc.createTextNode(String.valueOf(currentDateReport.getDescription())));
-		newItem.appendChild(newItemDescription);
-		
+		if (null != currentDateReport.getID()) {
+			Element newItemId = doc.createElement(EXPENSE_DATE_ID);
+			newItemId.appendChild(doc.createTextNode(String
+					.valueOf(currentDateReport.getID())));
+			newItem.appendChild(newItemId);
+		}
+
+		if (null != currentDateReport.getDate()) {
+			Element newItemDate = doc.createElement(EXPENSE_DATE_DATE);
+			newItemDate.appendChild(doc.createTextNode(String
+					.valueOf(currentDateReport.getDate())));
+			newItem.appendChild(newItemDate);
+		}
+
+		if (0f != currentDateReport.getAmount()) {
+			Element newItemAmount = doc.createElement(EXPENSE_DATE_AMOUNT);
+			newItemAmount.appendChild(doc.createTextNode(String
+					.valueOf(currentDateReport.getAmount())));
+			newItem.appendChild(newItemAmount);
+		}
+
+		if (0 != currentDateReport.getCategoryID()) {
+			Element newItemCategoryId = doc
+					.createElement(EXPENSE_DATE_CATEGORYID);
+			newItemCategoryId.appendChild(doc.createTextNode(String
+					.valueOf(currentDateReport.getCategoryID())));
+			newItem.appendChild(newItemCategoryId);
+		}
+
+		if (null != currentDateReport.getDescription()) {
+			Element newItemDescription = doc
+					.createElement(EXPENSE_DATE_DESCRIPTION);
+			newItemDescription.appendChild(doc.createTextNode(String
+					.valueOf(currentDateReport.getDescription())));
+			newItem.appendChild(newItemDescription);
+		}
+
 		// add newItem to root
 		expense_date.appendChild(newItem);
-		
+
 		// write the content into xml file
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
+		// Pretty-printing output
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty(
+				"{http://xml.apache.org/xslt}indent-amount", "4");
+		
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(xmlFilePath));
 		transformer.transform(source, result);
