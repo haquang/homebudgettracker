@@ -37,6 +37,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
 			btnEntertainment, btnOther;
 
+	ImageButton btnMenu; // Quang - 28.7.2015
 	// key of value that will be passed to FragmentAddActivity
 	public static final String INTENT_EXTRA_ADD_EXPENSE = "Add Expense";
 	
@@ -94,6 +95,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		btnMedical.setOnClickListener(this);
 		btnEntertainment.setOnClickListener(this);
 		btnOther.setOnClickListener(this);
+		
+		btnMenu.setOnClickListener(this); // 28.7.2015: QuangHV
 	}
 
 	@Override
@@ -129,11 +132,21 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 					.getString(R.string.txt_category_other);
 			callAddActivity(categoryName);
 			break;
+		case R.id.btnImg_Menu:
+			callPieChartActivity(); // Quang: Temporary function to test graph
+			break;
 		default:
 			break;
 		}
 	}
-
+/*
+ *  QuangHV: Add temporary function to display chart
+ */
+	public void  callPieChartActivity() {
+		Intent i = new Intent(this.getActivity(),BudgetSummaryPieChartActivity.class);
+		startActivity(i);
+	}
+	
 	public void callAddActivity(String categoryName) {
 		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_EXPENSE, categoryName);

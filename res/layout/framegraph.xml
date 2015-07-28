@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/header_graph"
+        layout="@layout/main_header_layout" />
+
+    <FrameLayout
+        android:id="@+id/pielayout"
+        android:layout_below="@+id/header_graph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- <view
+            android:id="@+id/pieview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.pulsardev.homebudgettracker.view.BudgetSummaryPieChartView" /> -->
+    </FrameLayout>
+
+</RelativeLayout>
