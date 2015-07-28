@@ -5,8 +5,6 @@
  */
 package com.pulsardev.homebudgettracker.model;
 
-import java.util.UUID;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +45,10 @@ public class ExpenseCategory {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 	public int getID() {

@@ -9,21 +9,31 @@ package com.pulsardev.homebudgettracker.model;
 import java.util.Date;
 import java.util.UUID;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ExpenseDateReport {
 
 	// properties
-	private UUID ID;
+	private UUID id;
 	private Date date;
 	private double amount;
 	private int categoryID;
 	private String description;
+	
+	// keys of JSON Object
+	private static final String ID = "id";
+	private static final String DATE = "date";
+	private static final String AMOUNT = "amount";
+	private static final String CATEGORY_ID = "category_id";
+	private static final String DESCRIPTION = "description";
 	
 	/**
 	 * Constructor with no specific ID and Name
 	 */
 	public ExpenseDateReport() {
 		// Generate unique id
-		ID = UUID.randomUUID();
+		id = UUID.randomUUID();
 	}
 
 	/**
@@ -34,7 +44,7 @@ public class ExpenseDateReport {
 	 */
 	public ExpenseDateReport(Date date, double amount, int categoryID,
 			String description) {
-		ID = UUID.randomUUID();
+		id = UUID.randomUUID();
 		this.date = date;
 		this.amount = amount;
 		this.categoryID = categoryID;
@@ -74,6 +84,21 @@ public class ExpenseDateReport {
 	}
 
 	public UUID getID() {
-		return ID;
+		return id;
+	}
+
+	/**
+	 * Convert Expense Date Report Object into JSON Object
+	 * @return JSON Object
+	 * @throws JSONException
+	 */
+	public JSONObject toJSON() throws JSONException {
+		JSONObject jsonExpDateReportObj = new JSONObject();
+		jsonExpDateReportObj.put(ID, this.id);
+		jsonExpDateReportObj.put(DATE, this.date);
+		jsonExpDateReportObj.put(AMOUNT, this.amount);
+		jsonExpDateReportObj.put(CATEGORY_ID, this.categoryID);
+		jsonExpDateReportObj.put(DESCRIPTION, this.description);
+		return jsonExpDateReportObj;
 	}
 }

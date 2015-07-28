@@ -1,6 +1,7 @@
 package com.pulsardev.homebudgettracker;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pulsardev.homebudgettracker.control.XMLParser;
+import com.pulsardev.homebudgettracker.model.ExpenseCategory;
+import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 
 public class ExpenseAddFragment extends Fragment {
