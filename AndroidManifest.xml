@@ -29,8 +29,15 @@
         <!-- Expense Add Activity -->
         <activity
             android:name=".ExpenseAddActivity"
-            android:label="">
+            android:label="Add Expense">
             
+        </activity>
+        
+         <activity android:name=".BudgetSummaryPieChartActivity"
+            android:label="Summary">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
     </application>
 
