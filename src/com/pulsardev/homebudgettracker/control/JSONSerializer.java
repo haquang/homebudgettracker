@@ -5,7 +5,6 @@
  */
 package com.pulsardev.homebudgettracker.control;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -15,10 +14,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
-
 import android.content.Context;
+
+import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 
 public class JSONSerializer {
 	

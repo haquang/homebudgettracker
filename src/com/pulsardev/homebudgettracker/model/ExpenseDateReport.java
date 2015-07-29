@@ -50,6 +50,27 @@ public class ExpenseDateReport {
 		this.categoryID = categoryID;
 		this.description = description;
 	}
+	
+	/**
+	 * Create new item from JSON Object
+	 * @param jsonObject
+	 * @throws JSONException
+	 */
+	public ExpenseDateReport(JSONObject jsonObject) throws JSONException {
+		id = UUID.fromString(jsonObject.getString(ID));
+		if (jsonObject.has(DATE)) {
+			this.date = new Date(jsonObject.getLong(DATE));
+		}
+		if (jsonObject.has(AMOUNT)) {
+			this.amount = jsonObject.getDouble(AMOUNT);
+		}
+		if (jsonObject.has(CATEGORY_ID)) {
+			this.amount = jsonObject.getInt(CATEGORY_ID);
+		}
+		if (jsonObject.has(DESCRIPTION)) {
+			this.description = jsonObject.getString(DESCRIPTION);
+		}
+	}
 
 	public Date getDate() {
 		return date;
@@ -94,8 +115,8 @@ public class ExpenseDateReport {
 	 */
 	public JSONObject toJSON() throws JSONException {
 		JSONObject jsonExpDateReportObj = new JSONObject();
-		jsonExpDateReportObj.put(ID, this.id);
-		jsonExpDateReportObj.put(DATE, this.date);
+		jsonExpDateReportObj.put(ID, this.id.toString());
+		jsonExpDateReportObj.put(DATE, this.date.getTime());
 		jsonExpDateReportObj.put(AMOUNT, this.amount);
 		jsonExpDateReportObj.put(CATEGORY_ID, this.categoryID);
 		jsonExpDateReportObj.put(DESCRIPTION, this.description);

@@ -90,6 +90,9 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		btnOther = (ImageButton) v.findViewById(R.id.btnImg_AddOther);
 		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 
+		
+		
+		
 		btnHouse.setOnClickListener(this);
 		btnFood.setOnClickListener(this);
 		btnTransportation.setOnClickListener(this);
