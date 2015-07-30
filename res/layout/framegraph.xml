@@ -10,9 +10,10 @@
 
     <FrameLayout
         android:id="@+id/pielayout"
-        android:layout_below="@+id/header_graph"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_graph"
+        android:layout_centerInParent="true" >
 
         <!-- <view
             android:id="@+id/pieview"
