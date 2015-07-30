@@ -71,7 +71,7 @@
 
                     <include
                         android:id="@+id/main_leftmiddle"
-                        layout="@layout/main_leftmidle_layout" />
+                        layout="@layout/main_leftmiddle_layout" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,7 +82,7 @@
 
                     <include
                         android:id="@+id/main_rightmidle"
-                        layout="@layout/main_rightmidle_layout" />
+                        layout="@layout/main_rightmiddle_layout" />
                 </LinearLayout>
             </LinearLayout>
 

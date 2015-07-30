@@ -23,7 +23,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:tag="bold"
-                android:text="@string/txt_category_leisure"
+                android:text="@string/txt_category_house"
                 android:textColor="@color/white"
                 android:textSize="@dimen/tex_size_normal" />
 
@@ -34,7 +34,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/btnImg_AddLeisure"
+                android:id="@+id/btnImg_AddHouse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ui_button_green"

@@ -75,10 +75,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
                     android:background="@color/gray_35"
-                    android:text="10000 USD"
-					android:inputType="number"
+                    android:hint="0.00"
+                    android:inputType="number"
                     android:textColor="@color/white"
                     android:textSize="@dimen/tex_size_large" />
+
             </LinearLayout>
 
             <LinearLayout
