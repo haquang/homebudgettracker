@@ -38,10 +38,15 @@ public class ExpenseDateReportLab {
 	 */
 	public ExpenseDateReportLab(Context appContext) {
 		mAppContext = appContext;
-		// initial list of Expense Date Reports when loading app for the first time
-		mListExpDateReport = new ArrayList<ExpenseDateReport>();
 		// Create Serializer to save ExpDateReport List to JSON file
 		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
+		// initial list of Expense Date Reports when loading app for the first time
+		try {
+			mListExpDateReport = mSerializer.loadListExpDateReport();
+		} catch (Exception e) {
+			mListExpDateReport = new ArrayList<ExpenseDateReport>();
+			Log.i(TAG, "Loading new list of Expense Date Reports", e);
+		}
 	}
 	
 	/**
@@ -64,21 +69,22 @@ public class ExpenseDateReportLab {
 	 * Save list of Exp Date Report into JSON file
 	 * @return success in save List data or not
 	 */
-	public boolean saveListExpDateReport() {
+	public boolean saveExpDateReport(ExpenseDateReport newExpDateReport) {
 		try {
-			mSerializer.saveListExpenseDateReport(mListExpDateReport);
-			Log.i(TAG, "Date Report list saved to file.");
+			mSerializer.saveExpenseDateReport(newExpDateReport);
+			Log.i(TAG, "New Date Report saved to file.");
 			return true;
 		} catch (JSONException e) {
-			Log.e(TAG, "Error saving Date Report: " + e);
+			Log.e(TAG, "Error saving new Date Report: " + e);
 			return false;
 		} catch (IOException e) {
-			Log.e(TAG, "Error saving Date Report: " + e);
+			Log.e(TAG, "Error saving new Date Report: " + e);
 			return false;
 		}
 	}
 	
 	/**
+	 * not used
 	 * Get the specific Expense Date Report from list by id
 	 * @param id
 	 * @return the specific Expense Date Report
@@ -93,6 +99,7 @@ public class ExpenseDateReportLab {
 	}
 	
 	/**
+	 * not used
 	 * add new Expense Date Report to List
 	 * @param e
 	 */

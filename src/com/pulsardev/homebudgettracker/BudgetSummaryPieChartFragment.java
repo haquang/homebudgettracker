@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 public class BudgetSummaryPieChartFragment extends Fragment {
 
@@ -43,10 +42,6 @@ public class BudgetSummaryPieChartFragment extends Fragment {
 	private void addPieView() {
 		pieChartView = new BudgetSummaryPieChartView(this.getActivity());
 		
-		FrameLayout.LayoutParams params_layout_frame = new FrameLayout.LayoutParams(
-		            LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);		 
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(params_layout_frame);		
-		params.gravity = Gravity.CENTER;		
 		frameLayout.addView(pieChartView);
 
 	}

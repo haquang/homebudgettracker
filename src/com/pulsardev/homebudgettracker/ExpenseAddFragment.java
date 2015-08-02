@@ -1,12 +1,6 @@
 package com.pulsardev.homebudgettracker;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-
-import org.xml.sax.SAXException;
+import org.json.JSONException;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -22,10 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pulsardev.homebudgettracker.control.XMLParser;
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
-import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
+import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 public class ExpenseAddFragment extends Fragment {
 	
@@ -85,12 +77,20 @@ public class ExpenseAddFragment extends Fragment {
 				if (String.valueOf(edtAmount.getText()) == null) {
 					Toast.makeText(getActivity(), "Please input amount", Toast.LENGTH_SHORT).show();
 				} else {
+					
 					ExpenseDateReport newDateReport = new ExpenseDateReport();
 					newDateReport.setAmount(Double.valueOf(String.valueOf(edtAmount.getText())));
 					newDateReport.setDate(new java.util.Date(System.currentTimeMillis()));
 					newDateReport.setCategoryID(1);
 					newDateReport.setDescription(String.valueOf(edtDescription.getText()));
-					String xmlFilePath = ExpenseFragment.DATA_PATH + "expense_date.xml";
+					
+					ExpenseDateReportLab.get(getActivity()).saveExpDateReport(newDateReport);
+					try {
+						Toast.makeText(getActivity(), newDateReport.toJSON().toString(), Toast.LENGTH_LONG).show();
+					} catch (JSONException e) {
+						Log.i(TAG, e.getMessage());
+					}
+					/*String xmlFilePath = ExpenseFragment.DATA_PATH + "expense_date.xml";
 					XMLParser mParser = new XMLParser();
 					try {
 						mParser.saveExpDateReport(xmlFilePath, newDateReport);
@@ -103,7 +103,7 @@ public class ExpenseAddFragment extends Fragment {
 						Log.i(TAG, e.getMessage());
 					} catch (TransformerException e) {
 						Log.i(TAG, e.getMessage());
-					}
+					}*/
 				}
 			}
 		});

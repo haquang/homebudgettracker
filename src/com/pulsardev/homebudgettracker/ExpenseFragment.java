@@ -16,8 +16,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
 import com.pulsardev.homebudgettracker.model.ExpenseCategory;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
+import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 import android.app.Fragment;
@@ -30,6 +33,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
 
@@ -53,6 +57,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	// List of Expense Categories
 	ArrayList<ExpenseCategory> listExpCategories;
+	// List of Expense Date Reports
+	ArrayList<ExpenseDateReport> listExpDateReports;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,14 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 				
 		// load List of Expense Categories, which is singleton
 		listExpCategories = ExpenseCategoryLab.get(this.getActivity()).getListExpCategories();
+		listExpDateReports = ExpenseDateReportLab.get(this.getActivity()).getListExpDateReport();
+		for (ExpenseDateReport item : listExpDateReports) {
+			try {
+				Toast.makeText(getActivity(), item.toJSON().toString(), Toast.LENGTH_LONG).show();
+			} catch (JSONException e) {
+				Log.e(TAG, "Error", e);
+			}
+		}
 	}
 
 	@Override
@@ -71,12 +85,12 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 				false);
 
 		initControls(rootView);
-		try {
+		/*try {
 			saveDataToSdCard();
 		} catch (IOException e) {
 			Log.i(TAG, "Failed to copy expense_date.xml to sdcard: " + e);
 		}
-
+*/
 		return rootView;
 	}
 
@@ -90,9 +104,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		btnOther = (ImageButton) v.findViewById(R.id.btnImg_AddOther);
 		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 
-		
-		
-		
 		btnHouse.setOnClickListener(this);
 		btnFood.setOnClickListener(this);
 		btnTransportation.setOnClickListener(this);
@@ -158,8 +169,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	/**
+	 * not use
 	 * Save Expense Date Report data (xml file) to sdcard
-	 * 
 	 * @throws IOException
 	 * @author ngapham
 	 * @date 20/7/2015
@@ -194,11 +205,5 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		Log.i(TAG, "File expense_date.xml copied");
 		in.close();
 		out.close();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		ExpenseDateReportLab.get(this.getActivity()).saveListExpDateReport();
 	}
 }
