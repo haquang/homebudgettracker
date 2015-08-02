@@ -15,6 +15,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Vector;
 
 import org.json.JSONException;
 
@@ -41,19 +44,23 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
 			btnEntertainment, btnOther;
 
-	ImageButton btnMenu; // Quang - 28.7.2015
-	// key of value that will be passed to FragmentAddActivity
-	public static final String INTENT_EXTRA_ADD_EXPENSE = "Add Expense";
-	
-	// main folder in sdcard
-	public static final String DATA_PATH = Environment
-			.getExternalStorageDirectory().toString() + "/HomeBudgetTracker/";
-	
-	// TAG
-	private static final String TAG = "ExpenseFragment";
-	
-	// utf-8 encoding String
-	private static final String UTF8 = "utf-8";
+    ImageButton btnMenu; // Quang - 28.7.2015
+    // key of value that will be passed to FragmentAddActivity
+    public static final String INTENT_EXTRA_ADD_EXPENSE = "Add Expense";
+    public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
+    public static final String INTENT_EXTRA_DATA_PIE = "Statistic Data Pie";
+    
+    public static final HashMap<Double, Double> statistic_data = new HashMap<Double, Double>();
+    public static final HashMap<String, Double> statistic_data_pie = new HashMap<String, Double>();
+    // main folder in sdcard
+    public static final String DATA_PATH = Environment
+            .getExternalStorageDirectory().toString() + "/HomeBudgetTracker/";
+    
+    // TAG
+    private static final String TAG = "ExpenseFragment";
+    
+    // utf-8 encoding String
+    private static final String UTF8 = "utf-8";
 
 	// List of Expense Categories
 	ArrayList<ExpenseCategory> listExpCategories;
@@ -148,7 +155,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 			callAddActivity(categoryName);
 			break;
 		case R.id.btnImg_Menu:
-			callPieChartActivity(); // Quang: Temporary function to test graph
+			callChartActivity(); // Quang: Temporary function to test graph
 			break;
 		default:
 			break;
@@ -157,17 +164,43 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 /*
  *  QuangHV: Add temporary function to display chart
  */
-	public void  callPieChartActivity() {
-		Intent i = new Intent(this.getActivity(),BudgetSummaryPieChartActivity.class);
-		startActivity(i);
-	}
-	
-	public void callAddActivity(String categoryName) {
-		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
-		i.putExtra(INTENT_EXTRA_ADD_EXPENSE, categoryName);
-		startActivity(i);
-	}
+    
+    public void dummyData() {
+        // Dummy data for line chart
+        Random rand = new Random();
+        for (int i = 0;i < 10;i++){
+            statistic_data.put(Double.valueOf(i), Double.valueOf(rand.nextInt(10)));
+        }
+    }
+    public void pieDummyData(){
+        // Dummy data for pie chart
+        statistic_data_pie.put("Food", Double.valueOf(20));
+        statistic_data_pie.put("Transportation", Double.valueOf(15));
+        statistic_data_pie.put("House", Double.valueOf(40));
+        statistic_data_pie.put("Medical", Double.valueOf(5));
+        statistic_data_pie.put("Leisure", Double.valueOf(5));
+        statistic_data_pie.put("Other", Double.valueOf(5));
+    }
+    public void  callChartActivity() {
+        
+        // show line chart
+//      Intent i = new Intent(this.getActivity(),StatisticLineChartActivity.class);
+//      
+//      dummyData();
+//      i.putExtra(INTENT_EXTRA_DATA_LINE, statistic_data);
+//      startActivity(i);
+ // show pie chart
+        Intent i = new Intent(this.getActivity(),StatisticPieChartActivity.class);
+        pieDummyData();
+        i.putExtra(INTENT_EXTRA_DATA_PIE, statistic_data_pie);
+        startActivity(i);
+    }
 
+    public void callAddActivity(String categoryName) {
+        Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
+        i.putExtra(INTENT_EXTRA_ADD_EXPENSE, categoryName);
+        startActivity(i);
+    }
 	/**
 	 * not use
 	 * Save Expense Date Report data (xml file) to sdcard
