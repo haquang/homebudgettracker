@@ -7,10 +7,10 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="22" />
-	
+
     <!-- required for copying data to sdcard -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -25,17 +25,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- Expense Add Activity -->
         <activity
             android:name=".ExpenseAddActivity"
-            android:label="Add Expense">
-            
+            android:label="Add Expense" >
         </activity>
         
-         
-           <activity android:name=".StatisticLineChartActivity"> </activity>
-           <activity android:name=".StatisticPieChartActivity"> </activity>
+        <!-- Expense Detail Activity -->
+        <activity android:name=".ExpenseDetailActivity"></activity>
+        
+        <!-- Chart Activity -->
+        <activity android:name=".StatisticLineChartActivity" >
+        </activity>
+        <activity android:name=".StatisticPieChartActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ package com.pulsardev.homebudgettracker.control;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.content.Context;
@@ -42,21 +40,24 @@ public class JSONSerializer {
 	}
 	
 	/**
-	 * Save Exp Date Report as JSON object into JSON file
+	 * Save List of Exp Date Reports as JSON objects into JSON file
 	 * @param exDateReportList
 	 * @throws JSONException
 	 * @throws IOException
-	 */
-	public void saveExpenseDateReport(ExpenseDateReport exDateReport) throws JSONException, IOException {
-		// Convert Exp Date Report object into JSON object
-		JSONObject newJSONObject = exDateReport.toJSON();
+	 */	
+	public void saveListExpenseDateReport(ArrayList<ExpenseDateReport> listDateReport) throws JSONException, IOException {
+		
+		// Build an array in JSON
+		JSONArray array = new JSONArray();
+		for (ExpenseDateReport item : listDateReport) {
+			array.put(item);
+		}
 		// Write the new JSON Object to disk
 		Writer writer = null;
 		try {
 			OutputStream out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
 			writer = new BufferedWriter(new OutputStreamWriter(out, CHARSET_UTF8));
-			writer.append('\n');
-			writer.write(newJSONObject.toString());
+			writer.write(array.toString());
 		} finally {
 			if (writer != null) {
 				writer.close();
@@ -73,8 +74,9 @@ public class JSONSerializer {
 	public ArrayList<ExpenseDateReport> loadListExpDateReport() throws IOException, JSONException {
 		ArrayList<ExpenseDateReport> list = new ArrayList<ExpenseDateReport>();
 		BufferedReader reader = null;
-		// Open and read the file into a StringBuilder
+		
 		try {
+			// Open and read the file into a StringBuilder
 			InputStream in = mContext.openFileInput(mFileName);
 			reader = new BufferedReader(new InputStreamReader(in));
 			StringBuilder jsonString = new StringBuilder();
@@ -85,12 +87,10 @@ public class JSONSerializer {
 			}
 			// Parse the JSON using JSONTokener
 			JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
-			// Build the array of crimes from JSONObjects
+			// Build the array of Exp Date Reports from JSONObjects
 			for (int i = 0; i < array.length(); i++) {
 				list.add(new ExpenseDateReport(array.getJSONObject(i)));
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} finally {
 			if (reader != null) {
 				reader.close();

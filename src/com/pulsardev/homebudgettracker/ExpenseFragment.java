@@ -17,14 +17,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Vector;
-
-import org.json.JSONException;
-
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
-import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -36,15 +28,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import com.pulsardev.homebudgettracker.model.ExpenseCategory;
+import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
+import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
+import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	// controls
 	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
 			btnEntertainment, btnOther;
-
     ImageButton btnMenu; // Quang - 28.7.2015
+    TextView txtTotalAmount;
+    
     // key of value that will be passed to FragmentAddActivity
     public static final String INTENT_EXTRA_ADD_EXPENSE = "Add Expense";
     public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
@@ -70,19 +68,22 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// set Title for Expense screen layout
-//		getActivity().setTitle(R.string.txt_main_header);
-				
+
 		// load List of Expense Categories, which is singleton
 		listExpCategories = ExpenseCategoryLab.get(this.getActivity()).getListExpCategories();
 		listExpDateReports = ExpenseDateReportLab.get(this.getActivity()).getListExpDateReport();
+	}
+	
+	/**
+	 * @author ngapham
+	 * update: 2/8/2015
+	 */
+	private void showTotalAmount() {
+		Double amount = 0.0;
 		for (ExpenseDateReport item : listExpDateReports) {
-			try {
-				Toast.makeText(getActivity(), item.toJSON().toString(), Toast.LENGTH_LONG).show();
-			} catch (JSONException e) {
-				Log.e(TAG, "Error", e);
-			}
+			amount += item.getAmount();
 		}
+		txtTotalAmount.setText(String.valueOf(amount));
 	}
 
 	@Override
@@ -92,16 +93,22 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 				false);
 
 		initControls(rootView);
-		/*try {
-			saveDataToSdCard();
-		} catch (IOException e) {
-			Log.i(TAG, "Failed to copy expense_date.xml to sdcard: " + e);
-		}
-*/
+		
+		showTotalAmount();
 		return rootView;
+	}
+	
+	/**
+	 * Update total amount when add new and return to this fragment
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		showTotalAmount();
 	}
 
 	private void initControls(View v) {
+		txtTotalAmount = (TextView) v.findViewById(R.id.edt_total_expense_amount);
 		btnHouse = (ImageButton) v.findViewById(R.id.btnImg_AddHouse);
 		btnFood = (ImageButton) v.findViewById(R.id.btnImg_AddFood);
 		btnTransportation = (ImageButton) v
@@ -117,7 +124,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		btnMedical.setOnClickListener(this);
 		btnEntertainment.setOnClickListener(this);
 		btnOther.setOnClickListener(this);
-		
 		btnMenu.setOnClickListener(this); // 28.7.2015: QuangHV
 	}
 

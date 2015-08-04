@@ -31,7 +31,7 @@ public class ExpenseDateReportLab {
 	private Context mAppContext;
 	
 	// TAG
-	private static final String TAG = "ExpenseDateReportLab.java";
+	private static final String TAG = "ExpenseDateReportLab";
 	
 	/**
 	 * @param appContext
@@ -45,7 +45,7 @@ public class ExpenseDateReportLab {
 			mListExpDateReport = mSerializer.loadListExpDateReport();
 		} catch (Exception e) {
 			mListExpDateReport = new ArrayList<ExpenseDateReport>();
-			Log.i(TAG, "Loading new list of Expense Date Reports", e);
+			Log.e(TAG, "Error Loading new list of Expense Date Reports", e);
 		}
 	}
 	
@@ -66,19 +66,19 @@ public class ExpenseDateReportLab {
 	}
 	
 	/**
-	 * Save list of Exp Date Report into JSON file
+	 * Save List of Exp Date Reports into JSON file
 	 * @return success in save List data or not
-	 */
-	public boolean saveExpDateReport(ExpenseDateReport newExpDateReport) {
+	 */	
+	public boolean saveListExpDateReport() {
 		try {
-			mSerializer.saveExpenseDateReport(newExpDateReport);
-			Log.i(TAG, "New Date Report saved to file.");
+			mSerializer.saveListExpenseDateReport(mListExpDateReport);
+			Log.i(TAG, "List saved to file.");
 			return true;
 		} catch (JSONException e) {
-			Log.e(TAG, "Error saving new Date Report: " + e);
+			Log.e(TAG, "Error saving list: " + e);
 			return false;
 		} catch (IOException e) {
-			Log.e(TAG, "Error saving new Date Report: " + e);
+			Log.e(TAG, "Error saving list: " + e);
 			return false;
 		}
 	}
@@ -99,7 +99,6 @@ public class ExpenseDateReportLab {
 	}
 	
 	/**
-	 * not used
 	 * add new Expense Date Report to List
 	 * @param e
 	 */

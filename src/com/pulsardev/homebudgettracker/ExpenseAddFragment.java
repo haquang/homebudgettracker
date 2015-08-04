@@ -1,10 +1,7 @@
 package com.pulsardev.homebudgettracker;
 
-import org.json.JSONException;
-
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +66,8 @@ public class ExpenseAddFragment extends Fragment {
 		 * @author ngapham
 		 * @date 20/7/2015
 		 * @update 21/7/2015
+		 * 1/8/2015: Save new Exp Date Report to JSON file
+		 * 4/8/2015: Change "save new" into "Save list"
 		 */
 		btnSave.setOnClickListener(new View.OnClickListener() {
 			
@@ -84,26 +83,10 @@ public class ExpenseAddFragment extends Fragment {
 					newDateReport.setCategoryID(1);
 					newDateReport.setDescription(String.valueOf(edtDescription.getText()));
 					
-					ExpenseDateReportLab.get(getActivity()).saveExpDateReport(newDateReport);
-					try {
-						Toast.makeText(getActivity(), newDateReport.toJSON().toString(), Toast.LENGTH_LONG).show();
-					} catch (JSONException e) {
-						Log.i(TAG, e.getMessage());
-					}
-					/*String xmlFilePath = ExpenseFragment.DATA_PATH + "expense_date.xml";
-					XMLParser mParser = new XMLParser();
-					try {
-						mParser.saveExpDateReport(xmlFilePath, newDateReport);
-						Log.i(TAG, "save Report successfully");
-					} catch (ParserConfigurationException e) {
-						Log.i(TAG, e.getMessage());
-					} catch (SAXException e) {
-						Log.i(TAG, e.getMessage());
-					} catch (IOException e) {
-						Log.i(TAG, e.getMessage());
-					} catch (TransformerException e) {
-						Log.i(TAG, e.getMessage());
-					}*/
+					ExpenseDateReportLab.get(getActivity()).addExpDateReport(newDateReport);
+					ExpenseDateReportLab.get(getActivity()).saveListExpDateReport();
+					
+					getActivity().finish();
 				}
 			}
 		});
