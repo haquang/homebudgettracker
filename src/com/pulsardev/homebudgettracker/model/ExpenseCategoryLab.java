@@ -15,12 +15,12 @@ public class ExpenseCategoryLab {
 	
 	private ArrayList<ExpenseCategory> mListExpCategories;
 	private static final int NUMBER_CATEGORIES = 6;
-	private static final String CATEGORY_HOUSING = "House";
+	private static final String CATEGORY_HOUSING = "Housing";
 	private static final String CATEGORY_FOOD = "Food";
 	private static final String CATEGORY_TRANSPORTATION = "Transportation";
 	private static final String CATEGORY_MEDICAL = "Medical";
-	private static final String CATEGORY_ENTERTAINMENT = "Leisure";
-	private static final String CATEGORY_OTHER = "Other";
+	private static final String CATEGORY_ENTERTAINMENT = "Entertainment";
+	private static final String CATEGORY_OTHER = "Others";
 	
 	// To create singleton
 	private static ExpenseCategoryLab mExpCatLab;
@@ -41,9 +41,9 @@ public class ExpenseCategoryLab {
 		}
 		mListExpCategories.get(0).setName(CATEGORY_FOOD);
 		mListExpCategories.get(1).setName(CATEGORY_TRANSPORTATION);
-		mListExpCategories.get(2).setName(CATEGORY_ENTERTAINMENT);
+		mListExpCategories.get(2).setName(CATEGORY_HOUSING);
 		mListExpCategories.get(3).setName(CATEGORY_MEDICAL);
-		mListExpCategories.get(4).setName(CATEGORY_HOUSING);
+		mListExpCategories.get(4).setName(CATEGORY_ENTERTAINMENT);
 		mListExpCategories.get(5).setName(CATEGORY_OTHER);
 	}
 	/**

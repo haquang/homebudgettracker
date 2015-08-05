@@ -5,8 +5,6 @@
  */
 package com.pulsardev.homebudgettracker.model;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ExpenseCategory {
 	
@@ -15,28 +13,11 @@ public class ExpenseCategory {
 	private String name;
 	private float amount;
 	
-	// keys of JSON Object
-	private static final String JSON_ID = "id";
-	private static final String JSON_NAME = "name";
-	private static final String JSON_AMOUNT = "amount";
-	
 	/**
 	 * Constructor with no specific ID and Name
 	 */
 	public ExpenseCategory() {
 		super();
-	}
-	
-	/**
-	 * Convert JSON Object to Expense Category to load Category List
-	 * @param jsonExCatObj
-	 * @throws JSONException
-	 */
-	public ExpenseCategory(JSONObject jsonExCatObj) throws JSONException {
-		ID = Integer.parseInt(jsonExCatObj.getString(JSON_ID));
-		if (jsonExCatObj.has(JSON_NAME)) {
-			name = jsonExCatObj.getString(JSON_NAME);
-		}
 	}
 	
 	public String getName() {
@@ -66,18 +47,5 @@ public class ExpenseCategory {
 	@Override
 	public String toString() {
 		return name;
-	}
-	
-	/**
-	 * Convert Expense Category Object into JSON Object
-	 * @return JSON Object
-	 * @throws JSONException
-	 */
-	public JSONObject toJSON() throws JSONException {
-		JSONObject jsonExCatObj = new JSONObject();
-		jsonExCatObj.put(JSON_ID, ID);
-		jsonExCatObj.put(JSON_NAME, name);
-		jsonExCatObj.put(JSON_AMOUNT, amount);
-		return jsonExCatObj;
 	}
 }

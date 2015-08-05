@@ -23,7 +23,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:tag="bold"
-                android:text="@string/txt_category_transport"
                 android:textColor="@color/white"
                 android:textSize="@dimen/tex_size_normal" />
 
