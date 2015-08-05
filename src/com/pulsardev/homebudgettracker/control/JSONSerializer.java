@@ -50,7 +50,7 @@ public class JSONSerializer {
 		// Build an array in JSON
 		JSONArray array = new JSONArray();
 		for (ExpenseDateReport item : listDateReport) {
-			array.put(item);
+			array.put(item.toJSON());
 		}
 		// Write the new JSON Object to disk
 		Writer writer = null;
