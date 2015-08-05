@@ -46,7 +46,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	TextView txtTotalAmount;
 
 	// key of value that will be passed to FragmentAddActivity
-	public static final String INTENT_EXTRA_ADD_EXPENSE = "Add Expense";
+	public static final String INTENT_EXTRA_ADD_EXPENSE_CATID = "Add_ExpCatId";
 	public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
 	public static final String INTENT_EXTRA_DATA_PIE = "Statistic Data Pie";
 
@@ -163,36 +163,31 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		String categoryName;
+		ExpenseCategory currentCategory;
 		switch (v.getId()) {
-		case R.id.btnImg_AddHouse:
-			categoryName = getResources()
-					.getString(R.string.txt_category_house);
-			callAddActivity(categoryName);
-			break;
 		case R.id.btnImg_AddFood:
-			categoryName = getResources().getString(R.string.txt_category_food);
-			callAddActivity(categoryName);
+			currentCategory = listExpCategories.get(0);
+			callAddActivity(currentCategory);
 			break;
 		case R.id.btnImg_AddTransport:
-			categoryName = getResources().getString(
-					R.string.txt_category_transport);
-			callAddActivity(categoryName);
+			currentCategory = listExpCategories.get(1);
+			callAddActivity(currentCategory);
+			break;
+		case R.id.btnImg_AddHouse:
+			currentCategory = listExpCategories.get(2);
+			callAddActivity(currentCategory);
 			break;
 		case R.id.btnImg_AddMedical:
-			categoryName = getResources().getString(
-					R.string.txt_category_medical);
-			callAddActivity(categoryName);
+			currentCategory = listExpCategories.get(3);
+			callAddActivity(currentCategory);
 			break;
 		case R.id.btnImg_AddLeisure:
-			categoryName = getResources().getString(
-					R.string.txt_category_leisure);
-			callAddActivity(categoryName);
+			currentCategory = listExpCategories.get(4);
+			callAddActivity(currentCategory);
 			break;
 		case R.id.btnImg_AddOther:
-			categoryName = getResources()
-					.getString(R.string.txt_category_other);
-			callAddActivity(categoryName);
+			currentCategory = listExpCategories.get(5);
+			callAddActivity(currentCategory);
 			break;
 		case R.id.btnImg_Menu:
 			callChartActivity(); // Quang: Temporary function to test graph
@@ -242,15 +237,15 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		startActivity(i);
 	}
 
-	public void callAddActivity(String categoryName) {
+	public void callAddActivity(ExpenseCategory currentCat) {
 		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
-		i.putExtra(INTENT_EXTRA_ADD_EXPENSE, categoryName);
+		i.putExtra(INTENT_EXTRA_ADD_EXPENSE_CATID, currentCat.getID());
 		startActivity(i);
 	}
 
 	/**
-	 * not used Save Expense Date Report data (xml file) to sdcard
-	 * 
+	 * not used 
+	 * Save Expense Date Report data (xml file) to sdcard
 	 * @throws IOException
 	 * @author ngapham
 	 * @date 20/7/2015

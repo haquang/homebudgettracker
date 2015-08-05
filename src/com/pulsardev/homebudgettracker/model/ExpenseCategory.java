@@ -11,13 +11,14 @@ public class ExpenseCategory {
 	// properties of Crime object
 	private int ID;
 	private String name;
-	private float amount;
+	private double amount;
 	
 	/**
 	 * Constructor with no specific ID and Name
 	 */
 	public ExpenseCategory() {
 		super();
+		this.amount = 0.0;
 	}
 	
 	public String getName() {
@@ -36,11 +37,11 @@ public class ExpenseCategory {
 		return ID;
 	}
 
-	public float getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 

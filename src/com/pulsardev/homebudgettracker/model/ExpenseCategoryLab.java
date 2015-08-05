@@ -75,4 +75,13 @@ public class ExpenseCategoryLab {
 		}
 		return null;
 	}
+	
+	public ExpenseCategory getExpCategory(String name) {
+		for (ExpenseCategory item : mListExpCategories) {
+			if (item.getName().equalsIgnoreCase(name)) {
+				return item;
+			}
+		}
+		return null;
+	}
 }
