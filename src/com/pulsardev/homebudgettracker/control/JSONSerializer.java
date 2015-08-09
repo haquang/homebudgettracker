@@ -98,4 +98,20 @@ public class JSONSerializer {
 		}
 		return list;
 	}
+	
+	/**
+	 * Load list of Exp Date Reports with specific ID
+	 * @param fullList
+	 * @param categoryId
+	 * @return
+	 */
+	public ArrayList<ExpenseDateReport> loadListExpDateReportById(ArrayList<ExpenseDateReport> fullList, int categoryId) {
+		ArrayList<ExpenseDateReport> list = new ArrayList<ExpenseDateReport>();
+		for (ExpenseDateReport item : fullList) {
+			if (item.getCategoryID() == categoryId) {
+				list.add(item);
+			}
+		}
+		return list;
+	}
 }

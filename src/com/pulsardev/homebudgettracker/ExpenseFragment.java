@@ -42,6 +42,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 			btnEntertainment, btnOther;
 	TextView txtCatFood, txtCatTransportation, txtCatHousing, txtCatMedical,
 			txtCatEntertainment, txtCatOther;
+	TextView txtFoodAmount, txtTransportAmount, txtHousingAmount,
+			txtMedicalAmount, txtEntertainmentAmount, txtOtherAmount;
 	ImageButton btnMenu; // Quang - 28.7.2015
 	TextView txtTotalAmount;
 
@@ -80,14 +82,35 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * @author ngapham update: 2/8/2015
+	 * @author ngapham 
+	 * update: 2/8/2015
 	 */
 	private void showTotalAmount() {
 		Double amount = 0.0;
 		for (ExpenseDateReport item : listExpDateReports) {
 			amount += item.getAmount();
 		}
-		txtTotalAmount.setText(String.valueOf(amount));
+		txtTotalAmount.setText(String.valueOf(amount) + " USD");
+	}
+
+	private Double catAmountById(int catId) {
+		Double amount = 0.0;
+		for (ExpenseDateReport item : listExpDateReports) {
+			if (item.getCategoryID() == catId) {
+				amount += item.getAmount();
+			}
+		}
+		return amount;
+	}
+
+	private void showCatAmount() {
+		txtFoodAmount.setText(catAmountById(0) + " USD");
+		txtTransportAmount.setText(catAmountById(1) + " USD");
+		txtHousingAmount.setText(catAmountById(2) + " USD");
+		txtMedicalAmount.setText(catAmountById(3) + " USD");
+		txtEntertainmentAmount.setText(catAmountById(4) + " USD");
+		txtOtherAmount.setText(catAmountById(5) + " USD");
+		
 	}
 
 	@Override
@@ -99,11 +122,13 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		initControls(rootView);
 		setTitleName();
 		showTotalAmount();
+		showCatAmount();
 		return rootView;
 	}
-	
+
 	/**
 	 * Set title for Category Name by code to unify Model data and View
+	 * 
 	 * @author ngapham
 	 * @date 5/8/2015
 	 */
@@ -124,6 +149,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	/**
 	 * Update total amount when add new and return to this fragment
+	 * 
 	 * @author ngapham
 	 * @date 4/8/2015
 	 */
@@ -131,18 +157,28 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	public void onResume() {
 		super.onResume();
 		showTotalAmount();
+		showCatAmount();
 	}
 
 	private void initControls(View v) {
 		txtTotalAmount = (TextView) v
 				.findViewById(R.id.edt_total_expense_amount);
 		txtCatFood = (TextView) v.findViewById(R.id.txt_category_food);
-		txtCatTransportation = (TextView) v.findViewById(R.id.txt_category_transport);
+		txtCatTransportation = (TextView) v
+				.findViewById(R.id.txt_category_transport);
 		txtCatHousing = (TextView) v.findViewById(R.id.txt_category_house);
 		txtCatMedical = (TextView) v.findViewById(R.id.txt_category_medical);
-		txtCatEntertainment = (TextView) v.findViewById(R.id.txt_category_leisure);
+		txtCatEntertainment = (TextView) v
+				.findViewById(R.id.txt_category_leisure);
 		txtCatOther = (TextView) v.findViewById(R.id.txt_category_other);
 		
+		txtFoodAmount = (TextView) v.findViewById(R.id.txt_food_amount);
+		txtTransportAmount = (TextView) v.findViewById(R.id.txt_transport_amount);
+		txtHousingAmount = (TextView) v.findViewById(R.id.txt_house_amount);
+		txtMedicalAmount = (TextView) v.findViewById(R.id.txt_medical_amount);
+		txtEntertainmentAmount = (TextView) v.findViewById(R.id.txt_leisure_amount);
+		txtOtherAmount = (TextView) v.findViewById(R.id.txt_other_amount);
+
 		btnHouse = (ImageButton) v.findViewById(R.id.btnImg_AddHouse);
 		btnFood = (ImageButton) v.findViewById(R.id.btnImg_AddFood);
 		btnTransportation = (ImageButton) v
@@ -244,8 +280,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * not used 
-	 * Save Expense Date Report data (xml file) to sdcard
+	 * not used Save Expense Date Report data (xml file) to sdcard
+	 * 
 	 * @throws IOException
 	 * @author ngapham
 	 * @date 20/7/2015
