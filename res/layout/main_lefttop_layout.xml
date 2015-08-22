@@ -60,7 +60,6 @@
                 android:background="@color/green"
                 android:gravity="center"
                 android:tag="bold"
-                android:text="100000 USD"
                 android:textColor="@color/white"
                 android:textSize="@dimen/tex_size_xlarge" />
         </LinearLayout>

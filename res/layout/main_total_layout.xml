@@ -39,7 +39,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:tag="bold"
-                android:text="10000 USD"
                 android:textColor="@color/white"
                 android:textSize="@dimen/tex_size_large" />
         </LinearLayout>

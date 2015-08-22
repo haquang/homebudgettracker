@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONTokener;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 
@@ -30,6 +31,8 @@ public class JSONSerializer {
 	
 	// UTF-8 CHARSET
 	private static final String CHARSET_UTF8 = "UTF-8";
+	
+	private static final String TAG = "JSONSerializer.java";
 	
 	/**
 	 * constructor from specific context and filename
@@ -85,11 +88,13 @@ public class JSONSerializer {
 				// Line breaks are omitted and irrelevant
 				jsonString.append(line);
 			}
+			
 			// Parse the JSON using JSONTokener
 			JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			// Build the array of Exp Date Reports from JSONObjects
 			for (int i = 0; i < array.length(); i++) {
 				list.add(new ExpenseDateReport(array.getJSONObject(i)));
+				Log.i(TAG, list.get(i).toString());
 			}
 		} finally {
 			if (reader != null) {
@@ -100,12 +105,12 @@ public class JSONSerializer {
 	}
 	
 	/**
-	 * Load list of Exp Date Reports with specific ID
+	 * Load list of Exp Date Reports with specific categoryID
 	 * @param fullList
 	 * @param categoryId
 	 * @return
 	 */
-	public ArrayList<ExpenseDateReport> loadListExpDateReportById(ArrayList<ExpenseDateReport> fullList, int categoryId) {
+	public ArrayList<ExpenseDateReport> loadListExpDateReportByCatId(ArrayList<ExpenseDateReport> fullList, int categoryId) {
 		ArrayList<ExpenseDateReport> list = new ArrayList<ExpenseDateReport>();
 		for (ExpenseDateReport item : fullList) {
 			if (item.getCategoryID() == categoryId) {

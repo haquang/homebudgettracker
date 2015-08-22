@@ -54,13 +54,12 @@
             android:padding="@dimen/dim_10" >
 
             <TextView
-                android:id="@+id/txt_leisure_amount"
+                android:id="@+id/txt_house_amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/green"
                 android:gravity="center"
                 android:tag="bold"
-                android:text="100000 USD"
                 android:textColor="@color/white"
                 android:textSize="@dimen/tex_size_xlarge" />
         </LinearLayout>
