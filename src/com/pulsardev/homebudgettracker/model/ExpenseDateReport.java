@@ -65,7 +65,7 @@ public class ExpenseDateReport {
 			this.amount = jsonObject.getDouble(AMOUNT);
 		}
 		if (jsonObject.has(CATEGORY_ID)) {
-			this.amount = jsonObject.getInt(CATEGORY_ID);
+			this.categoryID = jsonObject.getInt(CATEGORY_ID);
 		}
 		if (jsonObject.has(DESCRIPTION)) {
 			this.description = jsonObject.getString(DESCRIPTION);
@@ -121,5 +121,13 @@ public class ExpenseDateReport {
 		jsonExpDateReportObj.put(CATEGORY_ID, this.categoryID);
 		jsonExpDateReportObj.put(DESCRIPTION, this.description);
 		return jsonExpDateReportObj;
+	}
+
+	@Override
+	public String toString() {
+		String line = "id = " + this.ID
+				+ ", amount = " + this.amount
+				+ ", category id = " + this.categoryID;
+		return line;
 	}
 }
