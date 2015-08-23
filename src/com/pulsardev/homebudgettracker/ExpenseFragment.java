@@ -185,16 +185,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		txtTotalAmount.setText(String.valueOf(amount) + " USD");
 	}
 
-	private Double catAmountById(int catId) {
-		Double amount = 0.0;
-		for (ExpenseCategory item : listExpCategories) {
-			if (item.getID() == catId) {
-				amount = item.getAmount();
-			}
-		}
-		return amount;
-	}
-
 	/**
 	 * @author ngapham
 	 * update 9/8/2015
@@ -301,12 +291,10 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	public void pieDummyData() {
 		// Dummy data for pie chart
-		statistic_data_pie.put("Food", Double.valueOf(20));
-		statistic_data_pie.put("Transportation", Double.valueOf(15));
-		statistic_data_pie.put("House", Double.valueOf(40));
-		statistic_data_pie.put("Medical", Double.valueOf(5));
-		statistic_data_pie.put("Leisure", Double.valueOf(5));
-		statistic_data_pie.put("Other", Double.valueOf(5));
+		for (int i = 0; i < listExpCategories.size(); i++) {
+			ExpenseCategory currentExpCategory = listExpCategories.get(i);
+			statistic_data_pie.put(currentExpCategory.getName(), currentExpCategory.getAmount());
+		}
 	}
 
 	public void callChartActivity() {
