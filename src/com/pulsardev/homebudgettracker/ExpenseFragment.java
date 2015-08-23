@@ -52,13 +52,10 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	public static final String INTENT_EXTRA_EXPENSE_DETAIL_CATID = "ExpDetail_CatId";
 	public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
 	public static final String INTENT_EXTRA_DATA_PIE = "Statistic Data Pie";
-
+	
+	// storage for Statistic Chart
 	public static final HashMap<Double, Double> statistic_data = new HashMap<Double, Double>();
 	public static final HashMap<String, Double> statistic_data_pie = new HashMap<String, Double>();
-
-	// main folder in sdcard
-	public static final String DATA_PATH = Environment
-			.getExternalStorageDirectory().toString() + "/HomeBudgetTracker/";
 
 	// TAG
 	private static final String TAG = "ExpenseFragment";
@@ -92,7 +89,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		setTitleName();
 		showTotalAmount();
 		showCatAmount();
-		
 		
 		return rootView;
 	}
@@ -183,7 +179,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 */
 	private void showTotalAmount() {
 		Double amount = 0.0;
-		for (ExpenseDateReport item : listExpDateReports) {
+		for (ExpenseCategory item : listExpCategories) {
 			amount += item.getAmount();
 		}
 		txtTotalAmount.setText(String.valueOf(amount) + " USD");
@@ -191,9 +187,9 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	private Double catAmountById(int catId) {
 		Double amount = 0.0;
-		for (ExpenseDateReport item : listExpDateReports) {
-			if (item.getCategoryID() == catId) {
-				amount += item.getAmount();
+		for (ExpenseCategory item : listExpCategories) {
+			if (item.getID() == catId) {
+				amount = item.getAmount();
 			}
 		}
 		return amount;
@@ -204,12 +200,12 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 * update 9/8/2015
 	 */
 	private void showCatAmount() {
-		txtFoodAmount.setText(catAmountById(0) + " USD");
-		txtTransportAmount.setText(catAmountById(1) + " USD");
-		txtHousingAmount.setText(catAmountById(2) + " USD");
-		txtMedicalAmount.setText(catAmountById(3) + " USD");
-		txtEntertainmentAmount.setText(catAmountById(4) + " USD");
-		txtOtherAmount.setText(catAmountById(5) + " USD");
+		txtFoodAmount.setText(listExpCategories.get(0).getAmount() + " USD");
+		txtTransportAmount.setText(listExpCategories.get(1).getAmount() + " USD");
+		txtHousingAmount.setText(listExpCategories.get(2).getAmount() + " USD");
+		txtMedicalAmount.setText(listExpCategories.get(3).getAmount() + " USD");
+		txtEntertainmentAmount.setText(listExpCategories.get(4).getAmount() + " USD");
+		txtOtherAmount.setText(listExpCategories.get(5).getAmount() + " USD");
 		
 	}
 	
@@ -314,15 +310,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	public void callChartActivity() {
-
-		// show line chart
-		// Intent i = new
-		// Intent(this.getActivity(),StatisticLineChartActivity.class);
-		//
-		// dummyData();
-		// i.putExtra(INTENT_EXTRA_DATA_LINE, statistic_data);
-		// startActivity(i);
-		// show pie chart
 		Intent i = new Intent(this.getActivity(),
 				StatisticPieChartActivity.class);
 		pieDummyData();
@@ -334,44 +321,5 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_EXPENSE_CATID, currentCat.getID());
 		startActivity(i);
-	}
-
-	/**
-	 * not used Save Expense Date Report data (xml file) to sdcard
-	 * 
-	 * @throws IOException
-	 * @author ngapham
-	 * @date 20/7/2015
-	 */
-	protected void saveDataToSdCard() throws IOException {
-		// Create directory
-		String path = new String(DATA_PATH);
-		File dir = new File(path);
-		if (!dir.exists()) {
-			if (!dir.mkdirs()) {
-				Log.i(TAG, "Creation of directory " + path
-						+ " on sdcard failed");
-				return;
-			} else {
-				Log.i(TAG, "Created directory " + path + " on sdcard");
-			}
-		}
-		// Copy file
-		InputStream in = getActivity().getResources().openRawResource(
-				R.xml.expense_date);
-		InputStreamReader inReader = new InputStreamReader(in, UTF8);
-		BufferedReader buffReader = new BufferedReader(inReader);
-
-		OutputStream out = new FileOutputStream(DATA_PATH + "expense_date.xml");
-		BufferedWriter buffWriter = new BufferedWriter(new OutputStreamWriter(
-				out, UTF8));
-		char[] buff = new char[1024];
-		int i;
-		while ((i = buffReader.read(buff)) != -1) {
-			buffWriter.write(buff, 0, i);
-		}
-		Log.i(TAG, "File expense_date.xml copied");
-		in.close();
-		out.close();
 	}
 }

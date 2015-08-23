@@ -42,24 +42,24 @@ public class ExpenseAddFragment extends Fragment {
 
 		// change the default txtCategory when spinner changed
 		spCategory
-		.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent,
-					View arg1, int position, long arg3) {
-				String selectedItem = (String) parent
-						.getItemAtPosition(position);
-				txtCategory.setText(getResources().getString(
-						R.string.txt_main_header)
-						+ ": " + selectedItem);
-			}
+					@Override
+					public void onItemSelected(AdapterView<?> parent,
+							View arg1, int position, long arg3) {
+						String selectedItem = (String) parent
+								.getItemAtPosition(position);
+						txtCategory.setText(getResources().getString(
+								R.string.txt_main_header)
+								+ ": " + selectedItem);
+					}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// no code here
-			}
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						// no code here
+					}
 
-		});
+				});
 
 		// not save file and return to Main Screen
 		btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -86,14 +86,15 @@ public class ExpenseAddFragment extends Fragment {
 					Toast.makeText(getActivity(), "Please input amount",
 							Toast.LENGTH_SHORT).show();
 				} else {
-
+					// Save new Date Report
 					ExpenseDateReport newDateReport = new ExpenseDateReport();
 					newDateReport.setAmount(Double.valueOf(String
 							.valueOf(edtAmount.getText())));
 					// must be changed later
 					newDateReport.setDate(new java.util.Date(System
 							.currentTimeMillis()));
-					newDateReport.setCategoryID(spCategory.getSelectedItemPosition());
+					newDateReport.setCategoryID(spCategory
+							.getSelectedItemPosition());
 					newDateReport.setDescription(String.valueOf(edtDescription
 							.getText()));
 
@@ -102,6 +103,13 @@ public class ExpenseAddFragment extends Fragment {
 					ExpenseDateReportLab.get(getActivity())
 							.saveListExpDateReport();
 
+					// And update the amount of this category
+					ExpenseCategory currentExpCategory = ExpenseCategoryLab
+							.get(getActivity()).getExpCategory(
+									newDateReport.getCategoryID());
+					currentExpCategory.setAmount(currentExpCategory.getAmount() + newDateReport.getAmount());
+
+					// finish
 					getActivity().finish();
 				}
 			}
@@ -136,7 +144,8 @@ public class ExpenseAddFragment extends Fragment {
 
 		// Apply the adapter to the spinner
 		spCategory.setAdapter(adapter);
-		// set default category (the order of list Exp Categories matches Category Arrays)
+		// set default category (the order of list Exp Categories matches
+		// Category Arrays)
 		int spDefaultPosition = defaultCatId;
 		spCategory.setSelection(spDefaultPosition);
 	}
