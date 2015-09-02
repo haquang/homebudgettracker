@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">HomeBudgetTracker</string>
-    <string name="txt_main_header">Espense</string>
+    <string name="txt_main_header">Expense</string>
     <string name="txt_income_header">Income</string>
     <string name="txt_date">Date</string>
     <string name="txt_OK">OK</string>
@@ -18,7 +18,7 @@
     <string name="txt_category">Category</string>
     <string name="txt_amount">Amount (USD)</string>
 	<string name="txt_desc">Description</string>
-	<string name="txt_desc_default">Add espense description here</string>
+	<string name="txt_desc_default">Add expense description here</string>
     <string name="txt_date_hint">YYYY:MM:DD</string>
     <string name="txt_monthly_income">Monthly Income</string>
     <string name="txt_other_income">Others</string>
