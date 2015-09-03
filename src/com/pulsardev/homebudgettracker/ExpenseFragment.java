@@ -188,6 +188,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	/**
 	 * @author ngapham
 	 * update 9/8/2015
+	 * update 23/8/2015
 	 */
 	private void showCatAmount() {
 		txtFoodAmount.setText(listExpCategories.get(0).getAmount() + " USD");
@@ -288,8 +289,13 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 					Double.valueOf(rand.nextInt(10)));
 		}
 	}
-
-	public void pieDummyData() {
+	
+	/**
+	 * update real data
+	 * @author ngapham
+	 * @date 23/8/2015
+	 */
+	public void pieData() {
 		// Dummy data for pie chart
 		for (int i = 0; i < listExpCategories.size(); i++) {
 			ExpenseCategory currentExpCategory = listExpCategories.get(i);
@@ -300,7 +306,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	public void callChartActivity() {
 		Intent i = new Intent(this.getActivity(),
 				StatisticPieChartActivity.class);
-		pieDummyData();
+		pieData();
 		i.putExtra(INTENT_EXTRA_DATA_PIE, statistic_data_pie);
 		startActivity(i);
 	}

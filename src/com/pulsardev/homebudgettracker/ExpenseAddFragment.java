@@ -1,7 +1,12 @@
 package com.pulsardev.homebudgettracker;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +22,10 @@ import com.pulsardev.homebudgettracker.model.ExpenseCategory;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 
-public class ExpenseAddFragment extends Fragment {
+public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 	// controls
 	EditText edtAmount, edtDate, edtDescription;
@@ -28,6 +35,12 @@ public class ExpenseAddFragment extends Fragment {
 
 	// current Exp Category
 	private ExpenseCategory defaultCat;
+	
+	// date properties of new Date Report
+	private Date newDate;
+	
+	// date format for edtDate
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 	// Tag
 	private static final String TAG = "ExpenseAddFragment";
@@ -61,6 +74,39 @@ public class ExpenseAddFragment extends Fragment {
 
 				});
 
+		// set the Calendar View for edtDate
+		edtDate.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Bundle args = new Bundle();
+				Calendar cal = Calendar.getInstance();
+				final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
+				
+//				args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+//				args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+				args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.MONDAY);
+				dialogCaldroidFragment.setArguments(args);
+				
+				// Show the CaldroidFragment as a dialog
+				final android.support.v4.app.FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+				t.addToBackStack(null);
+				dialogCaldroidFragment.show(t, "TAG");
+				
+				// Handle when user click a date
+				dialogCaldroidFragment.setCaldroidListener(new CaldroidListener() {
+					
+					@Override
+					public void onSelectDate(Date date, View view) {
+						newDate = date;
+						String dateFormat = String.valueOf(DateFormat.format(DATE_FORMAT, date));
+						edtDate.setText(dateFormat);
+						dialogCaldroidFragment.dismiss();
+					}
+				});
+			}
+		});
+		
 		// not save file and return to Main Screen
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 
@@ -91,8 +137,7 @@ public class ExpenseAddFragment extends Fragment {
 					newDateReport.setAmount(Double.valueOf(String
 							.valueOf(edtAmount.getText())));
 					// must be changed later
-					newDateReport.setDate(new java.util.Date(System
-							.currentTimeMillis()));
+					newDateReport.setDate(newDate);
 					newDateReport.setCategoryID(spCategory
 							.getSelectedItemPosition());
 					newDateReport.setDescription(String.valueOf(edtDescription
@@ -120,6 +165,7 @@ public class ExpenseAddFragment extends Fragment {
 
 	private void initControls(View v) {
 		edtAmount = (EditText) v.findViewById(R.id.edt_expense_amount);
+		edtDate = (EditText) v.findViewById(R.id.edt_expense_date);
 		edtDescription = (EditText) v.findViewById(R.id.edt_expense_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);

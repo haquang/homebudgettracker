@@ -58,7 +58,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_50"
                 android:layout_marginTop="@dimen/dim_20"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:descendantFocusability="beforeDescendants"
+  				android:focusableInTouchMode="true" > <!-- Prevent automatically focus on txt_expense_amount -->
 
                 <TextView
                     android:id="@+id/txt_expense_amount"
@@ -76,7 +78,7 @@
                     android:layout_weight="2.5"
                     android:background="@color/gray_35"
                     android:hint="0.00"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textColor="@color/white"
                     android:textSize="@dimen/tex_size_large" />
 
