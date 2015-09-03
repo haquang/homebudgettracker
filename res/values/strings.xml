@@ -22,6 +22,7 @@
 	<string name="txt_amount_hint">0.00</string>
 	<string name="txt_date_hint">YYYY:MM:DD</string>
 	<string name="txt_desc_hint">Add expense description here</string>
+	<string name="toast_amount_null">At least you have to add amount</string>
     
     <string name="txt_monthly_income">Monthly Income</string>
     <string name="txt_other_income">Others</string>
