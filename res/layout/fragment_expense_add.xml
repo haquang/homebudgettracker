@@ -77,7 +77,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
                     android:background="@color/gray_35"
-                    android:hint="0.00"
+                    android:hint="@string/txt_amount_hint"
                     android:inputType="numberDecimal"
                     android:textColor="@color/white"
                     android:textSize="@dimen/tex_size_large" />
@@ -111,10 +111,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
                     android:background="@color/gray_35"
-                    android:inputType="datetime"
                     android:hint="@string/txt_date_hint"
+                    android:inputType="datetime"
                     android:textColor="@color/white"
                     android:textSize="@dimen/tex_size_large" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -144,7 +145,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.5"
                     android:background="@color/gray_35"
-                    android:hint="@string/txt_desc_default"
+                    android:hint="@string/txt_desc_hint"
                     android:textColor="@color/white"
                     android:textSize="@dimen/tex_size_large" />
             </LinearLayout>
