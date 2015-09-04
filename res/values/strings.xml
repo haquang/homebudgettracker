@@ -27,7 +27,14 @@
     <string name="txt_monthly_income">Monthly Income</string>
     <string name="txt_other_income">Others</string>
     
-    <string-array name="category_arrays">
+    <string-array name="drawler_items_array">
+        <item>Manage Expenses</item>
+        <item>Manage Income</item>
+        <item>Reports</item>
+        <item>Distribution</item>
+    </string-array>
+    
+    <string-array name="categories_array">
         <item>Food</item>
         <item>Transportation</item>
         <item>Housing</item>

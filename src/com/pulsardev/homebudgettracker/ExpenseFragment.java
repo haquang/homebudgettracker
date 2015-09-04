@@ -5,15 +5,6 @@
 
 package com.pulsardev.homebudgettracker;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -21,8 +12,8 @@ import java.util.Random;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +27,9 @@ import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
+	
+	// Navigation Drawer
+	private DrawerLayout mDrawerLayout;
 
 	// controls
 	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
@@ -47,9 +41,11 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	ImageButton btnMenu; // Quang - 28.7.2015
 	TextView txtTotalAmount;
 
-	// key of value that will be passed to FragmentAddActivity
+	// key of value that will be passed to Add activity and Detail activity 
 	public static final String INTENT_EXTRA_ADD_EXPENSE_CATID = "Add_ExpCatId";
 	public static final String INTENT_EXTRA_EXPENSE_DETAIL_CATID = "ExpDetail_CatId";
+	
+	// key of value that will be passed to ChartActivity
 	public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
 	public static final String INTENT_EXTRA_DATA_PIE = "Statistic Data Pie";
 	
@@ -126,6 +122,9 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	private void initControls(View v) {
+		mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
+		
 		txtCatFood = (TextView) v.findViewById(R.id.txt_category_food);
 		txtCatTransportation = (TextView) v
 				.findViewById(R.id.txt_category_transport);
@@ -144,7 +143,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		txtEntertainmentAmount = (TextView) v.findViewById(R.id.txt_leisure_amount);
 		txtOtherAmount = (TextView) v.findViewById(R.id.txt_other_amount);
 
-		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
+		btnMenu.setOnClickListener(this); // 28.7.2015: QuangHV
 		
 		btnHouse = (ImageButton) v.findViewById(R.id.btnImg_AddHouse);
 		btnFood = (ImageButton) v.findViewById(R.id.btnImg_AddFood);
@@ -153,8 +152,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		btnMedical = (ImageButton) v.findViewById(R.id.btnImg_AddMedical);
 		btnEntertainment = (ImageButton) v.findViewById(R.id.btnImg_AddLeisure);
 		btnOther = (ImageButton) v.findViewById(R.id.btnImg_AddOther);
-		
-		btnMenu.setOnClickListener(this); // 28.7.2015: QuangHV
 		
 		// show detail
 		txtCatFood.setOnClickListener(this);
@@ -205,7 +202,8 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		ExpenseCategory currentCategory;
 		switch (v.getId()) {
 		case R.id.btnImg_Menu:
-			callChartActivity(); // Quang: Temporary function to test graph
+//			callChartActivity(); // Quang: Temporary function to test graph
+			mDrawerLayout.openDrawer(Gravity.LEFT);
 			break;
 		// click button Add to add new Exp Date Report
 		case R.id.btnImg_AddFood:

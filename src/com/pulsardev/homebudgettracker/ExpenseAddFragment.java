@@ -201,7 +201,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 		// Spinner initialization
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				getActivity(), R.array.category_arrays, R.layout.spinner_item);
+				getActivity(), R.array.categories_array, R.layout.spinner_item);
 
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
