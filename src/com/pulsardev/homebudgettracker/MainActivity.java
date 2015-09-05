@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, mDrawerTitles));
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, R.id.drawer_title, mDrawerTitles));
 		
 		mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
