@@ -44,14 +44,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	// key of value that will be passed to Add activity and Detail activity 
 	public static final String INTENT_EXTRA_ADD_EXPENSE_CATID = "Add_ExpCatId";
 	public static final String INTENT_EXTRA_EXPENSE_DETAIL_CATID = "ExpDetail_CatId";
-	
-	// key of value that will be passed to ChartActivity
-	public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
-	public static final String INTENT_EXTRA_DATA_PIE = "Statistic Data Pie";
-	
-	// storage for Statistic Chart
-	public static final HashMap<Double, Double> statistic_data = new HashMap<Double, Double>();
-	public static final HashMap<String, Double> statistic_data_pie = new HashMap<String, Double>();
 
 	// TAG
 	private static final String TAG = "ExpenseFragment";
@@ -272,40 +264,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	private void callDetailActivity() {
 		Intent i = new Intent(this.getActivity(), ExpenseDetailActivity.class);
-		startActivity(i);
-	}
-
-	/*
-	 * QuangHV: Add temporary function to display chart
-	 */
-
-	public void dummyData() {
-		// Dummy data for line chart
-		Random rand = new Random();
-		for (int i = 0; i < 10; i++) {
-			statistic_data.put(Double.valueOf(i),
-					Double.valueOf(rand.nextInt(10)));
-		}
-	}
-	
-	/**
-	 * update real data
-	 * @author ngapham
-	 * @date 23/8/2015
-	 */
-	public void pieData() {
-		// Dummy data for pie chart
-		for (int i = 0; i < listExpCategories.size(); i++) {
-			ExpenseCategory currentExpCategory = listExpCategories.get(i);
-			statistic_data_pie.put(currentExpCategory.getName(), currentExpCategory.getAmount());
-		}
-	}
-
-	public void callChartActivity() {
-		Intent i = new Intent(this.getActivity(),
-				StatisticPieChartActivity.class);
-		pieData();
-		i.putExtra(INTENT_EXTRA_DATA_PIE, statistic_data_pie);
 		startActivity(i);
 	}
 

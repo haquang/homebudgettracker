@@ -76,7 +76,8 @@ public class StatisticLineChartFragment extends Fragment {
 
 	private void initControls(View v) {
 		linearLayout = (LinearLayout) v.findViewById(R.id.linechart);
-		data = (HashMap<Double, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_LINE);
+//		data = (HashMap<Double, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_LINE);
+		data = (HashMap<Double, Double>) getArguments().getSerializable(MainActivity.INTENT_EXTRA_DATA_LINE);
 
 	}
 	@Override

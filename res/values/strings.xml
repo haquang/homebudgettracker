@@ -30,8 +30,8 @@
     <string-array name="drawler_items_array">
         <item>Manage Expenses</item>
         <item>Manage Income</item>
-        <item>Reports</item>
         <item>Distribution</item>
+        <item>Reports</item>
     </string-array>
     
     <string-array name="categories_array">

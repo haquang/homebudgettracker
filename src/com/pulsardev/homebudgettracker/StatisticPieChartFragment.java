@@ -10,6 +10,7 @@ import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
+
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -74,7 +75,8 @@ public class StatisticPieChartFragment extends Fragment {
 	}
 	private void initControls(View v) {
 		linearLayout = (LinearLayout) v.findViewById(R.id.piechart);
-		data = (HashMap<String, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_PIE);
+//		data = (HashMap<String, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_PIE);
+		data = (HashMap<String, Double>) getArguments().getSerializable(MainActivity.INTENT_EXTRA_DATA_PIE);
 	}
 	private void createChart() {
 		mRenderer.setZoomButtonsVisible(false);
