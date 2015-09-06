@@ -6,14 +6,11 @@
 package com.pulsardev.homebudgettracker;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -189,13 +186,16 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		
 	}
 	
+	/**
+	 * @author ngapham, quanghv
+	 * update 5/9/2015: update Menu button click event
+	 */
 	@Override
 	public void onClick(View v) {
 		ExpenseCategory currentCategory;
 		switch (v.getId()) {
 		case R.id.btnImg_Menu:
-//			callChartActivity(); // Quang: Temporary function to test graph
-			mDrawerLayout.openDrawer(Gravity.LEFT);
+			((MainActivity) this.getActivity()).openDrawer();
 			break;
 		// click button Add to add new Exp Date Report
 		case R.id.btnImg_AddFood:

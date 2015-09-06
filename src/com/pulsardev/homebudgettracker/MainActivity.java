@@ -19,6 +19,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +28,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
-	
+
 	// controls for Navigation Drawer
 	private String[] mDrawerTitles;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	
+
 	// Manage all the main Fragments
 	private FragmentManager mFragmentManager;
 
@@ -40,8 +41,8 @@ public class MainActivity extends Activity {
 	ArrayList<ExpenseCategory> listExpCategories;
 
 	// key of value that will be passed to ChartActivity
-	public static final String INTENT_EXTRA_DATA_LINE = "Statistic Data Line";
-	public static final String INTENT_EXTRA_DATA_PIE = "Statistic Data Pie";
+	public static final String FRAGMENT_DATA_LINE = "Statistic Data Line";
+	public static final String FRAGMENT_DATA_PIE = "Statistic Data Pie";
 
 	// storage for Statistic Chart
 	public static HashMap<Double, Double> statistic_data_line;
@@ -51,20 +52,20 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		if (savedInstanceState == null) {
 			mFragmentManager = getFragmentManager();
 			mFragmentManager.beginTransaction()
-					.add(R.id.container, new ExpenseFragment()).commit();
+			.add(R.id.container, new ExpenseFragment()).commit();
 		}
-		
+
 		// create items for Navigation Drawer list
 		mDrawerTitles = getResources().getStringArray(R.array.drawler_items_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
-		
+
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, R.id.drawer_title, mDrawerTitles));
-		
+
 		mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -81,25 +82,25 @@ public class MainActivity extends Activity {
 				case 2:	//Distribution
 					// load List of Expense Categories, which is singleton
 					listExpCategories = ExpenseCategoryLab.get(MainActivity.this)
-							.getListExpCategories();
+					.getListExpCategories();
 					// Add data to storage of Pie Chart
 					statistic_data_pie = new HashMap<String, Double>();
 					pieData();
 					Bundle pieArgs = new Bundle();
-					pieArgs.putSerializable(INTENT_EXTRA_DATA_PIE, statistic_data_pie);
+					pieArgs.putSerializable(FRAGMENT_DATA_PIE, statistic_data_pie);
 					newFragment = new StatisticPieChartFragment();
 					newFragment.setArguments(pieArgs);
-					
+
 					break;
 				case 3:	// Report
 					// Add data to storage of Line Chart
 					statistic_data_line = new HashMap<Double, Double>();
 					dummyLineData();
 					Bundle lineArgs = new Bundle();
-					lineArgs.putSerializable(INTENT_EXTRA_DATA_LINE, statistic_data_line);
+					lineArgs.putSerializable(FRAGMENT_DATA_LINE, statistic_data_line);
 					newFragment = new StatisticLineChartFragment();
 					newFragment.setArguments(lineArgs);
-					
+
 					break;
 				default:
 					newFragment = new ExpenseFragment();
@@ -110,7 +111,7 @@ public class MainActivity extends Activity {
 					mFragmentTransaction.replace(R.id.container, newFragment);
 					mFragmentTransaction.addToBackStack(null);
 					mFragmentTransaction.commit();
-					
+
 					// Highlight the selected item of Nav Drawer, and close the drawer
 					mDrawerList.setItemChecked(position, true);
 					mDrawerLayout.closeDrawer(mDrawerList);
@@ -133,7 +134,11 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		return super.onOptionsItemSelected(item);
 	}
-	
+
+	public void openDrawer() {
+		mDrawerLayout.openDrawer(Gravity.LEFT);
+	}
+
 	/**
 	 * update real data
 	 * @author ngapham

@@ -2,20 +2,15 @@ package com.pulsardev.homebudgettracker;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.InputMismatchException;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView.Validator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -40,10 +35,10 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 	// current Exp Category
 	private ExpenseCategory defaultCat;
-	
+
 	// date properties of new Date Report
 	private Date newDate;
-	
+
 	// date format for edtDate
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -60,24 +55,24 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 		// change the default txtCategory when spinner changed
 		spCategory
-				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-					@Override
-					public void onItemSelected(AdapterView<?> parent,
-							View arg1, int position, long arg3) {
-						String selectedItem = (String) parent
-								.getItemAtPosition(position);
-						txtCategory.setText(getResources().getString(
-								R.string.txt_main_header)
-								+ ": " + selectedItem);
-					}
+			@Override
+			public void onItemSelected(AdapterView<?> parent,
+					View arg1, int position, long arg3) {
+				String selectedItem = (String) parent
+						.getItemAtPosition(position);
+				txtCategory.setText(getResources().getString(
+						R.string.txt_main_header)
+						+ ": " + selectedItem);
+			}
 
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						// no code here
-					}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// no code here
+			}
 
-				});
+		});
 
 		/**
 		 * set the Calendar View for edtDate
@@ -85,26 +80,24 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		 * Date: 3/9/2015
 		 */
 		edtDate.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
+				// Create and pass data for Calendar view
 				Bundle args = new Bundle();
 				Calendar cal = Calendar.getInstance();
 				final CaldroidFragment dialogCaldroidFragment = CaldroidFragment.newInstance("Select a date", cal.get(Calendar.MONTH) + 1, cal.get(Calendar.YEAR));
-				
-//				args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-//				args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
 				args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.MONDAY);
 				dialogCaldroidFragment.setArguments(args);
-				
+
 				// Show the CaldroidFragment as a dialog
 				final android.support.v4.app.FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
 				t.addToBackStack(null);
-				dialogCaldroidFragment.show(t, "TAG");
-				
+				dialogCaldroidFragment.show(t, TAG);
+
 				// Handle when user click a date
 				dialogCaldroidFragment.setCaldroidListener(new CaldroidListener() {
-					
+
 					@Override
 					public void onSelectDate(Date date, View view) {
 						newDate = date;
@@ -115,7 +108,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 				});
 			}
 		});
-		
+
 		// not save file and return to Main Screen
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 
@@ -137,43 +130,38 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 			@Override
 			public void onClick(View v) {
-				if (String.valueOf(edtAmount.getText()) == null) {
-					Toast.makeText(getActivity(), "Please input amount",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					try {
-						// Save new Date Report
-						ExpenseDateReport newDateReport = new ExpenseDateReport();
-						
-						// Validate the amount
-						com.pulsardev.homebudgettracker.util.Validator.validateNullAmount(String
-								.valueOf(edtAmount.getText()));
-						
-						newDateReport.setAmount(Double.valueOf(String
-								.valueOf(edtAmount.getText())));
-						newDateReport.setDate(newDate);
-						newDateReport.setCategoryID(spCategory
-								.getSelectedItemPosition());
-						newDateReport.setDescription(String.valueOf(edtDescription
-								.getText()));
+				try {
+					// Save new Date Report
+					ExpenseDateReport newDateReport = new ExpenseDateReport();
 
-						ExpenseDateReportLab.get(getActivity()).addExpDateReport(
-								newDateReport);
-						ExpenseDateReportLab.get(getActivity())
-								.saveListExpDateReport();
+					// Validate the amount
+					com.pulsardev.homebudgettracker.util.Validator.validateNullAmount(String
+							.valueOf(edtAmount.getText()));
 
-						// And update the amount of this category
-						ExpenseCategory currentExpCategory = ExpenseCategoryLab
-								.get(getActivity()).getExpCategory(
-										newDateReport.getCategoryID());
-						currentExpCategory.setAmount(currentExpCategory.getAmount() + newDateReport.getAmount());
+					newDateReport.setAmount(Double.valueOf(String
+							.valueOf(edtAmount.getText())));
+					newDateReport.setDate(newDate);
+					newDateReport.setCategoryID(spCategory
+							.getSelectedItemPosition());
+					newDateReport.setDescription(String.valueOf(edtDescription
+							.getText()));
 
-						// finish
-						getActivity().finish();
-					} catch (Exception e) {
-						Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.toast_amount_null),
-					            Toast.LENGTH_LONG).show();
-					}
+					ExpenseDateReportLab.get(getActivity()).addExpDateReport(
+							newDateReport);
+					ExpenseDateReportLab.get(getActivity())
+					.saveListExpDateReport();
+
+					// And update the amount of this category
+					ExpenseCategory currentExpCategory = ExpenseCategoryLab
+							.get(getActivity()).getExpCategory(
+									newDateReport.getCategoryID());
+					currentExpCategory.setAmount(currentExpCategory.getAmount() + newDateReport.getAmount());
+
+					// finish
+					getActivity().finish();
+				} catch (Exception e) {
+					Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.toast_amount_null),
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -190,15 +178,13 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
 
-		// get the default category
-		int defaultCatId = (Integer) getActivity().getIntent()
-				.getSerializableExtra(
-						ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
-		defaultCat = ExpenseCategoryLab.get(getActivity())
-				.getListExpCategories().get(defaultCatId);
-		txtCategory.setText(getResources().getString(R.string.txt_main_header)
-				+ ": " + defaultCat.getName());
+		setSpinner();
+		setDefaultCategory();
+		setDefaultDate();
+		setAmountFilter();
+	}
 
+	private void setSpinner() {
 		// Spinner initialization
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 				getActivity(), R.array.categories_array, R.layout.spinner_item);
@@ -208,17 +194,32 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 		// Apply the adapter to the spinner
 		spCategory.setAdapter(adapter);
-		
-		// set default category (the order of list Exp Categories matches
+	}
+
+	private void setDefaultCategory() {
+		// get the default category
+		int defaultCatId = (Integer) getActivity().getIntent()
+				.getSerializableExtra(
+						ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
+		defaultCat = ExpenseCategoryLab.get(getActivity())
+				.getListExpCategories().get(defaultCatId);
+		txtCategory.setText(getResources().getString(R.string.txt_main_header)
+				+ ": " + defaultCat.getName());
+
+		// set default category for spCategory (the order of list Exp Categories matches
 		// Category Arrays)
 		int spDefaultPosition = defaultCatId;
 		spCategory.setSelection(spDefaultPosition);
-		
+	}
+
+	private void setDefaultDate() {
 		// set default date 
 		newDate = new Date(java.lang.System.currentTimeMillis());
 		String dateFormat = String.valueOf(DateFormat.format(DATE_FORMAT, newDate));
 		edtDate.setText(dateFormat);
-		
+	}
+
+	private void setAmountFilter() {
 		// Limit the number of digits after decimal point in edtAmount
 		edtAmount.setFilters(new InputFilter[] { new MoneyValueFilter(2)});
 	}

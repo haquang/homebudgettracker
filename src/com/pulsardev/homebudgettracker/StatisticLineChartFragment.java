@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class StatisticLineChartFragment extends Fragment {
 
@@ -77,7 +76,7 @@ public class StatisticLineChartFragment extends Fragment {
 	private void initControls(View v) {
 		linearLayout = (LinearLayout) v.findViewById(R.id.linechart);
 //		data = (HashMap<Double, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_LINE);
-		data = (HashMap<Double, Double>) getArguments().getSerializable(MainActivity.INTENT_EXTRA_DATA_LINE);
+		data = (HashMap<Double, Double>) getArguments().getSerializable(MainActivity.FRAGMENT_DATA_LINE);
 
 	}
 	@Override
