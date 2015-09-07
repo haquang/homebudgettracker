@@ -19,9 +19,12 @@ import android.content.Context;
 import android.util.Log;
 
 public class ExpenseDateReportLab {
+	/**
+	 * Properties
+	 */
 	// List of Expense Date Reports, which is stored in database
 	private ArrayList<ExpenseDateReport> mListExpDateReport;
-	// 
+	
 	private JSONSerializer mSerializer;
 	// file name in database, which stores List of Expense Date Reports
 	private static final String JSON_FILENAME = "expense_date_reports.json";
@@ -42,7 +45,7 @@ public class ExpenseDateReportLab {
 		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
 		// initial list of Expense Date Reports when loading app for the first time
 		try {
-			mListExpDateReport = mSerializer.loadListExpDateReport();
+			mListExpDateReport = mSerializer.loadListExpDateReports();
 		} catch (Exception e) {
 			mListExpDateReport = new ArrayList<ExpenseDateReport>();
 			Log.e(TAG, "Error Loading new list of Expense Date Reports", e);
@@ -51,12 +54,12 @@ public class ExpenseDateReportLab {
 	
 	/**
 	 * To create singleton
-	 * @param c
-	 * @return singleton of ExpenseCategoryLab
+	 * @param appContext
+	 * @return singleton of ExpenseDateReportLab
 	 */
-	public static ExpenseDateReportLab get(Context c) {
+	public static ExpenseDateReportLab get(Context appContext) {
 		if (mExpDateReportLab == null) {
-			mExpDateReportLab = new ExpenseDateReportLab(c.getApplicationContext());
+			mExpDateReportLab = new ExpenseDateReportLab(appContext.getApplicationContext());
 		}
 		return mExpDateReportLab;
 	}
@@ -71,7 +74,7 @@ public class ExpenseDateReportLab {
 	 */	
 	public boolean saveListExpDateReport() {
 		try {
-			mSerializer.saveListExpenseDateReport(mListExpDateReport);
+			mSerializer.saveListExpDateReports(mListExpDateReport);
 			Log.i(TAG, "List saved to file.");
 			return true;
 		} catch (JSONException e) {
@@ -100,10 +103,10 @@ public class ExpenseDateReportLab {
 	
 	/**
 	 * add new Expense Date Report to List
-	 * @param e
+	 * @param newExpDateReport
 	 */
-	public void addExpDateReport(ExpenseDateReport e) {
-		mListExpDateReport.add(e);
+	public void addExpDateReport(ExpenseDateReport newExpDateReport) {
+		mListExpDateReport.add(newExpDateReport);
 	}
 	
 	

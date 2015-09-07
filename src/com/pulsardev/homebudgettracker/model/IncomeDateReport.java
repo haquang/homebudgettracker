@@ -1,9 +1,8 @@
 /**
- * Manage objects of Expense Reporting by Date
+ * Manage objects of Income Reporting by Date
  * @author ngapham
- * @date 12/7/15
+ * @date 6/9/2015
  */
-
 package com.pulsardev.homebudgettracker.model;
 
 import java.util.Date;
@@ -12,16 +11,19 @@ import java.util.UUID;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ExpenseDateReport {
-
-	// properties
+public class IncomeDateReport {
+	/**
+	 * Properties
+	 */
 	private UUID id;
 	private Date date;
 	private double amount;
 	private int categoryID;
 	private String description;
 	
-	// keys of JSON Object
+	/**
+	 * keys of JSON Object
+	 */
 	private static final String ID = "id";
 	private static final String DATE = "date";
 	private static final String AMOUNT = "amount";
@@ -31,7 +33,7 @@ public class ExpenseDateReport {
 	/**
 	 * Constructor with no specific ID and Name
 	 */
-	public ExpenseDateReport() {
+	public IncomeDateReport() {
 		// Generate unique id
 		id = UUID.randomUUID();
 	}
@@ -43,7 +45,7 @@ public class ExpenseDateReport {
 	 * @param categoryID
 	 * @param description
 	 */
-	public ExpenseDateReport(Date date, double amount, int categoryID,
+	public IncomeDateReport(Date date, double amount, int categoryID,
 			String description) {
 		id = UUID.randomUUID();
 		this.date = date;
@@ -57,7 +59,7 @@ public class ExpenseDateReport {
 	 * @param jsonObject
 	 * @throws JSONException
 	 */
-	public ExpenseDateReport(JSONObject jsonObject) throws JSONException {
+	public IncomeDateReport(JSONObject jsonObject) throws JSONException {
 		id = UUID.fromString(jsonObject.getString(ID));
 		if (jsonObject.has(DATE)) {
 			this.date = new Date(jsonObject.getLong(DATE));
@@ -72,7 +74,10 @@ public class ExpenseDateReport {
 			this.description = jsonObject.getString(DESCRIPTION);
 		}
 	}
-
+	
+	/**
+	 * getter and setter
+	 */
 	public Date getDate() {
 		return date;
 	}
@@ -105,23 +110,23 @@ public class ExpenseDateReport {
 		this.description = description;
 	}
 
-	public UUID getID() {
+	public UUID getId() {
 		return id;
 	}
-
+	
 	/**
-	 * Convert Expense Date Report Object into JSON Object
+	 * Convert Income Date Report Object into JSON Object
 	 * @return JSON Object
 	 * @throws JSONException
 	 */
 	public JSONObject toJSON() throws JSONException {
-		JSONObject jsonExpDateReportObj = new JSONObject();
-		jsonExpDateReportObj.put(ID, this.id.toString());
-		jsonExpDateReportObj.put(DATE, this.date.getTime());
-		jsonExpDateReportObj.put(AMOUNT, this.amount);
-		jsonExpDateReportObj.put(CATEGORY_ID, this.categoryID);
-		jsonExpDateReportObj.put(DESCRIPTION, this.description);
-		return jsonExpDateReportObj;
+		JSONObject jsonInDateReportObj = new JSONObject();
+		jsonInDateReportObj.put(ID, this.id.toString());
+		jsonInDateReportObj.put(DATE, this.date.getTime());
+		jsonInDateReportObj.put(AMOUNT, this.amount);
+		jsonInDateReportObj.put(CATEGORY_ID, this.categoryID);
+		jsonInDateReportObj.put(DESCRIPTION, this.description);
+		return jsonInDateReportObj;
 	}
 
 	@Override

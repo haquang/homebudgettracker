@@ -8,7 +8,9 @@ package com.pulsardev.homebudgettracker.model;
 
 public class ExpenseCategory {
 	
-	// properties of Crime object
+	/**
+	 * Properties
+	 */
 	private int ID;
 	private String name;
 	private double amount;

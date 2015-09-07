@@ -27,6 +27,7 @@ public class ExpenseCategoryLab {
 	private Context mAppContext;
 	
 	/**
+	 * Constructor
 	 * @param appContext
 	 */
 	public ExpenseCategoryLab(Context appContext) {
@@ -48,12 +49,12 @@ public class ExpenseCategoryLab {
 	}
 	/**
 	 * To create singleton
-	 * @param c
+	 * @param appContext
 	 * @return singleton of ExpenseCategoryLab
 	 */
-	public static ExpenseCategoryLab get(Context c) {
+	public static ExpenseCategoryLab get(Context appContext) {
 		if (mExpCatLab == null) {
-			mExpCatLab = new ExpenseCategoryLab(c.getApplicationContext());
+			mExpCatLab = new ExpenseCategoryLab(appContext.getApplicationContext());
 		}
 		return mExpCatLab;
 	}
@@ -70,15 +71,6 @@ public class ExpenseCategoryLab {
 	public ExpenseCategory getExpCategory(int id) {
 		for (ExpenseCategory item : mListExpCategories) {
 			if (item.getID() == id) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	public ExpenseCategory getExpCategory(String name) {
-		for (ExpenseCategory item : mListExpCategories) {
-			if (item.getName().equalsIgnoreCase(name)) {
 				return item;
 			}
 		}
