@@ -24,9 +24,6 @@ import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
-	
-	// Navigation Drawer
-	private DrawerLayout mDrawerLayout;
 
 	// controls
 	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
@@ -36,6 +33,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	TextView txtFoodAmount, txtTransportAmount, txtHousingAmount,
 			txtMedicalAmount, txtEntertainmentAmount, txtOtherAmount;
 	ImageButton btnMenu; // Quang - 28.7.2015
+	TextView txtTotal;
 	TextView txtTotalAmount;
 
 	// key of value that will be passed to Add activity and Detail activity 
@@ -111,9 +109,9 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	private void initControls(View v) {
-		mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
 		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 		
+		txtTotal = (TextView) v.findViewById(R.id.txt_total_expense_amount);
 		txtCatFood = (TextView) v.findViewById(R.id.txt_category_food);
 		txtCatTransportation = (TextView) v
 				.findViewById(R.id.txt_category_transport);
@@ -131,8 +129,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		txtMedicalAmount = (TextView) v.findViewById(R.id.txt_medical_amount);
 		txtEntertainmentAmount = (TextView) v.findViewById(R.id.txt_leisure_amount);
 		txtOtherAmount = (TextView) v.findViewById(R.id.txt_other_amount);
-
-		btnMenu.setOnClickListener(this); // 28.7.2015: QuangHV
 		
 		btnHouse = (ImageButton) v.findViewById(R.id.btnImg_AddHouse);
 		btnFood = (ImageButton) v.findViewById(R.id.btnImg_AddFood);
@@ -141,8 +137,11 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		btnMedical = (ImageButton) v.findViewById(R.id.btnImg_AddMedical);
 		btnEntertainment = (ImageButton) v.findViewById(R.id.btnImg_AddLeisure);
 		btnOther = (ImageButton) v.findViewById(R.id.btnImg_AddOther);
+
+		btnMenu.setOnClickListener(this); // 28.7.2015: QuangHV
 		
 		// show detail
+		txtTotal.setOnClickListener(this);
 		txtCatFood.setOnClickListener(this);
 		txtCatTransportation.setOnClickListener(this);
 		txtCatHousing.setOnClickListener(this);

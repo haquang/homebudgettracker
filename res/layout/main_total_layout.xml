@@ -16,7 +16,7 @@
             android:layout_height="fill_parent">
 
             <TextView
-                android:id="@+id/txt_total_expense_amount"
+                android:id="@+id/txt_total_expense"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
@@ -33,7 +33,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/edt_total_expense_amount"
+                android:id="@+id/txt_total_expense_amount"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
