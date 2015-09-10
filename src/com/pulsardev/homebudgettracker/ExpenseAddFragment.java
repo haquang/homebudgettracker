@@ -63,7 +63,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 				String selectedItem = (String) parent
 						.getItemAtPosition(position);
 				txtCategory.setText(getResources().getString(
-						R.string.txt_main_header)
+						R.string.txt_expense_header)
 						+ ": " + selectedItem);
 			}
 
@@ -187,7 +187,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	private void setSpinner() {
 		// Spinner initialization
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				getActivity(), R.array.categories_array, R.layout.spinner_item);
+				getActivity(), R.array.exp_categories_array, R.layout.spinner_item);
 
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -203,7 +203,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 						ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
 		defaultCat = ExpenseCategoryLab.get(getActivity())
 				.getListExpCategories().get(defaultCatId);
-		txtCategory.setText(getResources().getString(R.string.txt_main_header)
+		txtCategory.setText(getResources().getString(R.string.txt_expense_header)
 				+ ": " + defaultCat.getName());
 
 		// set default category for spCategory (the order of list Exp Categories matches

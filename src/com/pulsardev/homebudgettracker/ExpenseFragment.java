@@ -86,7 +86,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	private void setTitleName() {
-		txtTitle.setText(INTENT_EXTRA_EXPENSE);
+		txtTitle.setText(getResources().getString(R.string.txt_expense_header));
 	}
 
 	/**

@@ -2,19 +2,13 @@
 <resources>
 
     <string name="app_name">Home Budget Tracker</string>
-    <string name="txt_main_header">Expense</string>
+    <string name="txt_expense_header">Expense</string>
     <string name="txt_income_header">Income</string>
     <string name="txt_date">Date</string>
     <string name="txt_OK">OK</string>
     <string name="txt_cancel">Cancel</string>
     <string name="txt_save">Save</string>
 	<string name="desc">Menu Display</string>
-    <string name="txt_category_food">Food</string>
-    <string name="txt_category_transport">Transportation</string>
-    <string name="txt_category_house">Housing</string>
-    <string name="txt_category_medical">Medical</string>
-    <string name="txt_category_leisure">Leisure</string>
-    <string name="txt_category_other">Others</string>
     <string name="txt_category">Category</string>
     <string name="txt_amount">Amount (USD)</string>
 	<string name="txt_desc">Description</string>
@@ -24,9 +18,6 @@
 	<string name="txt_desc_hint">Add expense description here</string>
 	<string name="toast_amount_null">At least you have to add amount</string>
     
-    <string name="txt_monthly_income">Monthly Income</string>
-    <string name="txt_other_income">Others</string>
-    
     <string-array name="drawler_items_array">
         <item>Manage Expenses</item>
         <item>Manage Income</item>
@@ -34,7 +25,7 @@
         <item>Reports</item>
     </string-array>
     
-    <string-array name="categories_array">
+    <string-array name="exp_categories_array">
         <item>Food</item>
         <item>Transportation</item>
         <item>Housing</item>
@@ -43,4 +34,8 @@
         <item>Others</item>
     </string-array>
     
+    <string-array name="in_categories_array">
+        <item >Monthly Income</item>
+        <item >Other Income</item>
+    </string-array>
 </resources>

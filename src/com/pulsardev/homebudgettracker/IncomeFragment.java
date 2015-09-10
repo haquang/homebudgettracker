@@ -28,6 +28,8 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	 */
 	// controls
 	ImageButton btnMenu;
+	TextView txtTitle;
+	
 	TextView txtTotal, txtTotalAmount;
 	TextView txtCatMonthly, txtCatOther;
 	TextView txtMonthlyAmount, txtOtherAmount;
@@ -66,6 +68,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		View rootView = inflater.inflate(R.layout.fragment_income, container, false);
 		
 		initControls(rootView);
+		setTitleName();
 		setCatName();
 		showTotalAmount();
 		showCatAmount();
@@ -73,9 +76,15 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		return rootView;
 	}
 
-	private void showCatAmount() {
-		txtMonthlyAmount.setText(listInCategories.get(0).getAmount() + " USD");
-		txtOtherAmount.setText(listInCategories.get(1).getAmount() + " USD");
+	private void setTitleName() {
+		txtTitle.setText(getResources().getString(R.string.txt_income_header));
+	}
+
+	private void setCatName() {
+		// Monthly Income
+		txtCatMonthly.setText(listInCategories.get(0).getName());
+		// Other Income
+		txtCatOther.setText(listInCategories.get(1).getName());
 	}
 
 	private void showTotalAmount() {
@@ -86,15 +95,14 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		txtTotalAmount.setText(String.valueOf(amount) + " USD");
 	}
 
-	private void setCatName() {
-		// Monthly Income
-		txtCatMonthly.setText(listInCategories.get(0).getName());
-		// Other Income
-		txtCatOther.setText(listInCategories.get(1).getName());
+	private void showCatAmount() {
+		txtMonthlyAmount.setText(listInCategories.get(0).getAmount() + " USD");
+		txtOtherAmount.setText(listInCategories.get(1).getAmount() + " USD");
 	}
 
 	private void initControls(View v) {
 		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
+		txtTitle = (TextView) v.findViewById(R.id.txt_header);
 		
 		txtTotal = (TextView) v.findViewById(R.id.txt_total);
 		txtCatMonthly = (TextView) v.findViewById(R.id.txt_monthly_income_category);
