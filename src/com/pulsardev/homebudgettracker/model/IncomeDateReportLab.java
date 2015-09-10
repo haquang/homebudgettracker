@@ -1,9 +1,6 @@
 package com.pulsardev.homebudgettracker.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.json.JSONException;
 
 import android.content.Context;
 import android.util.Log;
@@ -38,7 +35,7 @@ public class IncomeDateReportLab {
 			mListInDateReport = mSerializer.loadListInDateReports();
 		} catch (Exception e) {
 			mListInDateReport = new ArrayList<IncomeDateReport>();
-			Log.e(TAG, "Error Loading new list of Expense Date Reports", e);
+			Log.e(TAG, "Error Loading new list of Income Date Reports", e);
 		}
 	}
 	
@@ -47,7 +44,7 @@ public class IncomeDateReportLab {
 	 * @param appContext
 	 * @return singleton of IncomeDateReportLab
 	 */
-	public IncomeDateReportLab get(Context appContext) {
+	public static IncomeDateReportLab get(Context appContext) {
 		if (mInDateReportLab == null) {
 			mInDateReportLab = new IncomeDateReportLab(appContext.getApplicationContext());
 		}

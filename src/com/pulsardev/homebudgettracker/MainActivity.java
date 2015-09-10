@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
 					newFragment = new ExpenseFragment();
 					break;
 				case 1: //Manage Income
+					newFragment = new IncomeFragment();
 					break;
 				case 2:	//Distribution
 					// load List of Expense Categories, which is singleton

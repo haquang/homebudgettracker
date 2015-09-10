@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,19 +23,25 @@ import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
-
+	
+	/**
+	 * Properties
+	 */
 	// controls
-	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
-			btnEntertainment, btnOther;
+	ImageButton btnMenu; // Quang - 28.7.2015
+	TextView txtTitle;
+	
+	TextView txtTotal;
 	TextView txtCatFood, txtCatTransportation, txtCatHousing, txtCatMedical,
 			txtCatEntertainment, txtCatOther;
+	TextView txtTotalAmount;
 	TextView txtFoodAmount, txtTransportAmount, txtHousingAmount,
 			txtMedicalAmount, txtEntertainmentAmount, txtOtherAmount;
-	ImageButton btnMenu; // Quang - 28.7.2015
-	TextView txtTotal;
-	TextView txtTotalAmount;
-
-	// key of value that will be passed to Add activity and Detail activity 
+	ImageButton btnHouse, btnFood, btnTransportation, btnMedical,
+	btnEntertainment, btnOther;
+	
+	// key of value that will be passed to Add activity and Detail activity
+	public static final String INTENT_EXTRA_EXPENSE = "Expense";
 	public static final String INTENT_EXTRA_ADD_EXPENSE_CATID = "Add_ExpCatId";
 	public static final String INTENT_EXTRA_EXPENSE_DETAIL_CATID = "ExpDetail_CatId";
 
@@ -50,7 +55,10 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	ArrayList<ExpenseCategory> listExpCategories;
 	// List of Expense Date Reports
 	ArrayList<ExpenseDateReport> listExpDateReports;
-
+	
+	/**
+	 * Functions
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,10 +78,15 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 		initControls(rootView);
 		setTitleName();
+		setCatName();
 		showTotalAmount();
 		showCatAmount();
 		
 		return rootView;
+	}
+
+	private void setTitleName() {
+		txtTitle.setText(INTENT_EXTRA_EXPENSE);
 	}
 
 	/**
@@ -81,7 +94,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 * @author ngapham
 	 * @date 5/8/2015
 	 */
-	private void setTitleName() {
+	private void setCatName() {
 		// Food
 		txtCatFood.setText(listExpCategories.get(0).getName());
 		// Transportation
@@ -109,9 +122,11 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	private void initControls(View v) {
-		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 		
-		txtTotal = (TextView) v.findViewById(R.id.txt_total_expense_amount);
+		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
+		txtTitle = (TextView) v.findViewById(R.id.txt_header);
+		
+		txtTotal = (TextView) v.findViewById(R.id.txt_total);
 		txtCatFood = (TextView) v.findViewById(R.id.txt_category_food);
 		txtCatTransportation = (TextView) v
 				.findViewById(R.id.txt_category_transport);
@@ -122,7 +137,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		txtCatOther = (TextView) v.findViewById(R.id.txt_category_other);
 		
 		txtTotalAmount = (TextView) v
-				.findViewById(R.id.edt_total_expense_amount);
+				.findViewById(R.id.txt_total_amount);
 		txtFoodAmount = (TextView) v.findViewById(R.id.txt_food_amount);
 		txtTransportAmount = (TextView) v.findViewById(R.id.txt_transport_amount);
 		txtHousingAmount = (TextView) v.findViewById(R.id.txt_house_amount);
@@ -196,7 +211,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		case R.id.btnImg_Menu:
 			((MainActivity) this.getActivity()).openDrawer();
 			break;
-		// click button Add to add new Exp Date Report
+		// Click button Add to add new Exp Date Report
 		case R.id.btnImg_AddFood:
 			currentCategory = listExpCategories.get(0);
 			callAddActivity(currentCategory);
@@ -223,7 +238,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 			break;
 			
 		// click to show Detail
-		case R.id.txt_total_expense_amount:
+		case R.id.txt_total:
 			callDetailActivity();
 			break;
 		case R.id.txt_category_food:
