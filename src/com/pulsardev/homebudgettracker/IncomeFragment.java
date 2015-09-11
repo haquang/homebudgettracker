@@ -8,6 +8,7 @@ package com.pulsardev.homebudgettracker;
 import java.util.ArrayList;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,9 +172,10 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	private void callAddActivity(IncomeCategory currentCategory) {
-		// TODO Auto-generated method stub
-		
+	private void callAddActivity(IncomeCategory currentCat) {
+		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
+		i.putExtra(INTENT_EXTRA_ADD_INCOME_CATID, currentCat.getID());
+		startActivity(i);
 	}
 
 	private void callDetailActivity() {

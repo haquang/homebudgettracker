@@ -1,3 +1,9 @@
+/**
+ * Manage list of Expense Date Report
+ * This is the singleton
+ * @author ngapham
+ */
+
 package com.pulsardev.homebudgettracker.model;
 
 import java.util.ArrayList;
@@ -8,7 +14,6 @@ import android.util.Log;
 import com.pulsardev.homebudgettracker.control.JSONSerializer;
 
 public class IncomeDateReportLab {
-
 	/**
 	 * Properties
 	 */
@@ -25,7 +30,11 @@ public class IncomeDateReportLab {
 
 	// TAG
 	private static final String TAG = "IncomeDateReportLab";
-
+	
+	/**
+	 * Constructor
+	 * @param appContext
+	 */
 	public IncomeDateReportLab(Context appContext) {
 		mAppContext = appContext;
 		// Create Serializer to save InDateReport List to JSON file

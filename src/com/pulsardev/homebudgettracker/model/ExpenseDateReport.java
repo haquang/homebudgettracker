@@ -14,14 +14,18 @@ import org.json.JSONObject;
 
 public class ExpenseDateReport {
 
-	// properties
+	/**
+	 * properties
+	 */
 	private UUID id;
 	private Date date;
 	private double amount;
 	private int categoryID;
 	private String description;
 	
-	// keys of JSON Object
+	/**
+	 * keys of JSON Object
+	 */
 	private static final String ID = "id";
 	private static final String DATE = "date";
 	private static final String AMOUNT = "amount";
@@ -72,7 +76,10 @@ public class ExpenseDateReport {
 			this.description = jsonObject.getString(DESCRIPTION);
 		}
 	}
-
+	
+	/**
+	 * getter and setter
+	 */
 	public Date getDate() {
 		return date;
 	}

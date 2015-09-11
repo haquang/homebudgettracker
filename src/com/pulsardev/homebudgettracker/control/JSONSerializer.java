@@ -7,13 +7,11 @@ package com.pulsardev.homebudgettracker.control;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 
@@ -26,14 +24,12 @@ import android.util.Log;
 
 import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.IncomeDateReport;
+import com.pulsardev.homebudgettracker.util.StaticString;
 
 public class JSONSerializer {
 
 	private Context mContext;
 	private String mFileName;
-
-	// UTF-8 CHARSET
-	private static final String CHARSET_UTF8 = "UTF-8";
 
 	private static final String TAG = "JSONSerializer.java";
 
@@ -62,7 +58,7 @@ public class JSONSerializer {
 		Writer writer = null;
 		try {
 			OutputStream out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
-			writer = new BufferedWriter(new OutputStreamWriter(out, CHARSET_UTF8));
+			writer = new BufferedWriter(new OutputStreamWriter(out, new StaticString().UTF8));
 			writer.write(array.toString());
 		} finally {
 			if (writer != null) {
@@ -139,7 +135,7 @@ public class JSONSerializer {
 		Writer writer = null;
 		try {
 			OutputStream out = mContext.openFileOutput(mFileName, Context.MODE_PRIVATE);
-			writer = new BufferedWriter(new OutputStreamWriter(out, CHARSET_UTF8));
+			writer = new BufferedWriter(new OutputStreamWriter(out, new StaticString().UTF8));
 			writer.write(array.toString());
 		} finally {
 			if (writer != null) {

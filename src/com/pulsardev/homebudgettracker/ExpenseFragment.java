@@ -48,9 +48,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	// TAG
 	private static final String TAG = "ExpenseFragment";
 
-	// utf-8 encoding String
-	private static final String UTF8 = "utf-8";
-
 	// List of Expense Categories
 	ArrayList<ExpenseCategory> listExpCategories;
 	// List of Expense Date Reports

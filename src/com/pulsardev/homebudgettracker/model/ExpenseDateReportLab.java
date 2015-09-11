@@ -37,6 +37,7 @@ public class ExpenseDateReportLab {
 	private static final String TAG = "ExpenseDateReportLab";
 	
 	/**
+	 * Constructor
 	 * @param appContext
 	 */
 	public ExpenseDateReportLab(Context appContext) {
@@ -108,6 +109,4 @@ public class ExpenseDateReportLab {
 	public void addExpDateReport(ExpenseDateReport newExpDateReport) {
 		mListExpDateReport.add(newExpDateReport);
 	}
-	
-	
 }

@@ -1,3 +1,10 @@
+/**
+ * Manage list of Expense Categories
+ * This is the singleton
+ * @author ngapham
+ * Date: 6/9/2015
+ */
+
 package com.pulsardev.homebudgettracker.model;
 
 import java.util.ArrayList;
