@@ -173,7 +173,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	}
 
 	private void callAddActivity(IncomeCategory currentCat) {
-		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
+		Intent i = new Intent(this.getActivity(), AddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_INCOME_CATID, currentCat.getID());
 		startActivity(i);
 	}

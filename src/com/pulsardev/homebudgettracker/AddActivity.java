@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
-public class ExpenseAddActivity extends android.support.v4.app.FragmentActivity {
+public class AddActivity extends android.support.v4.app.FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

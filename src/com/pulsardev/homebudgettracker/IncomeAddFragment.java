@@ -57,7 +57,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_expense_add,
+		View rootView = inflater.inflate(R.layout.fragment_add,
 				container, false);
 
 		initControls(rootView);
@@ -70,9 +70,9 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	}
 
 	private void initControls(View v) {
-		edtAmount = (EditText) v.findViewById(R.id.edt_expense_amount);
-		edtDate = (EditText) v.findViewById(R.id.edt_expense_date);
-		edtDescription = (EditText) v.findViewById(R.id.edt_expense_desc);
+		edtAmount = (EditText) v.findViewById(R.id.edt_amount);
+		edtDate = (EditText) v.findViewById(R.id.edt_date);
+		edtDescription = (EditText) v.findViewById(R.id.edt_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
 		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);

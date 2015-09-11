@@ -268,18 +268,18 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	}
 
 	private void callDetailActivity(ExpenseCategory currentCategory) {
-		Intent i = new Intent(this.getActivity(), ExpenseDetailActivity.class);
+		Intent i = new Intent(this.getActivity(), DetailActivity.class);
 		i.putExtra(INTENT_EXTRA_EXPENSE_DETAIL_CATID, currentCategory.getID());
 		startActivity(i);
 	}
 
 	private void callDetailActivity() {
-		Intent i = new Intent(this.getActivity(), ExpenseDetailActivity.class);
+		Intent i = new Intent(this.getActivity(), DetailActivity.class);
 		startActivity(i);
 	}
 
 	public void callAddActivity(ExpenseCategory currentCat) {
-		Intent i = new Intent(this.getActivity(), ExpenseAddActivity.class);
+		Intent i = new Intent(this.getActivity(), AddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_EXPENSE_CATID, currentCat.getID());
 		startActivity(i);
 	}
