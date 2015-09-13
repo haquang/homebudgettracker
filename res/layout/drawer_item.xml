@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
 android:layout_width="fill_parent"
-android:layout_height="48dp"
+android:layout_height="@dimen/drawer_height"
 android:gravity="center_vertical">
     <TextView 
     android:id="@+id/drawer_title"

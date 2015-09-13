@@ -3,17 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+    <include
+        android:id="@+id/detail_header"
+        layout="@layout/main_subheader_layout" />
 
-    <TextView
-        android:id="@+id/txt_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Expense Detail" />
-
-    <ListView
-        android:id="@+id/list_expense_detail"
+    <ExpandableListView
+        android:id="@+id/list_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+    </ExpandableListView>
 
 </LinearLayout>

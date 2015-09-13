@@ -5,4 +5,6 @@ public class StaticString {
 	public static final String UTF8 = "utf-8";
 	// date format for edtDate
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	// using this to get full name of month
+	public static final String FULL_MONTH_FORMAT = "MMMM";
 }
