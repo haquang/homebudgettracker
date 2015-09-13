@@ -1,3 +1,8 @@
+/**
+ * Create and manage Expense or Income Date Report objects
+ * @author ngapham
+ */
+
 package com.pulsardev.homebudgettracker.model;
 
 import java.util.Date;

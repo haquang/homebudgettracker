@@ -21,6 +21,7 @@ import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.model.Category;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
+import com.pulsardev.homebudgettracker.util.StaticString;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
 	
@@ -270,12 +271,14 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 
 	private void callDetailActivity(Category currentCategory) {
 		Intent i = new Intent(this.getActivity(), DetailActivity.class);
+		i.putExtra(StaticString.DETAIL_FRAGMENT, INTENT_EXTRA_EXPENSE);
 		i.putExtra(INTENT_EXTRA_EXPENSE_DETAIL_CATID, currentCategory.getID());
 		startActivity(i);
 	}
 
 	private void callDetailActivity() {
 		Intent i = new Intent(this.getActivity(), DetailActivity.class);
+		i.putExtra(StaticString.DETAIL_FRAGMENT, INTENT_EXTRA_EXPENSE);
 		startActivity(i);
 	}
 

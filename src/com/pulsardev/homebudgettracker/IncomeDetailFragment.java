@@ -19,32 +19,31 @@ import android.widget.TextView;
 import com.pulsardev.homebudgettracker.control.DetailListAdapter;
 import com.pulsardev.homebudgettracker.model.Category;
 import com.pulsardev.homebudgettracker.model.DateReport;
-import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
+import com.pulsardev.homebudgettracker.model.IncomeCategoryLab;
+import com.pulsardev.homebudgettracker.model.IncomeDateReportLab;
 import com.pulsardev.homebudgettracker.model.MonthlyReport;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 import com.pulsardev.homebudgettracker.util.StaticString;
 
-public class ExpenseDetailFragment extends Fragment {
-
+public class IncomeDetailFragment extends Fragment {
 	/**
 	 * Properties
 	 */
 	// controls
 	TextView txtTitle;
-	ExpandableListView listViewExpenseDetail;
+	ExpandableListView listViewIncomeDetail;
 
 	// List of Expense Date Reports
-	ArrayList<DateReport> listExpDateReports;
+	ArrayList<DateReport> listInDateReports;
 
 	// Specific Adapter for Expandable ListView
-	DetailListAdapter expDateReportAdapter;
+	DetailListAdapter inDateReportAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// load List of Expense Date Report, which is singleton
-		listExpDateReports = ExpenseDateReportLab.get(this.getActivity())
-				.getListExpDateReport();
+		listInDateReports = IncomeDateReportLab.get(this.getActivity())
+				.getListInDateReport();
 	}
 
 	@Override
@@ -62,13 +61,13 @@ public class ExpenseDetailFragment extends Fragment {
 
 	private void initControls(View v) {
 		txtTitle = (TextView) v.findViewById(R.id.txt_header);
-		listViewExpenseDetail = (ExpandableListView) v
+		listViewIncomeDetail = (ExpandableListView) v
 				.findViewById(R.id.list_detail);
 	}
 
 	private void setTitleName() {
 		Resources res = getActivity().getResources();
-		txtTitle.setText(res.getString(R.string.txt_expense_header) + " "
+		txtTitle.setText(res.getString(R.string.txt_income_header) + " "
 				+ res.getString(R.string.txt_detail_header));
 	}
 
@@ -76,40 +75,41 @@ public class ExpenseDetailFragment extends Fragment {
 		Intent intent = getActivity().getIntent();
 		ArrayList<MonthlyReport> groups;
 		// if show detail of specific category
-		if (intent.hasExtra(ExpenseFragment.INTENT_EXTRA_EXPENSE_DETAIL_CATID)) {
+		if (intent.hasExtra(IncomeFragment.INTENT_EXTRA_INCOME_DETAIL_CATID)) {
 			// load the default Category
 			int default_cat_id = (Integer) getActivity().getIntent()
 					.getSerializableExtra(
-							ExpenseFragment.INTENT_EXTRA_EXPENSE_DETAIL_CATID);
-			Category defaultCat = ExpenseCategoryLab.get(getActivity())
-					.getExpCategory(default_cat_id);
+							IncomeFragment.INTENT_EXTRA_INCOME_DETAIL_CATID);
+			Category defaultCat = IncomeCategoryLab.get(getActivity())
+					.getInCategory(default_cat_id);
 			ArrayList<DateReport> listByCat = new ArrayList<DateReport>();
-			for (DateReport item : listExpDateReports) {
+			for (DateReport item : listInDateReports) {
 				if (item.getCategoryID() == default_cat_id) {
 					listByCat.add(item);
 				}
 			}
 			groups = monthlyReport(listByCat);
+			for (DateReport item : listByCat) {
+				Log.i("Category", String.valueOf(item.getCategoryID()));
+			}
+
 		} else { // if show detail of all categories
-			groups = monthlyReport(listExpDateReports);
+			groups = monthlyReport(listInDateReports);
 		}
 
 		// Set data for ListView
-		expDateReportAdapter = new DetailListAdapter(groups, this.getActivity());
-		listViewExpenseDetail.setAdapter(expDateReportAdapter);
+		inDateReportAdapter = new DetailListAdapter(groups, this.getActivity());
+		listViewIncomeDetail.setAdapter(inDateReportAdapter);
 	}
-
+	
 	/**
 	 * group Date Reports by month
-	 * 
 	 * @param listDateReport
 	 * @return
 	 */
-	private ArrayList<MonthlyReport> monthlyReport(
-			ArrayList<DateReport> listDateReport) {
+	private ArrayList<MonthlyReport> monthlyReport(ArrayList<DateReport> listDateReport) {
 		ArrayList<MonthlyReport> groups = new ArrayList<MonthlyReport>();
-		SimpleDateFormat fullMonthFormat = new SimpleDateFormat(
-				StaticString.FULL_MONTH_FORMAT);
+		SimpleDateFormat fullMonthFormat = new SimpleDateFormat(StaticString.FULL_MONTH_FORMAT);
 		Map<String, ArrayList<DateReport>> map = new HashMap<String, ArrayList<DateReport>>();
 		for (DateReport item : listDateReport) {
 			String fullMonth = fullMonthFormat.format(item.getDate());
@@ -119,8 +119,7 @@ public class ExpenseDetailFragment extends Fragment {
 			map.get(fullMonth).add(item);
 		}
 		for (Map.Entry<String, ArrayList<DateReport>> entry : map.entrySet()) {
-			MonthlyReport group = new MonthlyReport(entry.getKey(),
-					totalAmount(entry.getValue()), entry.getValue());
+			MonthlyReport group = new MonthlyReport(entry.getKey(), totalAmount(entry.getValue()), entry.getValue());
 			groups.add(group);
 		}
 		return groups;
@@ -137,6 +136,6 @@ public class ExpenseDetailFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		expDateReportAdapter.notifyDataSetChanged();
+		inDateReportAdapter.notifyDataSetChanged();
 	}
 }

@@ -21,6 +21,7 @@ import com.pulsardev.homebudgettracker.model.Category;
 import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.model.IncomeCategoryLab;
 import com.pulsardev.homebudgettracker.model.IncomeDateReportLab;
+import com.pulsardev.homebudgettracker.util.StaticString;
 
 public class IncomeFragment extends Fragment implements OnClickListener {
 
@@ -37,6 +38,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	ImageButton btnAddMonthly, btnAddOther;
 
 	// key of value that will be passed to Add activity and Detail activity 
+	public static final String INTENT_EXTRA_INCOME = "Income";
 	public static final String INTENT_EXTRA_ADD_INCOME_CATID = "Add_InCatId";
 	public static final String INTENT_EXTRA_INCOME_DETAIL_CATID = "InDetail_CatId";
 
@@ -179,12 +181,15 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	}
 
 	private void callDetailActivity() {
-		// TODO Auto-generated method stub
-		
+		Intent i = new Intent(this.getActivity(), DetailActivity.class);
+		i.putExtra(StaticString.DETAIL_FRAGMENT, INTENT_EXTRA_INCOME);
+		startActivity(i);
 	}
 
 	private void callDetailActivity(Category currentCategory) {
-		// TODO Auto-generated method stub
-		
+		Intent i = new Intent(this.getActivity(), DetailActivity.class);
+		i.putExtra(StaticString.DETAIL_FRAGMENT, INTENT_EXTRA_INCOME);
+		i.putExtra(INTENT_EXTRA_INCOME_DETAIL_CATID, currentCategory.getID());
+		startActivity(i);
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Create and manage Expense Category objects
+ * Create and manage Expense or Income Category objects
  * @author ngapham
  * @date 12/7/15
  */

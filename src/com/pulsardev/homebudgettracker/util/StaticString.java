@@ -7,4 +7,6 @@ public class StaticString {
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	// using this to get full name of month
 	public static final String FULL_MONTH_FORMAT = "MMMM";
+	// using this to call Detail Fragment
+	public static final String DETAIL_FRAGMENT = "Detail Fragment";
 }

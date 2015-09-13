@@ -28,12 +28,12 @@
 
         <!-- Expense Add Activity -->
         <activity
-            android:name=".ExpenseAddActivity"
+            android:name=".AddActivity"
             android:label="Add Expense" >
         </activity>
         
         <!-- Expense Detail Activity -->
-        <activity android:name=".ExpenseDetailActivity"></activity>
+        <activity android:name=".DetailActivity"></activity>
         
         <!-- Chart Activity -->
         <activity android:name=".StatisticLineChartActivity" >

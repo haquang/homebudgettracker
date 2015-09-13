@@ -6,7 +6,7 @@
     
     <include
         android:id="@+id/detail_header"
-        layout="@layout/main_subheader_layout" />
+        layout="@layout/main_header_layout" />
 
     <ExpandableListView
         android:id="@+id/list_detail"
