@@ -89,7 +89,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	}
 
 	private void showTotalAmount() {
-		Double amount = 0.0;
+		double amount = 0.0;
 		for (IncomeCategory item : listInCategories) {
 			amount += item.getAmount();
 		}

@@ -175,7 +175,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 * update: 2/8/2015
 	 */
 	private void showTotalAmount() {
-		Double amount = 0.0;
+		double amount = 0.0;
 		for (ExpenseCategory item : listExpCategories) {
 			amount += item.getAmount();
 		}
