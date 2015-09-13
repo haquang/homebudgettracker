@@ -23,7 +23,7 @@ public class ExpenseDateReportLab {
 	 * Properties
 	 */
 	// List of Expense Date Reports, which is stored in database
-	private ArrayList<ExpenseDateReport> mListExpDateReport;
+	private ArrayList<DateReport> mListExpDateReport;
 	
 	private JSONSerializer mSerializer;
 	// file name in database, which stores List of Expense Date Reports
@@ -46,9 +46,9 @@ public class ExpenseDateReportLab {
 		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
 		// initial list of Expense Date Reports when loading app for the first time
 		try {
-			mListExpDateReport = mSerializer.loadListExpDateReports();
+			mListExpDateReport = mSerializer.loadListDateReports();
 		} catch (Exception e) {
-			mListExpDateReport = new ArrayList<ExpenseDateReport>();
+			mListExpDateReport = new ArrayList<DateReport>();
 			Log.e(TAG, "Error Loading new list of Expense Date Reports", e);
 		}
 	}
@@ -65,7 +65,7 @@ public class ExpenseDateReportLab {
 		return mExpDateReportLab;
 	}
 
-	public ArrayList<ExpenseDateReport> getListExpDateReport() {
+	public ArrayList<DateReport> getListExpDateReport() {
 		return mListExpDateReport;
 	}
 	
@@ -75,7 +75,7 @@ public class ExpenseDateReportLab {
 	 */	
 	public boolean saveListExpDateReport() {
 		try {
-			mSerializer.saveListExpDateReports(mListExpDateReport);
+			mSerializer.saveListDateReports(mListExpDateReport);
 			Log.i(TAG, "List saved to file.");
 			return true;
 		} catch (JSONException e) {
@@ -88,25 +88,10 @@ public class ExpenseDateReportLab {
 	}
 	
 	/**
-	 * not used
-	 * Get the specific Expense Date Report from list by id
-	 * @param id
-	 * @return the specific Expense Date Report
-	 */
-	public ExpenseDateReport getExpDateReport(UUID id) {
-		for (ExpenseDateReport item : mListExpDateReport) {
-			if (item.getID().equals(id)) {
-				return item;
-			}
-		}
-		return null;
-	}
-	
-	/**
 	 * add new Expense Date Report to List
 	 * @param newExpDateReport
 	 */
-	public void addExpDateReport(ExpenseDateReport newExpDateReport) {
+	public void addExpDateReport(DateReport newExpDateReport) {
 		mListExpDateReport.add(newExpDateReport);
 	}
 }

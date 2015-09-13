@@ -6,7 +6,7 @@
 package com.pulsardev.homebudgettracker.model;
 
 
-public class ExpenseCategory {
+public class Category {
 	
 	/**
 	 * Properties
@@ -18,7 +18,7 @@ public class ExpenseCategory {
 	/**
 	 * Constructor with no specific ID and Name
 	 */
-	public ExpenseCategory() {
+	public Category() {
 		super();
 		this.amount = 0.0;
 	}

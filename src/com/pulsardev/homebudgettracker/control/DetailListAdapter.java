@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.pulsardev.homebudgettracker.R;
 import com.pulsardev.homebudgettracker.model.DateReport;
-import com.pulsardev.homebudgettracker.model.DetailGroup;
+import com.pulsardev.homebudgettracker.model.MonthlyReport;
 import com.pulsardev.homebudgettracker.util.StaticString;
 
 import android.app.Activity;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 public class DetailListAdapter extends BaseExpandableListAdapter {
 
-	private final ArrayList<DetailGroup> groups;
+	private final ArrayList<MonthlyReport> groups;
 	public LayoutInflater inflater;
 	public Activity activity;
 
@@ -26,7 +26,7 @@ public class DetailListAdapter extends BaseExpandableListAdapter {
 	 * @param groups
 	 * @param activity
 	 */
-	public DetailListAdapter(ArrayList<DetailGroup> groups, Activity activity) {
+	public DetailListAdapter(ArrayList<MonthlyReport> groups, Activity activity) {
 		this.groups = groups;
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
@@ -93,7 +93,7 @@ public class DetailListAdapter extends BaseExpandableListAdapter {
 			convertView = inflater.inflate(R.layout.listrow_group, null);
 		}
 		
-		DetailGroup month = (DetailGroup) getGroup(groupPosition);
+		MonthlyReport month = (MonthlyReport) getGroup(groupPosition);
 		TextView txtMonth = (TextView) convertView.findViewById(R.id.txt_month);
 		TextView txtMonthlyAmount = (TextView) convertView.findViewById(R.id.txt_monthly_amount);
 		txtMonth.setText(month.getMonth());

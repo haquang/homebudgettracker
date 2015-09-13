@@ -8,19 +8,6 @@ package com.pulsardev.homebudgettracker;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
-import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
-import com.pulsardev.homebudgettracker.model.IncomeCategory;
-import com.pulsardev.homebudgettracker.model.IncomeCategoryLab;
-import com.pulsardev.homebudgettracker.model.IncomeDateReport;
-import com.pulsardev.homebudgettracker.model.IncomeDateReportLab;
-import com.pulsardev.homebudgettracker.util.MoneyValueFilter;
-import com.pulsardev.homebudgettracker.util.StaticString;
-import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
-
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.format.DateFormat;
@@ -35,6 +22,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pulsardev.homebudgettracker.model.Category;
+import com.pulsardev.homebudgettracker.model.DateReport;
+import com.pulsardev.homebudgettracker.model.IncomeCategoryLab;
+import com.pulsardev.homebudgettracker.model.IncomeDateReportLab;
+import com.pulsardev.homebudgettracker.util.MoneyValueFilter;
+import com.pulsardev.homebudgettracker.util.StaticString;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
+
 public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	// controls
 	EditText edtAmount, edtDate, edtDescription;
@@ -43,7 +39,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	Spinner spCategory;
 
 	// current Income Category
-	private IncomeCategory defaultCat;
+	private Category defaultCat;
 
 	// date properties of new Date Report
 	private Date newDate;
@@ -214,7 +210,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 			public void onClick(View v) {
 				try {
 					// Save new Date Report
-					IncomeDateReport newDateReport = new IncomeDateReport();
+					DateReport newDateReport = new DateReport();
 
 					// Validate the amount
 					com.pulsardev.homebudgettracker.util.Validator
@@ -235,7 +231,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 							.saveListInDateReport();
 
 					// And update the amount of this category
-					IncomeCategory currentInCategory = IncomeCategoryLab.get(
+					Category currentInCategory = IncomeCategoryLab.get(
 							getActivity()).getInCategory(
 							newDateReport.getCategoryID());
 					currentInCategory.setAmount(currentInCategory.getAmount()

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
+import com.pulsardev.homebudgettracker.model.Category;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
 
 import android.app.Activity;
@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	private FragmentManager mFragmentManager;
 
 	// List of Expense Categories
-	ArrayList<ExpenseCategory> listExpCategories;
+	ArrayList<Category> listExpCategories;
 
 	// key of value that will be passed to ChartActivity
 	public static final String FRAGMENT_DATA_LINE = "Statistic Data Line";
@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
 	public void pieData() {
 		// Dummy data for pie chart
 		for (int i = 0; i < listExpCategories.size(); i++) {
-			ExpenseCategory currentExpCategory = listExpCategories.get(i);
+			Category currentExpCategory = listExpCategories.get(i);
 			statistic_data_pie.put(currentExpCategory.getName(), currentExpCategory.getAmount());
 		}
 	}

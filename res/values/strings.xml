@@ -4,18 +4,21 @@
     <string name="app_name">Home Budget Tracker</string>
     <string name="txt_expense_header">Expense</string>
     <string name="txt_income_header">Income</string>
-    <string name="txt_date">Date</string>
+    <string name="txt_detail_header">Detail</string>
+    
     <string name="txt_OK">OK</string>
     <string name="txt_cancel">Cancel</string>
     <string name="txt_save">Save</string>
 	<string name="desc">Menu Display</string>
+	
     <string name="txt_category">Category</string>
     <string name="txt_amount">Amount (USD)</string>
+    <string name="txt_date">Date</string>
 	<string name="txt_desc">Description</string>
 	
 	<string name="txt_amount_hint">0.00</string>
 	<string name="txt_date_hint">YYYY:MM:DD</string>
-	<string name="txt_desc_hint">Add expense description here</string>
+	<string name="txt_desc_hint">Add description here</string>
 	<string name="toast_amount_null">At least you have to add amount</string>
     
     <string-array name="drawler_items_array">

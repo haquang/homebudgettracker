@@ -22,9 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
+import com.pulsardev.homebudgettracker.model.Category;
+import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 import com.pulsardev.homebudgettracker.util.MoneyValueFilter;
 import com.pulsardev.homebudgettracker.util.StaticString;
@@ -40,7 +40,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	Spinner spCategory;
 
 	// current Exp Category
-	private ExpenseCategory defaultCat;
+	private Category defaultCat;
 
 	// date properties of new Date Report
 	private Date newDate;
@@ -164,7 +164,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 			public void onClick(View v) {
 				try {
 					// Save new Date Report
-					ExpenseDateReport newDateReport = new ExpenseDateReport();
+					DateReport newDateReport = new DateReport();
 
 					// Validate the amount
 					com.pulsardev.homebudgettracker.util.Validator
@@ -185,7 +185,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 							.saveListExpDateReport();
 
 					// And update the amount of this category
-					ExpenseCategory currentExpCategory = ExpenseCategoryLab
+					Category currentExpCategory = ExpenseCategoryLab
 							.get(getActivity()).getExpCategory(
 									newDateReport.getCategoryID());
 					currentExpCategory.setAmount(currentExpCategory.getAmount()

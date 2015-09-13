@@ -15,7 +15,7 @@ public class IncomeCategoryLab {
 	/**
 	 * Properties
 	 */
-	private ArrayList<IncomeCategory> mListInCategories;
+	private ArrayList<Category> mListInCategories;
 	private static final int NUMBER_CATEGORIES = 2;
 	private static final String MONTHLY_INCOME = "Monthly Income";
 	private static final String OTHER_INCOME = "Other Income";
@@ -32,9 +32,9 @@ public class IncomeCategoryLab {
 		mAppContext = appContext;
 		// initial list of Income Categories when loading app for the first time
 		// There are always 2 categories
-		mListInCategories = new ArrayList<IncomeCategory>();
+		mListInCategories = new ArrayList<Category>();
 		for (int i = 0; i < NUMBER_CATEGORIES; i++) {
-			IncomeCategory item = new IncomeCategory();
+			Category item = new Category();
 			item.setID(i);
 			mListInCategories.add(item);
 		}
@@ -45,7 +45,7 @@ public class IncomeCategoryLab {
 	/**
 	 * To create singleton
 	 * @param appContext
-	 * @return singleton of IncomeCategoryLab
+	 * @return singleton of CategoryLab
 	 */
 	public static IncomeCategoryLab get(Context appContext) {
 		if (mInCatLab == null) {
@@ -54,7 +54,7 @@ public class IncomeCategoryLab {
 		return mInCatLab;
 	}
 
-	public ArrayList<IncomeCategory> getListInCategories() {
+	public ArrayList<Category> getListInCategories() {
 		return mListInCategories;
 	}
 	
@@ -63,8 +63,8 @@ public class IncomeCategoryLab {
 	 * @param id
 	 * @return the specific Income Category
 	 */
-	public IncomeCategory getInCategory(int id) {
-		for (IncomeCategory item : mListInCategories) {
+	public Category getInCategory(int id) {
+		for (Category item : mListInCategories) {
 			if (item.getID() == id) {
 				return item;
 			}

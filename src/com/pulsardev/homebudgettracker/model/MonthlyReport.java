@@ -7,25 +7,24 @@
 package com.pulsardev.homebudgettracker.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class DetailGroup {
+public class MonthlyReport {
 	private String month;
 	private double monthlyAmount;
 	// List of Date Report in specific month
-	private ArrayList<ExpenseDateReport> listDateReport = new ArrayList<ExpenseDateReport>();
+	private ArrayList<DateReport> listDateReport = new ArrayList<DateReport>();
 
 	/**
 	 * Constructor with fields
 	 * @param month
 	 * @param monthlyAmount
-	 * @param list
+	 * @param arrayList
 	 */
-	public DetailGroup(String month, double monthlyAmount,
-			ArrayList<ExpenseDateReport> list) {
+	public MonthlyReport(String month, double monthlyAmount,
+			ArrayList<DateReport> arrayList) {
 		this.month = month;
 		this.monthlyAmount = monthlyAmount;
-		this.listDateReport = list;
+		this.listDateReport = arrayList;
 	}
 
 	public String getMonth() {
@@ -44,11 +43,11 @@ public class DetailGroup {
 		this.monthlyAmount = monthlyAmount;
 	}
 
-	public ArrayList<ExpenseDateReport> getListDateReport() {
+	public ArrayList<DateReport> getListDateReport() {
 		return listDateReport;
 	}
 
-	public void setListDateReport(ArrayList<ExpenseDateReport> listDateReport) {
+	public void setListDateReport(ArrayList<DateReport> listDateReport) {
 		this.listDateReport = listDateReport;
 	}
 }

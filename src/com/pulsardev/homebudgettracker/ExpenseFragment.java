@@ -17,9 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
+import com.pulsardev.homebudgettracker.model.DateReport;
+import com.pulsardev.homebudgettracker.model.Category;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 public class ExpenseFragment extends Fragment implements OnClickListener {
@@ -49,9 +49,9 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	private static final String TAG = "ExpenseFragment";
 
 	// List of Expense Categories
-	ArrayList<ExpenseCategory> listExpCategories;
+	ArrayList<Category> listExpCategories;
 	// List of Expense Date Reports
-	ArrayList<ExpenseDateReport> listExpDateReports;
+	ArrayList<DateReport> listExpDateReports;
 	
 	/**
 	 * Functions
@@ -176,7 +176,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 */
 	private void showTotalAmount() {
 		double amount = 0.0;
-		for (ExpenseCategory item : listExpCategories) {
+		for (Category item : listExpCategories) {
 			amount += item.getAmount();
 		}
 		txtTotalAmount.setText(String.valueOf(amount) + " $");
@@ -186,6 +186,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 * @author ngapham
 	 * update 9/8/2015
 	 * update 23/8/2015
+	 * update 13/9/2015
 	 */
 	private void showCatAmount() {
 		txtFoodAmount.setText(listExpCategories.get(0).getAmount() + " $");
@@ -203,7 +204,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 */
 	@Override
 	public void onClick(View v) {
-		ExpenseCategory currentCategory;
+		Category currentCategory;
 		switch (v.getId()) {
 		case R.id.btnImg_Menu:
 			((MainActivity) this.getActivity()).openDrawer();
@@ -267,7 +268,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	private void callDetailActivity(ExpenseCategory currentCategory) {
+	private void callDetailActivity(Category currentCategory) {
 		Intent i = new Intent(this.getActivity(), DetailActivity.class);
 		i.putExtra(INTENT_EXTRA_EXPENSE_DETAIL_CATID, currentCategory.getID());
 		startActivity(i);
@@ -278,7 +279,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		startActivity(i);
 	}
 
-	public void callAddActivity(ExpenseCategory currentCat) {
+	public void callAddActivity(Category currentCat) {
 		Intent i = new Intent(this.getActivity(), AddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_EXPENSE_CATID, currentCat.getID());
 		startActivity(i);

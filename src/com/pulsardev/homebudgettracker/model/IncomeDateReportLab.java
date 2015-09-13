@@ -18,7 +18,7 @@ public class IncomeDateReportLab {
 	 * Properties
 	 */
 	// List of Income Date Reports, which is stored in database
-	private ArrayList<IncomeDateReport> mListInDateReport;
+	private ArrayList<DateReport> mListInDateReport;
 
 	private JSONSerializer mSerializer;
 	// file name in database, which stores List of Income Date Reports
@@ -41,9 +41,9 @@ public class IncomeDateReportLab {
 		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
 		// initial list of Income Date Reports when loading app for the first time
 		try {
-			mListInDateReport = mSerializer.loadListInDateReports();
+			mListInDateReport = mSerializer.loadListDateReports();
 		} catch (Exception e) {
-			mListInDateReport = new ArrayList<IncomeDateReport>();
+			mListInDateReport = new ArrayList<DateReport>();
 			Log.e(TAG, "Error Loading new list of Income Date Reports", e);
 		}
 	}
@@ -60,7 +60,7 @@ public class IncomeDateReportLab {
 		return mInDateReportLab;
 	}
 
-	public ArrayList<IncomeDateReport> getListInDateReport() {
+	public ArrayList<DateReport> getListInDateReport() {
 		return mListInDateReport;
 	}
 	
@@ -70,7 +70,7 @@ public class IncomeDateReportLab {
 	 */	
 	public boolean saveListInDateReport() {
 		try {
-			mSerializer.saveListInDateReports(mListInDateReport);
+			mSerializer.saveListDateReports(mListInDateReport);
 			Log.i(TAG, "List saved to file.");
 			return true;
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class IncomeDateReportLab {
 	 * add new Income Date Report to List
 	 * @param newInDateReport
 	 */
-	public void addInDateReport(IncomeDateReport newInDateReport) {
+	public void addInDateReport(DateReport newInDateReport) {
 		mListInDateReport.add(newInDateReport);
 	}
 }

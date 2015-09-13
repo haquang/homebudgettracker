@@ -13,7 +13,7 @@ import android.content.Context;
 
 public class ExpenseCategoryLab {
 	
-	private ArrayList<ExpenseCategory> mListExpCategories;
+	private ArrayList<Category> mListExpCategories;
 	private static final int NUMBER_CATEGORIES = 6;
 	private static final String CATEGORY_HOUSING = "Housing";
 	private static final String CATEGORY_FOOD = "Food";
@@ -34,9 +34,9 @@ public class ExpenseCategoryLab {
 		mAppContext = appContext;
 		// initial list of Expense Categories when loading app for the first time
 		// There are always 6 categories
-		mListExpCategories = new ArrayList<ExpenseCategory>();
+		mListExpCategories = new ArrayList<Category>();
 		for (int i = 0; i < NUMBER_CATEGORIES; i++) {
-			ExpenseCategory item = new ExpenseCategory();
+			Category item = new Category();
 			item.setID(i);
 			mListExpCategories.add(item);
 		}
@@ -59,7 +59,7 @@ public class ExpenseCategoryLab {
 		return mExpCatLab;
 	}
 	
-	public ArrayList<ExpenseCategory> getListExpCategories() {
+	public ArrayList<Category> getListExpCategories() {
 		return mListExpCategories;
 	}
 	
@@ -68,8 +68,8 @@ public class ExpenseCategoryLab {
 	 * @param id
 	 * @return the specific Expense Category
 	 */
-	public ExpenseCategory getExpCategory(int id) {
-		for (ExpenseCategory item : mListExpCategories) {
+	public Category getExpCategory(int id) {
+		for (Category item : mListExpCategories) {
 			if (item.getID() == id) {
 				return item;
 			}

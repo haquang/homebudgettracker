@@ -3,45 +3,35 @@ package com.pulsardev.homebudgettracker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pulsardev.homebudgettracker.control.DetailListAdapter;
 import com.pulsardev.homebudgettracker.model.DateReport;
-import com.pulsardev.homebudgettracker.model.DetailGroup;
-import com.pulsardev.homebudgettracker.model.ExpenseCategory;
-import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
+import com.pulsardev.homebudgettracker.model.MonthlyReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 import com.pulsardev.homebudgettracker.util.StaticString;
 
 public class ExpenseDetailFragment extends Fragment {
 
 	// controls
-	TextView txtLabel;
+	TextView txtTitle;
 	ExpandableListView listExpenseDetail;
 
 	// current Exp Category
 //	private ExpenseCategory defaultCat;
 
 	// List of Expense Date Reports
-	ArrayList<ExpenseDateReport> listExpDateReports;
-	
-	// Temporary hold the value of each DetailGroup object
-	HashMap<String, List<DateReport>> data;
+	ArrayList<DateReport> listExpDateReports;
 	
 	// Specific Adapter for Expandable ListView
 	DetailListAdapter expDateReportAdapter;
@@ -68,12 +58,18 @@ public class ExpenseDetailFragment extends Fragment {
 	}
 
 	private void initControls(View v) {
+		txtTitle = (TextView) v.findViewById(R.id.txt_header);
 		listExpenseDetail = (ExpandableListView) v.findViewById(R.id.list_detail);
+	}
+	
+	private void setTitleName() {
+		Resources res = getActivity().getResources();
+		txtTitle.setText(res.getString(R.string.txt_expense_header) + " " + res.getString(R.string.txt_detail_header));
 	}
 
 	private void setDataListView() {
 		Intent intent = getActivity().getIntent();
-		ArrayList<DetailGroup> groups = new ArrayList<DetailGroup>();
+		ArrayList<MonthlyReport> groups = new ArrayList<MonthlyReport>();
 		
 		// if show detail of specific category
 		if (intent.hasExtra(ExpenseFragment.INTENT_EXTRA_EXPENSE_DETAIL_CATID)) {
@@ -91,16 +87,16 @@ public class ExpenseDetailFragment extends Fragment {
 		} else { // if show detail of all categories
 			// group Date Reports by month
 			SimpleDateFormat fullMonthFormat = new SimpleDateFormat(StaticString.FULL_MONTH_FORMAT);
-			Map<String, ArrayList<ExpenseDateReport>> map = new HashMap<String, ArrayList<ExpenseDateReport>>();
-			for (ExpenseDateReport item : listExpDateReports) {
+			Map<String, ArrayList<DateReport>> map = new HashMap<String, ArrayList<DateReport>>();
+			for (DateReport item : listExpDateReports) {
 				String fullMonth = fullMonthFormat.format(item.getDate());
 				if (map.get(fullMonth) == null) {
-					map.put(fullMonth, new ArrayList<ExpenseDateReport>());
+					map.put(fullMonth, new ArrayList<DateReport>());
 				}
 				map.get(fullMonth).add(item);
 			}
-			for (Map.Entry<String, ArrayList<ExpenseDateReport>> entry : map.entrySet()) {
-				DetailGroup group = new DetailGroup(entry.getKey(), totalAmount(entry.getValue()), entry.getValue());
+			for (Map.Entry<String, ArrayList<DateReport>> entry : map.entrySet()) {
+				MonthlyReport group = new MonthlyReport(entry.getKey(), totalAmount(entry.getValue()), entry.getValue());
 				groups.add(group);
 			}
 		}
@@ -110,9 +106,9 @@ public class ExpenseDetailFragment extends Fragment {
 		listExpenseDetail.setAdapter(expDateReportAdapter);
 	}
 
-	private double totalAmount(ArrayList<ExpenseDateReport> list) {
+	private double totalAmount(ArrayList<DateReport> list) {
 		double amount = 0.0;
-		for (ExpenseDateReport item : list) {
+		for (DateReport item : list) {
 			amount += item.getAmount();
 		}
 		return amount;

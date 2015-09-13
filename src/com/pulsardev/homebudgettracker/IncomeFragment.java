@@ -17,9 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.pulsardev.homebudgettracker.model.IncomeCategory;
+import com.pulsardev.homebudgettracker.model.Category;
+import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.model.IncomeCategoryLab;
-import com.pulsardev.homebudgettracker.model.IncomeDateReport;
 import com.pulsardev.homebudgettracker.model.IncomeDateReportLab;
 
 public class IncomeFragment extends Fragment implements OnClickListener {
@@ -44,9 +44,9 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	private static final String TAG = "IncomeFragment";
 	
 	// List of Income Categories
-	ArrayList<IncomeCategory> listInCategories;
+	ArrayList<Category> listInCategories;
 	// List of Income Date Reports
-	ArrayList<IncomeDateReport> listInDateReports;
+	ArrayList<DateReport> listInDateReports;
 	
 	/**
 	 * Functions
@@ -90,7 +90,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 
 	private void showTotalAmount() {
 		double amount = 0.0;
-		for (IncomeCategory item : listInCategories) {
+		for (Category item : listInCategories) {
 			amount += item.getAmount();
 		}
 		txtTotalAmount.setText(String.valueOf(amount) + " $");
@@ -137,7 +137,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		IncomeCategory currentCategory;
+		Category currentCategory;
 		switch (v.getId()) {
 		// Click button Menu to show menu
 		case R.id.btnImg_Menu:
@@ -172,7 +172,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	private void callAddActivity(IncomeCategory currentCat) {
+	private void callAddActivity(Category currentCat) {
 		Intent i = new Intent(this.getActivity(), AddActivity.class);
 		i.putExtra(INTENT_EXTRA_ADD_INCOME_CATID, currentCat.getID());
 		startActivity(i);
@@ -183,7 +183,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		
 	}
 
-	private void callDetailActivity(IncomeCategory currentCategory) {
+	private void callDetailActivity(Category currentCategory) {
 		// TODO Auto-generated method stub
 		
 	}

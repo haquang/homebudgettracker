@@ -20,10 +20,8 @@ import org.json.JSONException;
 import org.json.JSONTokener;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.pulsardev.homebudgettracker.model.ExpenseDateReport;
-import com.pulsardev.homebudgettracker.model.IncomeDateReport;
+import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.util.StaticString;
 
 public class JSONSerializer {
@@ -47,11 +45,11 @@ public class JSONSerializer {
 	 * @throws JSONException
 	 * @throws IOException
 	 */	
-	public void saveListExpDateReports(ArrayList<ExpenseDateReport> listDateReport) throws JSONException, IOException {
+	public void saveListDateReports(ArrayList<DateReport> listDateReport) throws JSONException, IOException {
 
 		// Build an array in JSON
 		JSONArray array = new JSONArray();
-		for (ExpenseDateReport item : listDateReport) {
+		for (DateReport item : listDateReport) {
 			array.put(item.toJSON());
 		}
 		// Write the new JSON Object to disk
@@ -73,8 +71,8 @@ public class JSONSerializer {
 	 * @throws IOException
 	 * @throws JSONException
 	 */
-	public ArrayList<ExpenseDateReport> loadListExpDateReports() throws IOException, JSONException {
-		ArrayList<ExpenseDateReport> list = new ArrayList<ExpenseDateReport>();
+	public ArrayList<DateReport> loadListDateReports() throws IOException, JSONException {
+		ArrayList<DateReport> list = new ArrayList<DateReport>();
 		BufferedReader reader = null;
 
 		try {
@@ -92,8 +90,7 @@ public class JSONSerializer {
 			JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 			// Build the array of Exp Date Reports from JSONObjects
 			for (int i = 0; i < array.length(); i++) {
-				list.add(new ExpenseDateReport(array.getJSONObject(i)));
-				Log.i(TAG, list.get(i).toString());
+				list.add(new DateReport(array.getJSONObject(i)));
 			}
 		} finally {
 			if (reader != null) {
@@ -109,22 +106,22 @@ public class JSONSerializer {
 	 * @param categoryId
 	 * @return
 	 */
-	public ArrayList<ExpenseDateReport> loadListExpDateReportByCatId(ArrayList<ExpenseDateReport> fullList, int categoryId) {
-		ArrayList<ExpenseDateReport> list = new ArrayList<ExpenseDateReport>();
-		for (ExpenseDateReport item : fullList) {
+	public ArrayList<DateReport> loadListExpDateReportByCatId(ArrayList<DateReport> fullList, int categoryId) {
+		ArrayList<DateReport> list = new ArrayList<DateReport>();
+		for (DateReport item : fullList) {
 			if (item.getCategoryID() == categoryId) {
 				list.add(item);
 			}
 		}
 		return list;
 	}
-	
-	/**
+	/*
+	*//**
 	 * Save List of Income Date Reports as JSON objects into JSON file
 	 * @param listDateReport
 	 * @throws JSONException
 	 * @throws IOException
-	 */	
+	 *//*	
 	public void saveListInDateReports(ArrayList<IncomeDateReport> listDateReport) throws JSONException, IOException {
 		// Build an array in JSON
 		JSONArray array = new JSONArray();
@@ -144,12 +141,12 @@ public class JSONSerializer {
 		}
 	}
 	
-	/**
+	*//**
 	 * Load list of Income Date Reports from JSON file
 	 * @return list of Income Date Report objects
 	 * @throws IOException
 	 * @throws JSONException
-	 */
+	 *//*
 	public ArrayList<IncomeDateReport> loadListInDateReports() throws IOException, JSONException {
 		ArrayList<IncomeDateReport> list = new ArrayList<IncomeDateReport>();
 		BufferedReader reader = null;
@@ -170,7 +167,6 @@ public class JSONSerializer {
 			// Build the array of Exp Date Reports from JSONObjects
 			for (int i = 0; i < array.length(); i++) {
 				list.add(new IncomeDateReport(array.getJSONObject(i)));
-				Log.i(TAG, list.get(i).toString());
 			}
 		} finally {
 			if (reader != null) {
@@ -178,5 +174,5 @@ public class JSONSerializer {
 			}
 		}
 		return list;
-	}
+	}*/
 }
