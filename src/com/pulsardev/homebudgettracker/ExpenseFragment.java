@@ -179,7 +179,7 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		for (ExpenseCategory item : listExpCategories) {
 			amount += item.getAmount();
 		}
-		txtTotalAmount.setText(String.valueOf(amount) + " USD");
+		txtTotalAmount.setText(String.valueOf(amount) + " $");
 	}
 
 	/**
@@ -188,12 +188,12 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 	 * update 23/8/2015
 	 */
 	private void showCatAmount() {
-		txtFoodAmount.setText(listExpCategories.get(0).getAmount() + " USD");
-		txtTransportAmount.setText(listExpCategories.get(1).getAmount() + " USD");
-		txtHousingAmount.setText(listExpCategories.get(2).getAmount() + " USD");
-		txtMedicalAmount.setText(listExpCategories.get(3).getAmount() + " USD");
-		txtEntertainmentAmount.setText(listExpCategories.get(4).getAmount() + " USD");
-		txtOtherAmount.setText(listExpCategories.get(5).getAmount() + " USD");
+		txtFoodAmount.setText(listExpCategories.get(0).getAmount() + " $");
+		txtTransportAmount.setText(listExpCategories.get(1).getAmount() + " $");
+		txtHousingAmount.setText(listExpCategories.get(2).getAmount() + " $");
+		txtMedicalAmount.setText(listExpCategories.get(3).getAmount() + " $");
+		txtEntertainmentAmount.setText(listExpCategories.get(4).getAmount() + " $");
+		txtOtherAmount.setText(listExpCategories.get(5).getAmount() + " $");
 		
 	}
 	

@@ -93,12 +93,12 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		for (IncomeCategory item : listInCategories) {
 			amount += item.getAmount();
 		}
-		txtTotalAmount.setText(String.valueOf(amount) + " USD");
+		txtTotalAmount.setText(String.valueOf(amount) + " $");
 	}
 
 	private void showCatAmount() {
-		txtMonthlyAmount.setText(listInCategories.get(0).getAmount() + " USD");
-		txtOtherAmount.setText(listInCategories.get(1).getAmount() + " USD");
+		txtMonthlyAmount.setText(listInCategories.get(0).getAmount() + " $");
+		txtOtherAmount.setText(listInCategories.get(1).getAmount() + " $");
 	}
 
 	private void initControls(View v) {
