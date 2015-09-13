@@ -126,7 +126,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 							public void onSelectDate(Date date, View view) {
 								newDate = date;
 								String dateFormat = String.valueOf(DateFormat
-										.format(new StaticString().DATE_FORMAT,
+										.format(StaticString.DATE_FORMAT,
 												date));
 								edtDate.setText(dateFormat);
 								dialogCaldroidFragment.dismiss();
@@ -254,7 +254,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		// set default date
 		newDate = new Date(java.lang.System.currentTimeMillis());
 		String dateFormat = String.valueOf(DateFormat.format(
-				new StaticString().DATE_FORMAT, newDate));
+				StaticString.DATE_FORMAT, newDate));
 		edtDate.setText(dateFormat);
 	}
 
