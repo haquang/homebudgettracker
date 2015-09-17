@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.pulsardev.homebudgettracker.control.DetailListAdapter;
@@ -30,6 +31,8 @@ public class IncomeDetailFragment extends Fragment {
 	 */
 	// controls
 	TextView txtTitle;
+	ImageButton btnMenu;
+
 	ExpandableListView listViewIncomeDetail;
 
 	// List of Expense Date Reports
@@ -53,6 +56,7 @@ public class IncomeDetailFragment extends Fragment {
 				false);
 
 		initControls(rootView);
+		setNavMenu();
 		setTitleName();
 		setDataListView();
 
@@ -61,8 +65,19 @@ public class IncomeDetailFragment extends Fragment {
 
 	private void initControls(View v) {
 		txtTitle = (TextView) v.findViewById(R.id.txt_header);
+		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 		listViewIncomeDetail = (ExpandableListView) v
 				.findViewById(R.id.list_detail);
+	}
+
+	private void setNavMenu() {
+		btnMenu.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				((DetailActivity) getActivity()).openDrawer();
+			}
+		});
 	}
 
 	private void setTitleName() {
@@ -101,7 +116,7 @@ public class IncomeDetailFragment extends Fragment {
 		inDateReportAdapter = new DetailListAdapter(groups, this.getActivity());
 		listViewIncomeDetail.setAdapter(inDateReportAdapter);
 	}
-	
+
 	/**
 	 * group Date Reports by month
 	 * @param listDateReport

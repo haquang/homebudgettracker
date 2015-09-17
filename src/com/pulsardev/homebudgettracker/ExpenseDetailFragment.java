@@ -9,19 +9,19 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.pulsardev.homebudgettracker.control.DetailListAdapter;
 import com.pulsardev.homebudgettracker.model.Category;
 import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
-import com.pulsardev.homebudgettracker.model.MonthlyReport;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
+import com.pulsardev.homebudgettracker.model.MonthlyReport;
 import com.pulsardev.homebudgettracker.util.StaticString;
 
 public class ExpenseDetailFragment extends Fragment {
@@ -31,6 +31,8 @@ public class ExpenseDetailFragment extends Fragment {
 	 */
 	// controls
 	TextView txtTitle;
+	ImageButton btnMenu;
+	
 	ExpandableListView listViewExpenseDetail;
 
 	// List of Expense Date Reports
@@ -54,6 +56,7 @@ public class ExpenseDetailFragment extends Fragment {
 				false);
 
 		initControls(rootView);
+		setNavMenu();
 		setTitleName();
 		setDataListView();
 
@@ -62,8 +65,19 @@ public class ExpenseDetailFragment extends Fragment {
 
 	private void initControls(View v) {
 		txtTitle = (TextView) v.findViewById(R.id.txt_header);
+		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 		listViewExpenseDetail = (ExpandableListView) v
 				.findViewById(R.id.list_detail);
+	}
+
+	private void setNavMenu() {
+		btnMenu.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				((DetailActivity) getActivity()).openDrawer();
+			}
+		});
 	}
 
 	private void setTitleName() {

@@ -12,16 +12,23 @@ import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StatisticPieChartFragment extends Fragment {
+	// menu
+	TextView txtTitle;
+	ImageButton btnMenu;
+
 	/** The main dataset that includes all the series that go into a chart. */
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	/** Colors to be used for the pie slices. */
@@ -42,10 +49,28 @@ public class StatisticPieChartFragment extends Fragment {
 				container, false);
 
 		initControls(rootView);
+		setNavMenu();
+		setTitleName();
 		createChart();
 
 		return rootView;
 	}
+
+	private void setNavMenu() {
+		btnMenu.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				((MainActivity) getActivity()).openDrawer();
+			}
+		});
+	}
+
+	private void setTitleName() {
+		Resources res = getActivity().getResources();
+		txtTitle.setText(res.getString(R.string.txt_distribution_header));
+	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -66,6 +91,7 @@ public class StatisticPieChartFragment extends Fragment {
 			mChartView.repaint();
 		}
 	}
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
@@ -73,11 +99,15 @@ public class StatisticPieChartFragment extends Fragment {
 		outState.putSerializable("current_series", mSeries);
 		outState.putSerializable("current_renderer", mRenderer);
 	}
+
 	private void initControls(View v) {
+		txtTitle = (TextView) v.findViewById(R.id.txt_header);
+		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
+		
 		linearLayout = (LinearLayout) v.findViewById(R.id.piechart);
-//		data = (HashMap<String, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_PIE);
 		data = (HashMap<String, Double>) getArguments().getSerializable(MainActivity.FRAGMENT_DATA_PIE);
 	}
+
 	private void createChart() {
 		mRenderer.setZoomButtonsVisible(false);
 		mRenderer.setPanEnabled(false);

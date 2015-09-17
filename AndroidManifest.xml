@@ -26,19 +26,17 @@
             </intent-filter>
         </activity>
 
-        <!-- Expense Add Activity -->
+        <!-- Add Activity -->
         <activity
             android:name=".AddActivity"
             android:label="Add Expense" >
         </activity>
         
-        <!-- Expense Detail Activity -->
+        <!-- Detail Activity -->
         <activity android:name=".DetailActivity"></activity>
         
-        <!-- Chart Activity -->
-        <activity android:name=".StatisticLineChartActivity" >
-        </activity>
-        <activity android:name=".StatisticPieChartActivity" >
+        <!-- Base Navigation Drawer Activity -->
+        <activity android:name=".NavDrawerActivity" >
         </activity>
     </application>
 

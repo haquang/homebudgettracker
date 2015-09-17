@@ -13,15 +13,22 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class StatisticLineChartFragment extends Fragment {
+	
+	// menu
+	TextView txtTitle;
+	ImageButton btnMenu;
 
 	/** The main dataset that includes all the series that go into a chart. */
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
@@ -43,10 +50,28 @@ public class StatisticLineChartFragment extends Fragment {
 				container, false);
 
 		initControls(rootView);
+		setNavMenu();
+		setTitleName();
 		createChart();
 
 		return rootView;
 	}
+
+	private void setNavMenu() {
+		btnMenu.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				((MainActivity) getActivity()).openDrawer();
+			}
+		});
+	}
+	
+	private void setTitleName() {
+		Resources res = getActivity().getResources();
+		txtTitle.setText(res.getString(R.string.txt_report_header));
+	}
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -74,8 +99,10 @@ public class StatisticLineChartFragment extends Fragment {
 	}
 
 	private void initControls(View v) {
+		txtTitle = (TextView) v.findViewById(R.id.txt_header);
+		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
+		
 		linearLayout = (LinearLayout) v.findViewById(R.id.linechart);
-//		data = (HashMap<Double, Double>) getActivity().getIntent().getSerializableExtra(ExpenseFragment.INTENT_EXTRA_DATA_LINE);
 		data = (HashMap<Double, Double>) getArguments().getSerializable(MainActivity.FRAGMENT_DATA_LINE);
 
 	}
