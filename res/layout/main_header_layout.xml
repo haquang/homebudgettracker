@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="@dimen/height"
     android:layout_alignParentTop="true"
-    android:background="@color/green" >
+    android:background="@color/jade" >
 
     <LinearLayout
         android:id="@+id/line"
@@ -24,7 +24,7 @@
             android:layout_width="@dimen/width"
             android:layout_height="fill_parent"
             android:contentDescription="@string/desc"
-            android:background="@drawable/ui_button_green"
+            android:background="@color/jade"
             android:src="@drawable/ico_list" />
 
         <LinearLayout
@@ -54,7 +54,7 @@
             android:id="@+id/btnImg_Setting"
             android:layout_width="@dimen/width"
             android:layout_height="fill_parent"
-            android:background="@drawable/ui_button_green"
+            android:background="@color/jade"
             android:contentDescription="@string/desc"
             android:src="@drawable/ico_settings" />
     </LinearLayout>

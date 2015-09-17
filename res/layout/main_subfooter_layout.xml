@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="@dimen/height"
     android:layout_alignParentBottom="true"
-    android:background="@color/green">
+    android:background="@color/jade">
 
     <LinearLayout
         android:id="@+id/line"
@@ -24,7 +24,7 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/green"
+            android:background="@color/jade"
             android:gravity="center"
             android:tag="bold"
             android:text="@string/txt_cancel"
@@ -42,7 +42,7 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/green"
+            android:background="@color/jade"
             android:gravity="center"
             android:tag="bold"
             android:text="@string/txt_save"

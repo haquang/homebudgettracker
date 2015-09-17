@@ -3,14 +3,14 @@
    <item 
     	android:state_pressed="true" 
     	android:state_enabled="true"
-        android:drawable="@color/dark_green" />
+        android:drawable="@color/free_speech_aquamarine" />
     <item 
     	android:state_focused="true" 
     	android:state_enabled="true"
-        android:drawable="@color/dark_green" />
+        android:drawable="@color/free_speech_aquamarine" />
     <item 
     	android:state_enabled="true"
-        android:drawable="@color/green" />
+        android:drawable="@color/jade" />
     <item 
     	android:state_enabled="false"
         android:drawable="@color/gray_79" />

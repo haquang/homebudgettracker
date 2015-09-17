@@ -17,6 +17,8 @@
     <!-- Green Colors -->
     <color name="green">#1f7f5c</color>
     <color name="dark_green">#19664a</color>
+    <color name="jade">#00b16a</color>
+    <color name="free_speech_aquamarine">#03a678</color>
     <!-- Red Colors -->
     <color name="red">#e56c69</color>
     <color name="dark_red">#b75654</color>
@@ -26,6 +28,8 @@
     <!-- Blue Colors -->
     <color name="blue">#5a9aa8</color>
     <color name="dark_blue">#487b86</color>
+    <color name="light_blue_600">#039be5</color>
+    <color name="blue_500">#2196f3</color>
     <!-- Purple Colors -->
     <color name="purple">#6a5a8c</color>
     <color name="dark_purple">#554870</color>
