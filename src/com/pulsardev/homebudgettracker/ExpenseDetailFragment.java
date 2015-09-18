@@ -32,7 +32,7 @@ public class ExpenseDetailFragment extends Fragment {
 	// controls
 	TextView txtTitle;
 	ImageButton btnMenu;
-	
+
 	ExpandableListView listViewExpenseDetail;
 
 	// List of Expense Date Reports
@@ -45,7 +45,8 @@ public class ExpenseDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// load List of Expense Date Report, which is singleton
-		listExpDateReports = ExpenseDateReportLab.get(this.getActivity())
+		listExpDateReports = ExpenseDateReportLab.get(
+				this.getActivity().getApplicationContext())
 				.getListExpDateReport();
 	}
 
@@ -72,10 +73,10 @@ public class ExpenseDetailFragment extends Fragment {
 
 	private void setNavMenu() {
 		btnMenu.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				((DetailActivity) getActivity()).openDrawer();
+				((NavDrawerActivity) getActivity()).openDrawer();
 			}
 		});
 	}
@@ -95,8 +96,9 @@ public class ExpenseDetailFragment extends Fragment {
 			int default_cat_id = (Integer) getActivity().getIntent()
 					.getSerializableExtra(
 							ExpenseFragment.INTENT_EXTRA_EXPENSE_DETAIL_CATID);
-			Category defaultCat = ExpenseCategoryLab.get(getActivity())
-					.getExpCategory(default_cat_id);
+			Category defaultCat = ExpenseCategoryLab.get(
+					getActivity().getApplicationContext()).getExpCategory(
+					default_cat_id);
 			ArrayList<DateReport> listByCat = new ArrayList<DateReport>();
 			for (DateReport item : listExpDateReports) {
 				if (item.getCategoryID() == default_cat_id) {

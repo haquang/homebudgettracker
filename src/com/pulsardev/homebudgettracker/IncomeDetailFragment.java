@@ -45,7 +45,8 @@ public class IncomeDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// load List of Expense Date Report, which is singleton
-		listInDateReports = IncomeDateReportLab.get(this.getActivity())
+		listInDateReports = IncomeDateReportLab.get(
+				this.getActivity().getApplicationContext())
 				.getListInDateReport();
 	}
 
@@ -75,7 +76,7 @@ public class IncomeDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				((DetailActivity) getActivity()).openDrawer();
+				((NavDrawerActivity) getActivity()).openDrawer();
 			}
 		});
 	}
@@ -95,7 +96,7 @@ public class IncomeDetailFragment extends Fragment {
 			int default_cat_id = (Integer) getActivity().getIntent()
 					.getSerializableExtra(
 							IncomeFragment.INTENT_EXTRA_INCOME_DETAIL_CATID);
-			Category defaultCat = IncomeCategoryLab.get(getActivity())
+			Category defaultCat = IncomeCategoryLab.get(getActivity().getApplicationContext())
 					.getInCategory(default_cat_id);
 			ArrayList<DateReport> listByCat = new ArrayList<DateReport>();
 			for (DateReport item : listInDateReports) {
@@ -119,12 +120,15 @@ public class IncomeDetailFragment extends Fragment {
 
 	/**
 	 * group Date Reports by month
+	 * 
 	 * @param listDateReport
 	 * @return
 	 */
-	private ArrayList<MonthlyReport> monthlyReport(ArrayList<DateReport> listDateReport) {
+	private ArrayList<MonthlyReport> monthlyReport(
+			ArrayList<DateReport> listDateReport) {
 		ArrayList<MonthlyReport> groups = new ArrayList<MonthlyReport>();
-		SimpleDateFormat fullMonthFormat = new SimpleDateFormat(StaticString.FULL_MONTH_FORMAT);
+		SimpleDateFormat fullMonthFormat = new SimpleDateFormat(
+				StaticString.FULL_MONTH_FORMAT);
 		Map<String, ArrayList<DateReport>> map = new HashMap<String, ArrayList<DateReport>>();
 		for (DateReport item : listDateReport) {
 			String fullMonth = fullMonthFormat.format(item.getDate());
@@ -134,7 +138,8 @@ public class IncomeDetailFragment extends Fragment {
 			map.get(fullMonth).add(item);
 		}
 		for (Map.Entry<String, ArrayList<DateReport>> entry : map.entrySet()) {
-			MonthlyReport group = new MonthlyReport(entry.getKey(), totalAmount(entry.getValue()), entry.getValue());
+			MonthlyReport group = new MonthlyReport(entry.getKey(),
+					totalAmount(entry.getValue()), entry.getValue());
 			groups.add(group);
 		}
 		return groups;

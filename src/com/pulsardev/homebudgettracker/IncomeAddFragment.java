@@ -53,8 +53,8 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_add,
-				container, false);
+		View rootView = inflater.inflate(R.layout.fragment_add, container,
+				false);
 
 		initControls(rootView);
 		handleSpinnerChanged();
@@ -98,7 +98,8 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 		int defaultCatId = (Integer) getActivity().getIntent()
 				.getSerializableExtra(
 						IncomeFragment.INTENT_EXTRA_ADD_INCOME_CATID);
-		defaultCat = IncomeCategoryLab.get(getActivity()).getInCategory(
+		defaultCat = IncomeCategoryLab.get(
+				getActivity().getApplicationContext()).getInCategory(
 				defaultCatId);
 		txtCategory.setText(getResources()
 				.getString(R.string.txt_income_header)
@@ -187,8 +188,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 							public void onSelectDate(Date date, View view) {
 								newDate = date;
 								String dateFormat = String.valueOf(DateFormat
-										.format(StaticString.DATE_FORMAT,
-												date));
+										.format(StaticString.DATE_FORMAT, date));
 								edtDate.setText(dateFormat);
 								dialogCaldroidFragment.dismiss();
 							}
@@ -225,15 +225,17 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 					newDateReport.setDescription(String.valueOf(edtDescription
 							.getText()));
 
-					IncomeDateReportLab.get(getActivity()).addInDateReport(
-							newDateReport);
-					IncomeDateReportLab.get(getActivity())
+					IncomeDateReportLab.get(
+							getActivity().getApplicationContext())
+							.addInDateReport(newDateReport);
+					IncomeDateReportLab.get(
+							getActivity().getApplicationContext())
 							.saveListInDateReport();
 
 					// And update the amount of this category
 					Category currentInCategory = IncomeCategoryLab.get(
-							getActivity()).getInCategory(
-							newDateReport.getCategoryID());
+							getActivity().getApplicationContext())
+							.getInCategory(newDateReport.getCategoryID());
 					currentInCategory.setAmount(currentInCategory.getAmount()
 							+ newDateReport.getAmount());
 

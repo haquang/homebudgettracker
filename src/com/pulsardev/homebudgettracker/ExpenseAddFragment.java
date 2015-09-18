@@ -28,6 +28,7 @@ import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
 import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 import com.pulsardev.homebudgettracker.util.MoneyValueFilter;
 import com.pulsardev.homebudgettracker.util.StaticString;
+import com.pulsardev.homebudgettracker.util.Validator;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -54,8 +55,8 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_add,
-				container, false);
+		View rootView = inflater.inflate(R.layout.fragment_add, container,
+				false);
 
 		initControls(rootView);
 		handleSpinnerChanged();
@@ -126,8 +127,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 							public void onSelectDate(Date date, View view) {
 								newDate = date;
 								String dateFormat = String.valueOf(DateFormat
-										.format(StaticString.DATE_FORMAT,
-												date));
+										.format(StaticString.DATE_FORMAT, date));
 								edtDate.setText(dateFormat);
 								dialogCaldroidFragment.dismiss();
 							}
@@ -167,9 +167,8 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 					DateReport newDateReport = new DateReport();
 
 					// Validate the amount
-					com.pulsardev.homebudgettracker.util.Validator
-							.validateNullAmount(String.valueOf(edtAmount
-									.getText()));
+					Validator.validateNullAmount(String.valueOf(edtAmount
+							.getText()));
 
 					newDateReport.setAmount(Double.valueOf(String
 							.valueOf(edtAmount.getText())));
@@ -179,15 +178,17 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 					newDateReport.setDescription(String.valueOf(edtDescription
 							.getText()));
 
-					ExpenseDateReportLab.get(getActivity()).addExpDateReport(
-							newDateReport);
-					ExpenseDateReportLab.get(getActivity())
+					ExpenseDateReportLab.get(
+							getActivity().getApplicationContext())
+							.addExpDateReport(newDateReport);
+					ExpenseDateReportLab.get(
+							getActivity().getApplicationContext())
 							.saveListExpDateReport();
 
 					// And update the amount of this category
-					Category currentExpCategory = ExpenseCategoryLab
-							.get(getActivity()).getExpCategory(
-									newDateReport.getCategoryID());
+					Category currentExpCategory = ExpenseCategoryLab.get(
+							getActivity().getApplicationContext())
+							.getExpCategory(newDateReport.getCategoryID());
 					currentExpCategory.setAmount(currentExpCategory.getAmount()
 							+ newDateReport.getAmount());
 
@@ -237,7 +238,8 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		int defaultCatId = (Integer) getActivity().getIntent()
 				.getSerializableExtra(
 						ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
-		defaultCat = ExpenseCategoryLab.get(getActivity()).getExpCategory(
+		defaultCat = ExpenseCategoryLab.get(
+				getActivity().getApplicationContext()).getExpCategory(
 				defaultCatId);
 		txtCategory.setText(getResources().getString(
 				R.string.txt_expense_header)

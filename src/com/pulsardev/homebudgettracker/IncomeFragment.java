@@ -58,10 +58,10 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		
 		// Load list of Income Categories, which is singleton
-		listInCategories = IncomeCategoryLab.get(getActivity())
+		listInCategories = IncomeCategoryLab.get(getActivity().getApplicationContext())
 				.getListInCategories();
 		// Load list of Income Date Reports, which is singleton
-		listInDateReports = IncomeDateReportLab.get(getActivity())
+		listInDateReports = IncomeDateReportLab.get(getActivity().getApplicationContext())
 				.getListInDateReport();
 	}
 
@@ -143,7 +143,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 		switch (v.getId()) {
 		// Click button Menu to show menu
 		case R.id.btnImg_Menu:
-			((MainActivity) this.getActivity()).openDrawer();
+			((NavDrawerActivity) this.getActivity()).openDrawer();
 			break;
 			
 		// Click button Add to add new Income Date Report
