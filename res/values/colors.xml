@@ -5,6 +5,8 @@
     <color name="white">#ffffff</color>
     <color name="offwhite">#ece8e1</color>
     <color name="black">#000000</color>
+    <color name="black_special">#252525</color>
+    
     <!-- Gray Colors: extension gray_XXX stand for rgb value 
     because in gray all of them are equal --> 
     <color name="gray_215">#d7d4cc</color>   
@@ -14,29 +16,42 @@
     <color name="gray_46">#2e2e2e</color>
     <color name="gray_35">#232323</color>
     <color name="gray_boder">#B1BCBE</color>
+    
     <!-- Green Colors -->
     <color name="green">#1f7f5c</color>
     <color name="dark_green">#19664a</color>
     <color name="jade">#00b16a</color>
     <color name="free_speech_aquamarine">#03a678</color>
+    
     <!-- Red Colors -->
     <color name="red">#e56c69</color>
     <color name="dark_red">#b75654</color>
+    
     <!-- Yellow Colors -->
     <color name="yellow">#dba571</color>
     <color name="dark_yellow">#af845a</color>
+    
     <!-- Blue Colors -->
     <color name="blue">#5a9aa8</color>
     <color name="dark_blue">#487b86</color>
     <color name="light_blue_600">#039be5</color>
     <color name="blue_500">#2196f3</color>
+    
     <!-- Purple Colors -->
     <color name="purple">#6a5a8c</color>
     <color name="dark_purple">#554870</color>
+    
     <!-- Lilac Colors -->
     <color name="lilac">#8c5d79</color>
     <color name="dark_lilac">#704a61</color>
+    
      <!-- Orange Colors -->
     <color name="orange">#de8650</color>
-    <color name="dark_orange">#c0774b</color>    
+    <color name="dark_orange">#c0774b</color>
+    <color name="orange_special">#ff7521</color>
+    <color name="california">#f89406</color>
+    <color name="tahiti_gold">#e87e04</color>
+    <color name="burnt_orange">#d35400</color>
+    <color name="ecstasy">#f9690e</color>
+    <color name="jaffa">#f27935</color>
 </resources>

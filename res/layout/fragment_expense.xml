@@ -43,7 +43,7 @@
 
                     <include
                         android:id="@+id/main_lefttop"
-                        layout="@layout/main_lefttop_layout" />
+                        layout="@layout/expense_lefttop_layout" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -54,7 +54,7 @@
 
                     <include
                         android:id="@+id/main_righttop"
-                        layout="@layout/main_righttop_layout" />
+                        layout="@layout/expense_righttop_layout" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -71,7 +71,7 @@
 
                     <include
                         android:id="@+id/main_leftmiddle"
-                        layout="@layout/main_leftmiddle_layout" />
+                        layout="@layout/expense_leftmiddle_layout" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,7 +82,7 @@
 
                     <include
                         android:id="@+id/main_rightmidle"
-                        layout="@layout/main_rightmiddle_layout" />
+                        layout="@layout/expense_rightmiddle_layout" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -99,7 +99,7 @@
 
                     <include
                         android:id="@+id/main_leftbottom"
-                        layout="@layout/main_leftbottom_layout" />
+                        layout="@layout/expense_leftbottom_layout" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,7 +110,7 @@
 
                     <include
                         android:id="@+id/main_rightbottom"
-                        layout="@layout/main_rightbottom_layout" />
+                        layout="@layout/expense_rightbottom_layout" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

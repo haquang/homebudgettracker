@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="@dimen/height"
+    android:layout_height="?android:attr/actionBarSize"
     android:layout_alignParentTop="true"
     android:background="@color/jade" >
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/line"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/divider_size"
         android:layout_alignParentBottom="true"
         android:background="@color/gray_boder" >
-    </LinearLayout>
+    </LinearLayout> -->
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/line" >
+        android:layout_height="fill_parent" >
 
         <ImageButton
             android:id="@+id/btnImg_Menu"
@@ -27,11 +26,11 @@
             android:background="@color/jade"
             android:src="@drawable/ico_list" />
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:layout_width="@dimen/divider_size"
             android:layout_height="fill_parent"
             android:background="@color/gray_boder" >
-        </LinearLayout>
+        </LinearLayout> -->
 
         <TextView
             android:id="@+id/txt_header"
@@ -44,11 +43,11 @@
             android:textColor="@color/white"
             android:textSize="@dimen/tex_size_xxlarge" />
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:layout_width="@dimen/divider_size"
             android:layout_height="fill_parent"
             android:background="@color/gray_boder" >
-        </LinearLayout>
+        </LinearLayout> -->
 
         <ImageButton
             android:id="@+id/btnImg_Setting"

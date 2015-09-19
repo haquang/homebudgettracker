@@ -42,7 +42,7 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/jade"
+            android:background="@drawable/ui_button_green"
             android:gravity="center"
             android:tag="bold"
             android:text="@string/txt_save"

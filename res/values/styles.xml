@@ -12,9 +12,8 @@
         -->
     </style>
     <!-- +++++++++++++++++++++ Base Styles +++++++++++++++++++++ -->
-
-
-    <!-- ListView style -->
+    <!--
+    ListView style
     <style name="CustomListView">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
@@ -23,14 +22,14 @@
         <item name="android:dividerHeight">@dimen/divider_size</item>
     </style>
 
-    <!-- Button style -->
+    Button style
     <style name="CustomButton" parent="@android:style/Widget.Button">
         <item name="android:textSize">@dimen/tex_size_large</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@drawable/ui_text_selector</item>
     </style>
 
-    <!-- EditText style -->
+    EditText style
     <style name="CustomEditText" parent="@android:style/Widget.EditText">
         <item name="android:background">@color/white</item>
         <item name="android:textSize">@dimen/tex_size_xlarge</item>
@@ -38,71 +37,73 @@
         <item name="android:padding">@dimen/dim_10</item>
     </style>
 
-    <!-- CheckBox style -->
+    CheckBox style
     <style name="CustomCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:textSize">@dimen/tex_size_large</item>
         <item name="android:textColor">@color/gray_35</item>
     </style>
 
-    <!-- RadioButton style -->
+    RadioButton style
     <style name="CustomRadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:textSize">@dimen/tex_size_large</item>
         <item name="android:textColor">@color/gray_35</item>
     </style>
 
-    <!-- ProgressBar style -->
+    ProgressBar style
     <style name="CustomProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:layout_height">@dimen/progressbar_height</item>
         <item name="android:minHeight">@dimen/progressbar_height</item>
     </style>
 
-    <!-- SeekBar style -->
+    SeekBar style
     <style name="CustomSeekBar" parent="@android:style/Widget.SeekBar">
         <item name="android:maxHeight">@dimen/seekbar_height</item>
         <item name="android:minHeight">@dimen/seekbar_height</item>
     </style>
 
-    <!-- +++++++++++++++++++++ End of Base Styles +++++++++++++++++++++ -->
+    +++++++++++++++++++++ End of Base Styles +++++++++++++++++++++
     
     
-    <!-- +++++++++++++++++++++ Green Styles +++++++++++++++++++++ -->
-    <!-- Green button Style -->
+    +++++++++++++++++++++ Green Styles +++++++++++++++++++++
+    Green button Style
     <style name="Button_Green" parent="CustomButton">
         <item name="android:background">@drawable/ui_button_green</item>
     </style>
 
-    <!-- Green EditText style -->
+    Green EditText style
     <style name="EditText_Green" parent="CustomEditText">
         <item name="android:background">@drawable/ui_border_green</item>
         <item name="android:textColor">@drawable/ui_text_selector_green</item>
     </style>
 
-    <!-- Green CheckBox style -->
+    Green CheckBox style
     <style name="CheckBox_Green" parent="CustomCheckBox">
         <item name="android:button">@drawable/ui_checkbox_green</item>
     </style>
 
-    <!-- Green RadioButton style -->
+    Green RadioButton style
     <style name="RadioButton_Green" parent="CustomRadioButton">
         <item name="android:button">@drawable/ui_radio_green</item>
     </style>
 
-    <!-- Green ProgressBar style -->
+    Green ProgressBar style
     <style name="ProgressBar_Green" parent="CustomProgressBar">
         <item name="android:progressDrawable">@drawable/ui_progress_green</item>
     </style>
 
-    <!-- Green SeekBar style -->
+    Green SeekBar style
     <style name="SeekBar_Green" parent="CustomSeekBar">
         <item name="android:progressDrawable">@drawable/ui_progress_green</item>
         <item name="android:thumb">@drawable/ui_seekbar_handel_green</item>
     </style>
 
-    <!-- +++++++++++++++++++++ End of Green Styles +++++++++++++++++++++ -->
-
+    +++++++++++++++++++++ End of Green Styles +++++++++++++++++++++
+    -->
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowBackground">@color/black_special</item>
     </style>
 
 </resources>

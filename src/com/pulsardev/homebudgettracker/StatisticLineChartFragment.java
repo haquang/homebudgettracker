@@ -62,7 +62,7 @@ public class StatisticLineChartFragment extends Fragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				((MainActivity) getActivity()).openDrawer();
+				((NavDrawerActivity) getActivity()).openDrawer();
 			}
 		});
 	}

@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<!-- App name and Header name -->
     <string name="app_name">Home Budget Tracker</string>
     <string name="txt_expense_header">Expense</string>
     <string name="txt_income_header">Income</string>
     <string name="txt_detail_header">Detail</string>
     <string name="txt_distribution_header">Distribution</string>
-    <string name="txt_report_header">Progress report</string>
+    <string name="txt_report_header">Progress reports</string>
     
+    <!-- Main function -->
+    <string name="txt_total_amount">This month:</string>
+    
+    <!-- Button name -->
     <string name="txt_OK">OK</string>
     <string name="txt_cancel">Cancel</string>
     <string name="txt_save">Save</string>
 	<string name="desc">Menu Display</string>
 	
+	<!-- Add Fucntion -->
     <string name="txt_category">Category</string>
     <string name="txt_amount">Amount (USD)</string>
     <string name="txt_date">Date</string>
 	<string name="txt_desc">Description</string>
 	
+	<!-- EditText hint -->
 	<string name="txt_amount_hint">0.00</string>
 	<string name="txt_date_hint">YYYY:MM:DD</string>
 	<string name="txt_desc_hint">Add description here</string>
+	
+	<!-- Others -->
 	<string name="toast_amount_null">At least you have to add amount</string>
     
+	<!-- Arrays -->
     <string-array name="drawler_items_array">
         <item>Manage Expenses</item>
         <item>Manage Income</item>
