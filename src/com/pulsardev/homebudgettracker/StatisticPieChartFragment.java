@@ -105,7 +105,7 @@ public class StatisticPieChartFragment extends Fragment {
 		btnMenu = (ImageButton) v.findViewById(R.id.btnImg_Menu);
 		
 		linearLayout = (LinearLayout) v.findViewById(R.id.piechart);
-		data = (HashMap<String, Double>) getArguments().getSerializable(MainActivity.FRAGMENT_DATA_PIE);
+		data = (HashMap<String, Double>) getArguments().getSerializable(MainActivity.PIE_EXPENSE_DATA);
 	}
 
 	private void createChart() {

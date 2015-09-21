@@ -1,6 +1,8 @@
 package com.pulsardev.homebudgettracker;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -35,17 +37,21 @@ public class NavDrawerActivity extends Activity {
 	ArrayList<Category> listExpCategories;
 
 	// key of value that will be passed to ChartActivity
-	public static final String FRAGMENT_DATA_LINE = "Statistic Data Line";
-	public static final String FRAGMENT_DATA_PIE = "Statistic Data Pie";
+	public static final String LINE_EXPENSE_DATA = "Statistic Expense Data Line";
+	public static final String LINE_INCOME_DATA = "Statistic Income Data Line";
+	public static final String PIE_EXPENSE_DATA = "Statistic Expense Data Pie";
+	public static final String PIE_INCOME_DATA = "Statistic Income Data Pie";
 
 	// storage for Statistic Chart
-	public static HashMap<Double, Double> statistic_data_line;
-	public static HashMap<String, Double> statistic_data_pie;
+	public static HashMap<Date, Double> line_expense_data;
+	public static HashMap<Date, Double> line_income_data;
+	public static HashMap<String, Double> pie_expense_data;
+	public static HashMap<String, Double> pie_income_data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_main);
 		mFragmentManager = getFragmentManager();
 
@@ -81,22 +87,25 @@ public class NavDrawerActivity extends Activity {
 									getApplicationContext())
 									.getListExpCategories();
 							// Add data to storage of Pie Char
-							statistic_data_pie = new HashMap<String, Double>();
+							pie_expense_data = new HashMap<String, Double>();
 							pieData();
 							Bundle pieArgs = new Bundle();
-							pieArgs.putSerializable(FRAGMENT_DATA_PIE,
-									statistic_data_pie);
+							pieArgs.putSerializable(PIE_EXPENSE_DATA,
+									pie_expense_data);
 							newFragment = new StatisticPieChartFragment();
 							newFragment.setArguments(pieArgs);
 
 							break;
 						case 3: // Report
 							// Add data to storage of Line Chart
-							statistic_data_line = new HashMap<Double, Double>();
+							line_expense_data = new HashMap<Date, Double>();
+							line_income_data = new HashMap<Date, Double>();
 							dummyLineData();
 							Bundle lineArgs = new Bundle();
-							lineArgs.putSerializable(FRAGMENT_DATA_LINE,
-									statistic_data_line);
+							lineArgs.putSerializable(LINE_EXPENSE_DATA,
+									line_expense_data);
+							lineArgs.putSerializable(LINE_INCOME_DATA,
+									line_income_data);
 							newFragment = new StatisticLineChartFragment();
 							newFragment.setArguments(lineArgs);
 
@@ -150,7 +159,7 @@ public class NavDrawerActivity extends Activity {
 		// Dummy data for pie chart
 		for (int i = 0; i < listExpCategories.size(); i++) {
 			Category currentExpCategory = listExpCategories.get(i);
-			statistic_data_pie.put(currentExpCategory.getName(),
+			pie_expense_data.put(currentExpCategory.getName(),
 					currentExpCategory.getAmount());
 		}
 	}
@@ -161,10 +170,15 @@ public class NavDrawerActivity extends Activity {
 
 	public void dummyLineData() {
 		// Dummy data for line chart
+		Date[] dt = new Date[10];
+		for (int i = 0; i < 10; i++) {
+			GregorianCalendar gc = new GregorianCalendar(2012, 10, i + 1);
+			dt[i] = gc.getTime();
+		}
 		Random rand = new Random();
 		for (int i = 0; i < 10; i++) {
-			statistic_data_line.put(Double.valueOf(i),
-					Double.valueOf(rand.nextInt(10)));
+			line_expense_data.put(dt[i], Double.valueOf(rand.nextInt(10)));
+			line_income_data.put(dt[i], Double.valueOf(rand.nextInt(10)));
 		}
 	}
 }
