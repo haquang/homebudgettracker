@@ -5,13 +5,16 @@
 
 package com.pulsardev.homebudgettracker.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DateReport {
+import com.pulsardev.homebudgettracker.util.StaticString;
+
+public class DateReport implements Comparable {
 
 	/**
 	 * properties
@@ -132,9 +135,26 @@ public class DateReport {
 
 	@Override
 	public String toString() {
+		SimpleDateFormat format = new SimpleDateFormat(StaticString.DATE_FORMAT);
+		String dateString = format.format(this.date);
 		String line = "id = " + this.ID
 				+ ", amount = " + this.amount
-				+ ", category id = " + this.categoryID;
+				+ ", category id = " + this.categoryID
+				+ ", date = " + dateString;
 		return line;
+	}
+
+	@Override
+	public int compareTo(Object compareDateReport) {
+		long currentDateInLong = this.getDate().getTime();
+		long compareDateInLong = ((DateReport) compareDateReport).getDate().getTime();
+		/* For Descending order */
+		if (compareDateInLong == currentDateInLong) {
+			return 0;
+		} else if (compareDateInLong > currentDateInLong) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 }

@@ -7,6 +7,8 @@
 package com.pulsardev.homebudgettracker.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import android.content.Context;
 import android.util.Log;
@@ -68,8 +70,10 @@ public class IncomeDateReportLab {
 	 * Save List of Income Date Reports into JSON file
 	 * @return success in save List data or not
 	 */	
+	@SuppressWarnings("unchecked")
 	public boolean saveListInDateReport() {
 		try {
+			Collections.sort(mListInDateReport);
 			mSerializer.saveListDateReports(mListInDateReport);
 			Log.i(TAG, "List saved to file.");
 			return true;

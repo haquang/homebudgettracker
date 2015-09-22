@@ -9,6 +9,7 @@ package com.pulsardev.homebudgettracker.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 import org.json.JSONException;
@@ -73,8 +74,10 @@ public class ExpenseDateReportLab {
 	 * Save List of Exp Date Reports into JSON file
 	 * @return success in save List data or not
 	 */	
+	@SuppressWarnings("unchecked")
 	public boolean saveListExpDateReport() {
 		try {
+			Collections.sort(mListExpDateReport);
 			mSerializer.saveListDateReports(mListExpDateReport);
 			Log.i(TAG, "List saved to file.");
 			return true;

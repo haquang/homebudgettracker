@@ -28,6 +28,10 @@
 	<string name="txt_date_hint">YYYY:MM:DD</string>
 	<string name="txt_desc_hint">Add description here</string>
 	
+	<!-- Chart -->
+	<string name="txt_line_filter">Filter</string>
+	<string name="txt_pie_filter">Filter</string>
+	
 	<!-- Others -->
 	<string name="toast_amount_null">At least you have to add amount</string>
     
@@ -49,7 +53,12 @@
     </string-array>
     
     <string-array name="in_categories_array">
-        <item >Monthly Income</item>
-        <item >Other Income</item>
+        <item>Monthly Income</item>
+        <item>Other Income</item>
+    </string-array>
+    
+    <string-array name="spinner_line_filter">
+        <item>By date</item>
+        <item>By month</item>
     </string-array>
 </resources>

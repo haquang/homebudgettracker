@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.pulsardev.homebudgettracker.model.Category;
+import com.pulsardev.homebudgettracker.model.DateReport;
 import com.pulsardev.homebudgettracker.model.ExpenseCategoryLab;
+import com.pulsardev.homebudgettracker.model.ExpenseDateReportLab;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -15,6 +17,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +26,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * Manage the Menu left (Navigation Drawer)
+ * 
+ * @author ngapham
+ *
+ */
 public class NavDrawerActivity extends Activity {
 
 	// controls for Navigation Drawer
@@ -35,6 +44,8 @@ public class NavDrawerActivity extends Activity {
 
 	// List of Expense Categories
 	ArrayList<Category> listExpCategories;
+	// List of Expense and Income Date Reports
+	ArrayList<DateReport> listExpDateReports, listInDateReports;
 
 	// key of value that will be passed to ChartActivity
 	public static final String LINE_EXPENSE_DATA = "Statistic Expense Data Line";
@@ -43,8 +54,6 @@ public class NavDrawerActivity extends Activity {
 	public static final String PIE_INCOME_DATA = "Statistic Income Data Pie";
 
 	// storage for Statistic Chart
-	public static HashMap<Date, Double> line_expense_data;
-	public static HashMap<Date, Double> line_income_data;
 	public static HashMap<String, Double> pie_expense_data;
 	public static HashMap<String, Double> pie_income_data;
 
@@ -97,18 +106,7 @@ public class NavDrawerActivity extends Activity {
 
 							break;
 						case 3: // Report
-							// Add data to storage of Line Chart
-							line_expense_data = new HashMap<Date, Double>();
-							line_income_data = new HashMap<Date, Double>();
-							dummyLineData();
-							Bundle lineArgs = new Bundle();
-							lineArgs.putSerializable(LINE_EXPENSE_DATA,
-									line_expense_data);
-							lineArgs.putSerializable(LINE_INCOME_DATA,
-									line_income_data);
 							newFragment = new StatisticLineChartFragment();
-							newFragment.setArguments(lineArgs);
-
 							break;
 						default:
 							newFragment = new ExpenseFragment();
@@ -161,24 +159,6 @@ public class NavDrawerActivity extends Activity {
 			Category currentExpCategory = listExpCategories.get(i);
 			pie_expense_data.put(currentExpCategory.getName(),
 					currentExpCategory.getAmount());
-		}
-	}
-
-	/*
-	 * QuangHV: Add temporary function to display chart
-	 */
-
-	public void dummyLineData() {
-		// Dummy data for line chart
-		Date[] dt = new Date[10];
-		for (int i = 0; i < 10; i++) {
-			GregorianCalendar gc = new GregorianCalendar(2012, 10, i + 1);
-			dt[i] = gc.getTime();
-		}
-		Random rand = new Random();
-		for (int i = 0; i < 10; i++) {
-			line_expense_data.put(dt[i], Double.valueOf(rand.nextInt(10)));
-			line_income_data.put(dt[i], Double.valueOf(rand.nextInt(10)));
 		}
 	}
 }

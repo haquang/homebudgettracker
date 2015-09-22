@@ -10,19 +10,28 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="@dimen/dim_50"
+        android:layout_marginTop="@dimen/dim_20" >
 
         <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:id="@+id/txt_line_filter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="@dimen/dim_10"
+            android:text="@string/txt_line_filter"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tex_size_large" />
 
         <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="match_parent"
+            android:id="@+id/spinner_line_filter"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="2"
+            android:background="@color/black"
+            android:drawSelectorOnTop="true"
+            android:prompt="@string/txt_line_filter" />
 
     </LinearLayout>
 
