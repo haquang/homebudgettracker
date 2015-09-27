@@ -178,19 +178,17 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 					newDateReport.setDescription(String.valueOf(edtDescription
 							.getText()));
 
-					ExpenseDateReportLab.get(
-							getActivity().getApplicationContext())
-							.addExpDateReport(newDateReport);
-					ExpenseDateReportLab.get(
-							getActivity().getApplicationContext())
-							.saveListExpDateReport();
+					ExpenseDateReportLab dateReportLab = ExpenseDateReportLab.get(
+							getActivity().getApplicationContext());
+					dateReportLab.addExpDateReport(newDateReport);
+					dateReportLab.saveListExpDateReport();
 
 					// And update the amount of this category
-					Category currentExpCategory = ExpenseCategoryLab.get(
-							getActivity().getApplicationContext())
-							.getExpCategory(newDateReport.getCategoryID());
-					currentExpCategory.setAmount(currentExpCategory.getAmount()
-							+ newDateReport.getAmount());
+					ExpenseCategoryLab catLab = ExpenseCategoryLab
+							.get(getActivity().getApplicationContext());
+					catLab.updateCatAmount(newDateReport.getCategoryID(),
+							newDateReport.getAmount());
+					catLab.saveListCat();
 
 					// finish
 					getActivity().finish();

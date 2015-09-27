@@ -43,7 +43,7 @@ public class ExpenseDateReportLab {
 	 */
 	public ExpenseDateReportLab(Context appContext) {
 		mAppContext = appContext;
-		// Create Serializer to save ExpDateReport List to JSON file
+		// Create Serializer to load ExpDateReport List from JSON file
 		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
 		// initial list of Expense Date Reports when loading app for the first time
 		try {

@@ -7,9 +7,15 @@
 
 package com.pulsardev.homebudgettracker.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
+import com.pulsardev.homebudgettracker.control.JSONSerializer;
+
 import android.content.Context;
+import android.util.Log;
 
 public class IncomeCategoryLab {
 	/**
@@ -20,9 +26,16 @@ public class IncomeCategoryLab {
 	private static final String MONTHLY_INCOME = "Monthly Income";
 	private static final String OTHER_INCOME = "Other Income";
 	
+	private JSONSerializer mSerializer;
+	// file name in database, which stores List of Expense Categories
+	private static final String JSON_FILENAME = "income_categories.json";
+	
 	// To create singleton
 	private static IncomeCategoryLab mInCatLab;
 	private Context mAppContext;
+	
+	// TAG
+	private static final String TAG = "IncomeCategoryLab";
 	
 	/**
 	 * Constructor
@@ -30,16 +43,24 @@ public class IncomeCategoryLab {
 	 */
 	public IncomeCategoryLab(Context appContext) {
 		mAppContext = appContext;
-		// initial list of Income Categories when loading app for the first time
-		// There are always 2 categories
-		mListInCategories = new ArrayList<Category>();
-		for (int i = 0; i < NUMBER_CATEGORIES; i++) {
-			Category item = new Category();
-			item.setID(i);
-			mListInCategories.add(item);
+		// Create Serializer to load ExpCategory List from JSON file
+		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
+		try {
+			mListInCategories = mSerializer.loadListCategories();
+		} catch (Exception e) {
+			// initial list of Income Categories when loading app for the first time
+			// There are always 2 categories
+			mListInCategories = new ArrayList<Category>();
+			for (int i = 0; i < NUMBER_CATEGORIES; i++) {
+				Category item = new Category();
+				item.setId(i);
+				mListInCategories.add(item);
+			}
+			mListInCategories.get(0).setName(MONTHLY_INCOME);
+			mListInCategories.get(1).setName(OTHER_INCOME);
+			
+			Log.e(TAG, "Error Loading new list of Income Categories", e);
 		}
-		mListInCategories.get(0).setName(MONTHLY_INCOME);
-		mListInCategories.get(1).setName(OTHER_INCOME);
 	}
 	
 	/**
@@ -65,10 +86,29 @@ public class IncomeCategoryLab {
 	 */
 	public Category getInCategory(int id) {
 		for (Category item : mListInCategories) {
-			if (item.getID() == id) {
+			if (item.getId() == id) {
 				return item;
 			}
 		}
 		return null;
+	}
+	
+	public void updateCatAmount(int id, double addedAmount) {
+		for (Category item : mListInCategories) {
+			if (item.getId() == id) {
+				item.setAmount(item.getAmount() + addedAmount);
+			}
+		}
+	}
+	
+	public boolean saveListCat() {
+		try {
+			mSerializer.saveListCategories(mListInCategories);
+			return true;
+		} catch (JSONException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}
 	}
 }

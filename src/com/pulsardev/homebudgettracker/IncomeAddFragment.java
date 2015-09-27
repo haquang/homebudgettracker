@@ -225,19 +225,17 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 					newDateReport.setDescription(String.valueOf(edtDescription
 							.getText()));
 
-					IncomeDateReportLab.get(
-							getActivity().getApplicationContext())
-							.addInDateReport(newDateReport);
-					IncomeDateReportLab.get(
-							getActivity().getApplicationContext())
-							.saveListInDateReport();
+					IncomeDateReportLab dateReportLab = IncomeDateReportLab
+							.get(getActivity().getApplicationContext());
+					dateReportLab.addInDateReport(newDateReport);
+					dateReportLab.saveListInDateReport();
 
 					// And update the amount of this category
-					Category currentInCategory = IncomeCategoryLab.get(
-							getActivity().getApplicationContext())
-							.getInCategory(newDateReport.getCategoryID());
-					currentInCategory.setAmount(currentInCategory.getAmount()
-							+ newDateReport.getAmount());
+					IncomeCategoryLab catLab = IncomeCategoryLab
+							.get(getActivity().getApplicationContext());
+					catLab.updateCatAmount(newDateReport.getCategoryID(),
+							newDateReport.getAmount());
+					catLab.saveListCat();
 
 					// finish
 					getActivity().finish();

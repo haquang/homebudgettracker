@@ -7,9 +7,15 @@
  */
 package com.pulsardev.homebudgettracker.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
+import com.pulsardev.homebudgettracker.control.JSONSerializer;
+
 import android.content.Context;
+import android.util.Log;
 
 public class ExpenseCategoryLab {
 	
@@ -22,9 +28,16 @@ public class ExpenseCategoryLab {
 	private static final String CATEGORY_ENTERTAINMENT = "Entertainment";
 	private static final String CATEGORY_OTHER = "Others";
 	
+	private JSONSerializer mSerializer;
+	// file name in database, which stores List of Expense Categories
+	private static final String JSON_FILENAME = "expense_categories.json";
+	
 	// To create singleton
 	private static ExpenseCategoryLab mExpCatLab;
 	private Context mAppContext;
+	
+	// TAG
+	private static final String TAG = "ExpenseCategoryLab";
 	
 	/**
 	 * Constructor
@@ -32,20 +45,29 @@ public class ExpenseCategoryLab {
 	 */
 	public ExpenseCategoryLab(Context appContext) {
 		mAppContext = appContext;
-		// initial list of Expense Categories when loading app for the first time
-		// There are always 6 categories
-		mListExpCategories = new ArrayList<Category>();
-		for (int i = 0; i < NUMBER_CATEGORIES; i++) {
-			Category item = new Category();
-			item.setID(i);
-			mListExpCategories.add(item);
+		// Create Serializer to load ExpCategory List from JSON file
+		mSerializer = new JSONSerializer(mAppContext, JSON_FILENAME);
+		try {
+			mListExpCategories = mSerializer.loadListCategories();
+		} catch (Exception e) {
+			// initial list of Expense Categories when loading app for the first time
+			// There are always 6 categories
+			mListExpCategories = new ArrayList<Category>();
+			for (int i = 0; i < NUMBER_CATEGORIES; i++) {
+				Category item = new Category();
+				item.setId(i);
+				mListExpCategories.add(item);
+			}
+			mListExpCategories.get(0).setName(CATEGORY_FOOD);
+			mListExpCategories.get(1).setName(CATEGORY_TRANSPORTATION);
+			mListExpCategories.get(2).setName(CATEGORY_HOUSING);
+			mListExpCategories.get(3).setName(CATEGORY_MEDICAL);
+			mListExpCategories.get(4).setName(CATEGORY_ENTERTAINMENT);
+			mListExpCategories.get(5).setName(CATEGORY_OTHER);
+			
+			Log.e(TAG, "Error Loading new list of Expense Categories", e);
 		}
-		mListExpCategories.get(0).setName(CATEGORY_FOOD);
-		mListExpCategories.get(1).setName(CATEGORY_TRANSPORTATION);
-		mListExpCategories.get(2).setName(CATEGORY_HOUSING);
-		mListExpCategories.get(3).setName(CATEGORY_MEDICAL);
-		mListExpCategories.get(4).setName(CATEGORY_ENTERTAINMENT);
-		mListExpCategories.get(5).setName(CATEGORY_OTHER);
+		
 	}
 	/**
 	 * To create singleton
@@ -70,10 +92,32 @@ public class ExpenseCategoryLab {
 	 */
 	public Category getExpCategory(int id) {
 		for (Category item : mListExpCategories) {
-			if (item.getID() == id) {
+			if (item.getId() == id) {
 				return item;
 			}
 		}
 		return null;
+	}
+	
+	public void updateCatAmount(int id, double addedAmount) {
+		for (Category item : mListExpCategories) {
+			if (item.getId() == id) {
+				item.setAmount(item.getAmount() + addedAmount);
+			}
+		}
+	}
+	
+	public boolean saveListCat() {
+		try {
+			mSerializer.saveListCategories(mListExpCategories);
+			Log.i(TAG, "List saved to file.");
+			return true;
+		} catch (JSONException e) {
+			Log.e(TAG, "Error saving list: " + e);
+			return false;
+		} catch (IOException e) {
+			Log.e(TAG, "Error saving list: " + e);
+			return false;
+		}
 	}
 }

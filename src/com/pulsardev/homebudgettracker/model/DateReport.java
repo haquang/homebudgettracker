@@ -119,7 +119,7 @@ public class DateReport implements Comparable {
 	}
 
 	/**
-	 * Convert Expense Date Report Object into JSON Object
+	 * Convert Date Report Object into JSON Object
 	 * @return JSON Object
 	 * @throws JSONException
 	 */

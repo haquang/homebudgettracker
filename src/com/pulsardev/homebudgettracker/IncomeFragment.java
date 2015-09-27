@@ -176,7 +176,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 
 	private void callAddActivity(Category currentCat) {
 		Intent i = new Intent(this.getActivity(), AddActivity.class);
-		i.putExtra(INTENT_EXTRA_ADD_INCOME_CATID, currentCat.getID());
+		i.putExtra(INTENT_EXTRA_ADD_INCOME_CATID, currentCat.getId());
 		startActivity(i);
 	}
 
@@ -189,7 +189,7 @@ public class IncomeFragment extends Fragment implements OnClickListener {
 	private void callDetailActivity(Category currentCategory) {
 		Intent i = new Intent(this.getActivity(), DetailActivity.class);
 		i.putExtra(StaticString.DETAIL_FRAGMENT, INTENT_EXTRA_INCOME);
-		i.putExtra(INTENT_EXTRA_INCOME_DETAIL_CATID, currentCategory.getID());
+		i.putExtra(INTENT_EXTRA_INCOME_DETAIL_CATID, currentCategory.getId());
 		startActivity(i);
 	}
 }
