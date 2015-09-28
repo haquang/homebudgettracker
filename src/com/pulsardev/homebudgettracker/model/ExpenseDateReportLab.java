@@ -97,4 +97,13 @@ public class ExpenseDateReportLab {
 	public void addExpDateReport(DateReport newExpDateReport) {
 		mListExpDateReport.add(newExpDateReport);
 	}
+	
+	public DateReport getDateReport (UUID id) {
+		for (DateReport item : mListExpDateReport) {
+			if (item.getID().equals(id)) {
+				return item;
+			}
+		}
+		return null;
+	}
 }

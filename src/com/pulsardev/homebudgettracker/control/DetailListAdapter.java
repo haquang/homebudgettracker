@@ -38,9 +38,8 @@ public class DetailListAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public long getChildId(int arg0, int arg1) {
-		// No code here
-		return 0;
+	public long getChildId(int groupPosition, int childPosition) {
+		return childPosition;
 	}
 
 	@Override
@@ -82,9 +81,8 @@ public class DetailListAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public long getGroupId(int arg0) {
-		// No code here
-		return 0;
+	public long getGroupId(int groupPosition) {
+		return groupPosition;
 	}
 
 	@Override
@@ -104,14 +102,12 @@ public class DetailListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public boolean hasStableIds() {
-		// No code here
-		return false;
+		return true;
 	}
 
 	@Override
-	public boolean isChildSelectable(int arg0, int arg1) {
-		// No code here
-		return false;
+	public boolean isChildSelectable(int groupPosition, int childPosition) {
+		return true;
 	}
 
 }

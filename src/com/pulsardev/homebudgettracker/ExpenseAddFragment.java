@@ -1,12 +1,15 @@
 /**
- * Add fragment: add new Expense Date Report
+ * Add new Expense Date Report or Edit current Expense Date Report
  * @author ngapham
  * update 10/9/2015
+ * update 28/9/2015
  */
 package com.pulsardev.homebudgettracker;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -40,11 +43,17 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	TextView txtCategory;
 	Spinner spCategory;
 
-	// current Exp Category
-	private Category defaultCat;
+	// to know if Add or Edit Date Report
+//	private Serializable add_edit_flag;
 
-	// date properties of new Date Report
-	private Date newDate;
+	// current Exp Category
+//	private Category defaultCat;
+
+	// date properties of new/editing Date Report
+	private Date defaultDate;
+
+	// current Date Report; if adding new Expense, this is new Date Report
+	private DateReport defaultDateReport;
 
 	// static String
 	private static final String CALDROID_FRAGMENT_TITLE = "Select a date";
@@ -53,12 +62,35 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	private static final String TAG = "ExpenseAddFragment";
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		// to know if Add or Edit Date Report
+		Serializable add_edit_flag = getActivity().getIntent().getSerializableExtra(
+				ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
+		if (add_edit_flag != null) { // Add new Expense
+			defaultDateReport = new DateReport();
+		} else { // Edit current Expense
+			add_edit_flag = getActivity().getIntent().getSerializableExtra(
+					ExpenseDetailFragment.INTENT_EXTRA_EDIT_EXPENSE);
+			if (add_edit_flag != null) {
+				UUID currentReportId = (UUID) add_edit_flag;
+				defaultDateReport = ExpenseDateReportLab.get(
+						getActivity().getApplicationContext()).getDateReport(
+						currentReportId);
+			}
+		}
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_add, container,
 				false);
 
 		initControls(rootView);
+		setDefaultData();
+
 		handleSpinnerChanged();
 		handleEdtDate();
 		handleBtnCancel();
@@ -79,9 +111,10 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 							View arg1, int position, long arg3) {
 						String selectedItem = (String) parent
 								.getItemAtPosition(position);
-						txtCategory.setText(getResources().getString(
-								R.string.txt_expense_header)
-								+ ": " + selectedItem);
+						/*
+						 * txtCategory.setText(getResources().getString(
+						 * R.string.txt_expense_header) + ": " + selectedItem);
+						 */
 					}
 
 					@Override
@@ -125,7 +158,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 							@Override
 							public void onSelectDate(Date date, View view) {
-								newDate = date;
+								defaultDate = date;
 								String dateFormat = String.valueOf(DateFormat
 										.format(StaticString.DATE_FORMAT, date));
 								edtDate.setText(dateFormat);
@@ -163,35 +196,43 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 			@Override
 			public void onClick(View v) {
 				try {
-					// Save new Date Report
-					DateReport newDateReport = new DateReport();
-
 					// Validate the amount
 					Validator.validateNullAmount(String.valueOf(edtAmount
 							.getText()));
 
-					newDateReport.setAmount(Double.valueOf(String
+					double oldAmount = defaultDateReport.getAmount();
+					defaultDateReport.setAmount(Double.valueOf(String
 							.valueOf(edtAmount.getText())));
-					newDateReport.setDate(newDate);
-					newDateReport.setCategoryID(spCategory
+					defaultDateReport.setDate(defaultDate);
+					defaultDateReport.setCategoryID(spCategory
 							.getSelectedItemPosition());
-					newDateReport.setDescription(String.valueOf(edtDescription
+					defaultDateReport.setDescription(String.valueOf(edtDescription
 							.getText()));
 
-					ExpenseDateReportLab dateReportLab = ExpenseDateReportLab.get(
-							getActivity().getApplicationContext());
-					dateReportLab.addExpDateReport(newDateReport);
-					dateReportLab.saveListExpDateReport();
-
-					// And update the amount of this category
+					ExpenseDateReportLab dateReportLab = ExpenseDateReportLab
+							.get(getActivity().getApplicationContext());
 					ExpenseCategoryLab catLab = ExpenseCategoryLab
 							.get(getActivity().getApplicationContext());
-					catLab.updateCatAmount(newDateReport.getCategoryID(),
-							newDateReport.getAmount());
+					
+					if (dateReportLab.getDateReport(defaultDateReport.getID()) == null) {
+						// in case of Add new Expense
+						// Save new Date Report
+						dateReportLab.addExpDateReport(defaultDateReport);
+						// And update the amount of this category
+						catLab.addNewCatAmount(defaultDateReport.getCategoryID(),
+								defaultDateReport.getAmount());
+					} else {
+						// In case of Edit current Expense
+						// update the amount of this category
+						catLab.updateCatAmount(defaultDateReport.getCategoryID(), oldAmount, defaultDateReport.getAmount());
+					}
+					
+					dateReportLab.saveListExpDateReport();
 					catLab.saveListCat();
 
 					// finish
 					getActivity().finish();
+					
 				} catch (Exception e) {
 					Toast.makeText(
 							getActivity().getApplicationContext(),
@@ -211,11 +252,15 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
 		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
+	}
 
+	private void setDefaultData() {
 		setSpinner();
 		setDefaultCategory();
 		setDefaultDate();
+		setDefaultAmount();
 		setAmountFilter();
+		setDefaultDesc();
 	}
 
 	private void setSpinner() {
@@ -232,16 +277,22 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	}
 
 	private void setDefaultCategory() {
-		// get the default category
-		int defaultCatId = (Integer) getActivity().getIntent()
-				.getSerializableExtra(
-						ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
-		defaultCat = ExpenseCategoryLab.get(
+		// get default Category
+		int defaultCatId = 0;
+		if (getActivity().getIntent().getSerializableExtra(
+				ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID) != null) {
+			// Add new Expense
+			defaultCatId = (Integer) getActivity().getIntent().getSerializableExtra(
+					ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
+		} else if (getActivity().getIntent().getSerializableExtra(
+				ExpenseDetailFragment.INTENT_EXTRA_EDIT_EXPENSE) != null) {
+			// Edit current Expense
+			defaultCatId = defaultDateReport.getCategoryID();
+		}
+
+		Category defaultCat = ExpenseCategoryLab.get(
 				getActivity().getApplicationContext()).getExpCategory(
 				defaultCatId);
-		txtCategory.setText(getResources().getString(
-				R.string.txt_expense_header)
-				+ ": " + defaultCat.getName());
 
 		// set default category for spCategory (the order of list Exp Categories
 		// matches
@@ -251,15 +302,32 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	}
 
 	private void setDefaultDate() {
-		// set default date
-		newDate = new Date(java.lang.System.currentTimeMillis());
+		defaultDate = defaultDateReport.getDate();
+		if (defaultDate == null) {
+			defaultDate = new Date(System.currentTimeMillis());
+		}
 		String dateFormat = String.valueOf(DateFormat.format(
-				StaticString.DATE_FORMAT, newDate));
+				StaticString.DATE_FORMAT, defaultDate));
 		edtDate.setText(dateFormat);
+	}
+
+	/**
+	 * In case of Edit current Expense
+	 */
+	private void setDefaultAmount() {
+		double currentAmount = defaultDateReport.getAmount();
+		if (currentAmount != 0.0) {
+			edtAmount.setText(String.valueOf(currentAmount));
+		}
 	}
 
 	private void setAmountFilter() {
 		// Limit the number of digits after decimal point in edtAmount
 		edtAmount.setFilters(new InputFilter[] { new MoneyValueFilter(2) });
+	}
+
+	private void setDefaultDesc() {
+		String currentDesc = defaultDateReport.getDescription();
+		edtDescription.setText(currentDesc);
 	}
 }

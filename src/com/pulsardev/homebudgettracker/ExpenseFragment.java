@@ -69,10 +69,6 @@ public class ExpenseFragment extends Fragment implements OnClickListener {
 		listExpDateReports = ExpenseDateReportLab.get(
 				this.getActivity().getApplicationContext())
 				.getListExpDateReport();
-		
-		for (Category cat : listExpCategories) {
-			Log.i(TAG, "cat amount: " + cat.getAmount());
-		}
 	}
 
 	@Override

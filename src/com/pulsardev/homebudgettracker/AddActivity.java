@@ -17,10 +17,20 @@ public class AddActivity extends android.support.v4.app.FragmentActivity {
 			FragmentTransaction fTransaction = getSupportFragmentManager().beginTransaction();
 			Serializable temp = i.getSerializableExtra(ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
 			if (temp != null) {
+				// Add Expense
 				fTransaction.add(R.id.add_container, new ExpenseAddFragment());
 			} else {
 				temp = i.getSerializableExtra(IncomeFragment.INTENT_EXTRA_ADD_INCOME_CATID);
-				fTransaction.add(R.id.add_container, new IncomeAddFragment());
+				if (temp != null) {
+					// Add Income
+					fTransaction.add(R.id.add_container, new IncomeAddFragment());
+				} else {
+					temp = i.getSerializableExtra(ExpenseDetailFragment.INTENT_EXTRA_EDIT_EXPENSE);
+					if (temp != null) {
+						// Edit Expense
+						fTransaction.add(R.id.add_container, new ExpenseAddFragment());
+					}
+				}
 			}
 			fTransaction.commit();
 		}

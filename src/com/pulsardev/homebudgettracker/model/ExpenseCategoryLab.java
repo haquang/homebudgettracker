@@ -99,10 +99,18 @@ public class ExpenseCategoryLab {
 		return null;
 	}
 	
-	public void updateCatAmount(int id, double addedAmount) {
+	public void addNewCatAmount(int catId, double addedAmount) {
 		for (Category item : mListExpCategories) {
-			if (item.getId() == id) {
+			if (item.getId() == catId) {
 				item.setAmount(item.getAmount() + addedAmount);
+			}
+		}
+	}
+	
+	public void updateCatAmount(int catId, double oldAmount, double newAmount) {
+		for (Category item : mListExpCategories) {
+			if (item.getId() == catId) {
+				item.setAmount(item.getAmount() - oldAmount + newAmount);
 			}
 		}
 	}
