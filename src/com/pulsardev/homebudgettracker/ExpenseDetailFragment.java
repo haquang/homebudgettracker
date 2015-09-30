@@ -4,11 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,9 @@ public class ExpenseDetailFragment extends Fragment {
 
 	// Specific Adapter for Expandable ListView
 	DetailListAdapter expDateReportAdapter;
+	
+	// key of value that will be passed to Edit activity
+	public static final String INTENT_EXTRA_EDIT_EXPENSE = "Edit_ExpDateReportId";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,7 @@ public class ExpenseDetailFragment extends Fragment {
 		setNavMenu();
 		setTitleName();
 		setDataListView();
+		setOnClickItemLDetail();
 
 		return rootView;
 	}
@@ -83,8 +89,7 @@ public class ExpenseDetailFragment extends Fragment {
 
 	private void setTitleName() {
 		Resources res = getActivity().getResources();
-		txtTitle.setText(res.getString(R.string.txt_expense_header) + " "
-				+ res.getString(R.string.txt_detail_header));
+		txtTitle.setText(res.getString(R.string.txt_expense_detail_header));
 	}
 
 	private void setDataListView() {
@@ -148,6 +153,22 @@ public class ExpenseDetailFragment extends Fragment {
 			amount += item.getAmount();
 		}
 		return amount;
+	}
+	
+	private void setOnClickItemLDetail() {
+		listViewExpenseDetail.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+			
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				DateReport currentReport = (DateReport) expDateReportAdapter.getChild(groupPosition, childPosition);
+				UUID currentId = currentReport.getID();
+				Intent i = new Intent(getActivity(), AddActivity.class);
+				i.putExtra(INTENT_EXTRA_EDIT_EXPENSE, currentId);
+				startActivity(i);
+				return false;
+			}
+		});
 	}
 
 	@Override

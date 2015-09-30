@@ -83,8 +83,7 @@ public class IncomeDetailFragment extends Fragment {
 
 	private void setTitleName() {
 		Resources res = getActivity().getResources();
-		txtTitle.setText(res.getString(R.string.txt_income_header) + " "
-				+ res.getString(R.string.txt_detail_header));
+		txtTitle.setText(res.getString(R.string.txt_income_detail_header));
 	}
 
 	private void setDataListView() {

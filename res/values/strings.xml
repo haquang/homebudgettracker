@@ -4,7 +4,10 @@
     <string name="app_name">Home Budget Tracker</string>
     <string name="txt_expense_header">Expense</string>
     <string name="txt_income_header">Income</string>
-    <string name="txt_detail_header">Detail</string>
+    <string name="txt_add_expense_header">Add Expense</string>
+    <string name="txt_add_income_header">Add Income</string>
+    <string name="txt_expense_detail_header">Expense Detail</string>
+    <string name="txt_income_detail_header">Income Detail</string>
     <string name="txt_distribution_header">Distribution</string>
     <string name="txt_report_header">Progress reports</string>
     

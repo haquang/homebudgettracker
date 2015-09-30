@@ -33,9 +33,9 @@ import com.roomorama.caldroid.CaldroidListener;
 
 public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	// controls
+	TextView txtTitle;	// title appears in Menu Bar
 	EditText edtAmount, edtDate, edtDescription;
 	Button btnSave, btnCancel;
-	TextView txtCategory;
 	Spinner spCategory;
 
 	// current Income Category
@@ -57,7 +57,9 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 				false);
 
 		initControls(rootView);
-		handleSpinnerChanged();
+		setTitleName();
+		
+//		handleSpinnerChanged();
 		handleEdtDate();
 		handleBtnCancel();
 		handleBtnSave();
@@ -66,18 +68,23 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	}
 
 	private void initControls(View v) {
+		txtTitle = (TextView) v.findViewById(R.id.txt_add_edit_title);
+		
 		edtAmount = (EditText) v.findViewById(R.id.edt_amount);
 		edtDate = (EditText) v.findViewById(R.id.edt_date);
 		edtDescription = (EditText) v.findViewById(R.id.edt_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
-		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
 
 		setSpinner();
 		setDefaultCategory();
 		setDefaultDate();
 		setAmountFilter();
+	}
+	
+	private void setTitleName() {
+		txtTitle.setText(getResources().getString(R.string.txt_add_income_header));
 	}
 
 	private void setSpinner() {
@@ -101,10 +108,6 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 		defaultCat = IncomeCategoryLab.get(
 				getActivity().getApplicationContext()).getInCategory(
 				defaultCatId);
-		txtCategory.setText(getResources()
-				.getString(R.string.txt_income_header)
-				+ ": "
-				+ defaultCat.getName());
 
 		// set default category for spCategory (the order of list Exp Categories
 		// matches
@@ -141,7 +144,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 							View arg1, int position, long arg3) {
 						String selectedItem = (String) parent
 								.getItemAtPosition(position);
-						txtCategory.setText(getResources().getString(
+						txtTitle.setText(getResources().getString(
 								R.string.txt_income_header)
 								+ ": " + selectedItem);
 					}

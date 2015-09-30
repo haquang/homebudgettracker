@@ -38,16 +38,10 @@ import com.roomorama.caldroid.CaldroidListener;
 public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 
 	// controls
+	TextView txtTitle; // title appears in menu bar
 	EditText edtAmount, edtDate, edtDescription;
 	Button btnSave, btnCancel;
-	TextView txtCategory;
 	Spinner spCategory;
-
-	// to know if Add or Edit Date Report
-//	private Serializable add_edit_flag;
-
-	// current Exp Category
-//	private Category defaultCat;
 
 	// date properties of new/editing Date Report
 	private Date defaultDate;
@@ -89,9 +83,10 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 				false);
 
 		initControls(rootView);
+		setTitleName();
 		setDefaultData();
 
-		handleSpinnerChanged();
+//		handleSpinnerChanged();
 		handleEdtDate();
 		handleBtnCancel();
 		handleBtnSave();
@@ -111,10 +106,10 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 							View arg1, int position, long arg3) {
 						String selectedItem = (String) parent
 								.getItemAtPosition(position);
-						/*
-						 * txtCategory.setText(getResources().getString(
-						 * R.string.txt_expense_header) + ": " + selectedItem);
-						 */
+						
+						txtTitle.setText(getResources().getString(
+						R.string.txt_expense_header) + ": " + selectedItem);
+						 
 					}
 
 					@Override
@@ -245,13 +240,17 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	}
 
 	private void initControls(View v) {
+		txtTitle = (TextView) v.findViewById(R.id.txt_add_edit_title);
 		edtAmount = (EditText) v.findViewById(R.id.edt_amount);
 		edtDate = (EditText) v.findViewById(R.id.edt_date);
 		edtDescription = (EditText) v.findViewById(R.id.edt_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
-		txtCategory = (TextView) v.findViewById(R.id.txt_default_category);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
+	}
+	
+	private void setTitleName() {
+		txtTitle.setText(getResources().getString(R.string.txt_add_expense_header));
 	}
 
 	private void setDefaultData() {
