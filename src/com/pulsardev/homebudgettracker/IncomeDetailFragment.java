@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -40,6 +41,9 @@ public class IncomeDetailFragment extends Fragment {
 
 	// Specific Adapter for Expandable ListView
 	DetailListAdapter inDateReportAdapter;
+	
+	// key of value that will be passed to Edit activity
+	public static final String INTENT_EXTRA_EDIT_INCOME = "Edit_InDateReportId";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class IncomeDetailFragment extends Fragment {
 		setNavMenu();
 		setTitleName();
 		setDataListView();
+		setOnClickItemLDetail();
 
 		return rootView;
 	}
@@ -150,6 +155,22 @@ public class IncomeDetailFragment extends Fragment {
 			amount += item.getAmount();
 		}
 		return amount;
+	}
+	
+	private void setOnClickItemLDetail() {
+		listViewIncomeDetail.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+			
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				DateReport currentReport = (DateReport) inDateReportAdapter.getChild(groupPosition, childPosition);
+				UUID currentId = currentReport.getID();
+				Intent i = new Intent(getActivity(), AddActivity.class);
+				i.putExtra(INTENT_EXTRA_EDIT_INCOME, currentId);
+				startActivity(i);
+				return false;
+			}
+		});
 	}
 
 	@Override

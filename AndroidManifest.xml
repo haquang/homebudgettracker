@@ -28,8 +28,7 @@
 
         <!-- Add Activity -->
         <activity
-            android:name=".AddActivity"
-            android:label="Add Expense" >
+            android:name=".AddActivity" >
         </activity>
         
         <!-- Detail Activity -->

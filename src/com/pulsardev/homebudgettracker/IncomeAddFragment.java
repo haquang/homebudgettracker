@@ -5,8 +5,10 @@
  */
 package com.pulsardev.homebudgettracker;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -28,12 +30,13 @@ import com.pulsardev.homebudgettracker.model.IncomeCategoryLab;
 import com.pulsardev.homebudgettracker.model.IncomeDateReportLab;
 import com.pulsardev.homebudgettracker.util.MoneyValueFilter;
 import com.pulsardev.homebudgettracker.util.StaticString;
+import com.pulsardev.homebudgettracker.util.Validator;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	// controls
-	TextView txtTitle;	// title appears in Menu Bar
+	TextView txtTitle; // title appears in Menu Bar
 	EditText edtAmount, edtDate, edtDescription;
 	Button btnSave, btnCancel;
 	Spinner spCategory;
@@ -42,13 +45,38 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	private Category defaultCat;
 
 	// date properties of new Date Report
-	private Date newDate;
+	private Date defaultDate;
+
+	// current Date Report; if adding new Income, this is new Date Report
+	private DateReport defaultDateReport;
 
 	// static String
 	private static final String CALDROID_FRAGMENT_TITLE = "Select a date";
 
 	// Tag
 	private static final String TAG = "IncomeAddFragment";
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// to know if Add or Edit Date Report
+		Serializable add_edit_flag = getActivity().getIntent()
+				.getSerializableExtra(
+						IncomeFragment.INTENT_EXTRA_ADD_INCOME_CATID);
+		if (add_edit_flag != null) { // Add new Income
+			defaultDateReport = new DateReport();
+		} else { // Edit current Income
+			add_edit_flag = getActivity().getIntent().getSerializableExtra(
+					IncomeDetailFragment.INTENT_EXTRA_EDIT_INCOME);
+			if (add_edit_flag != null) {
+				UUID currentReportId = (UUID) add_edit_flag;
+				defaultDateReport = IncomeDateReportLab.get(
+						getActivity().getApplicationContext()).getDateReport(
+						currentReportId);
+			}
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,8 +86,9 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 
 		initControls(rootView);
 		setTitleName();
-		
-//		handleSpinnerChanged();
+		setDefaultData();
+
+		// handleSpinnerChanged();
 		handleEdtDate();
 		handleBtnCancel();
 		handleBtnSave();
@@ -69,22 +98,27 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 
 	private void initControls(View v) {
 		txtTitle = (TextView) v.findViewById(R.id.txt_add_edit_title);
-		
+
 		edtAmount = (EditText) v.findViewById(R.id.edt_amount);
 		edtDate = (EditText) v.findViewById(R.id.edt_date);
 		edtDescription = (EditText) v.findViewById(R.id.edt_desc);
 		btnSave = (Button) v.findViewById(R.id.btn_save);
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
+	}
 
+	private void setTitleName() {
+		txtTitle.setText(getResources().getString(
+				R.string.txt_add_income_header));
+	}
+
+	private void setDefaultData() {
 		setSpinner();
 		setDefaultCategory();
 		setDefaultDate();
+		setDefaultAmount();
 		setAmountFilter();
-	}
-	
-	private void setTitleName() {
-		txtTitle.setText(getResources().getString(R.string.txt_add_income_header));
+		setDefaultDesc();
 	}
 
 	private void setSpinner() {
@@ -102,12 +136,17 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 
 	private void setDefaultCategory() {
 		// get the default category
-		int defaultCatId = (Integer) getActivity().getIntent()
-				.getSerializableExtra(
-						IncomeFragment.INTENT_EXTRA_ADD_INCOME_CATID);
-		defaultCat = IncomeCategoryLab.get(
-				getActivity().getApplicationContext()).getInCategory(
-				defaultCatId);
+		int defaultCatId = 0;
+		Serializable flag = getActivity().getIntent().getSerializableExtra(
+				IncomeFragment.INTENT_EXTRA_ADD_INCOME_CATID);
+		if (flag != null) { // Add new Income
+			defaultCatId = (Integer) flag;
+		} else {
+			flag = getActivity().getIntent().getSerializableExtra(
+					IncomeDetailFragment.INTENT_EXTRA_EDIT_INCOME);
+			// Edit current Income
+			defaultCatId = defaultDateReport.getCategoryID();
+		}
 
 		// set default category for spCategory (the order of list Exp Categories
 		// matches
@@ -117,16 +156,33 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	}
 
 	private void setDefaultDate() {
-		// set default date
-		newDate = new Date(java.lang.System.currentTimeMillis());
+		defaultDate = defaultDateReport.getDate();
+		if (defaultDate == null) {
+			defaultDate = new Date(java.lang.System.currentTimeMillis());
+		}
 		String dateFormat = String.valueOf(DateFormat.format(
-				StaticString.DATE_FORMAT, newDate));
+				StaticString.DATE_FORMAT, defaultDate));
 		edtDate.setText(dateFormat);
+	}
+
+	/**
+	 * In case of Edit current Income
+	 */
+	private void setDefaultAmount() {
+		double currentAmount = defaultDateReport.getAmount();
+		if (currentAmount != 0.0) {
+			edtAmount.setText(String.valueOf(currentAmount));
+		}
 	}
 
 	private void setAmountFilter() {
 		// Limit the number of digits after decimal point in edtAmount
 		edtAmount.setFilters(new InputFilter[] { new MoneyValueFilter(2) });
+	}
+
+	private void setDefaultDesc() {
+		String currentDesc = defaultDateReport.getDescription();
+		edtDescription.setText(currentDesc);
 	}
 
 	/**
@@ -189,7 +245,7 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 
 							@Override
 							public void onSelectDate(Date date, View view) {
-								newDate = date;
+								defaultDate = date;
 								String dateFormat = String.valueOf(DateFormat
 										.format(StaticString.DATE_FORMAT, date));
 								edtDate.setText(dateFormat);
@@ -204,7 +260,8 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 	 * Save date report to JSON file
 	 * 
 	 * @author ngapham
-	 * @date 10/9/2015
+	 * @date 10/9/2015 update: 1/10/2015: Change to 2 cases: save new and edit
+	 *       function
 	 */
 	private void handleBtnSave() {
 		btnSave.setOnClickListener(new View.OnClickListener() {
@@ -212,32 +269,42 @@ public class IncomeAddFragment extends android.support.v4.app.Fragment {
 			@Override
 			public void onClick(View v) {
 				try {
-					// Save new Date Report
-					DateReport newDateReport = new DateReport();
-
 					// Validate the amount
-					com.pulsardev.homebudgettracker.util.Validator
-							.validateNullAmount(String.valueOf(edtAmount
-									.getText()));
-
-					newDateReport.setAmount(Double.valueOf(String
-							.valueOf(edtAmount.getText())));
-					newDateReport.setDate(newDate);
-					newDateReport.setCategoryID(spCategory
-							.getSelectedItemPosition());
-					newDateReport.setDescription(String.valueOf(edtDescription
+					Validator.validateNullAmount(String.valueOf(edtAmount
 							.getText()));
+
+					double oldAmount = defaultDateReport.getAmount();
+
+					defaultDateReport.setAmount(Double.valueOf(String
+							.valueOf(edtAmount.getText())));
+					defaultDateReport.setDate(defaultDate);
+					defaultDateReport.setCategoryID(spCategory
+							.getSelectedItemPosition());
+					defaultDateReport.setDescription(String
+							.valueOf(edtDescription.getText()));
 
 					IncomeDateReportLab dateReportLab = IncomeDateReportLab
 							.get(getActivity().getApplicationContext());
-					dateReportLab.addInDateReport(newDateReport);
-					dateReportLab.saveListInDateReport();
-
-					// And update the amount of this category
 					IncomeCategoryLab catLab = IncomeCategoryLab
 							.get(getActivity().getApplicationContext());
-					catLab.updateCatAmount(newDateReport.getCategoryID(),
-							newDateReport.getAmount());
+
+					if (dateReportLab.getDateReport(defaultDateReport.getID()) == null) {
+						// in case of Add new Income
+						// Save new Date Report
+						dateReportLab.addInDateReport(defaultDateReport);
+						// And update the amount of this category
+						catLab.addNewCatAmount(
+								defaultDateReport.getCategoryID(),
+								defaultDateReport.getAmount());
+					} else {
+						// In case of Edit current Income
+						// update the amount of this category
+						catLab.updateCatAmount(
+								defaultDateReport.getCategoryID(), oldAmount,
+								defaultDateReport.getAmount());
+					}
+					
+					dateReportLab.saveListInDateReport();
 					catLab.saveListCat();
 
 					// finish

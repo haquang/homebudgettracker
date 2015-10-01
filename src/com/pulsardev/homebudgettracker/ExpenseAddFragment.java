@@ -58,10 +58,11 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// to know if Add or Edit Date Report
-		Serializable add_edit_flag = getActivity().getIntent().getSerializableExtra(
-				ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
+		Serializable add_edit_flag = getActivity().getIntent()
+				.getSerializableExtra(
+						ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
 		if (add_edit_flag != null) { // Add new Expense
 			defaultDateReport = new DateReport();
 		} else { // Edit current Expense
@@ -86,7 +87,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		setTitleName();
 		setDefaultData();
 
-//		handleSpinnerChanged();
+		// handleSpinnerChanged();
 		handleEdtDate();
 		handleBtnCancel();
 		handleBtnSave();
@@ -106,10 +107,11 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 							View arg1, int position, long arg3) {
 						String selectedItem = (String) parent
 								.getItemAtPosition(position);
-						
+
 						txtTitle.setText(getResources().getString(
-						R.string.txt_expense_header) + ": " + selectedItem);
-						 
+								R.string.txt_expense_header)
+								+ ": " + selectedItem);
+
 					}
 
 					@Override
@@ -184,6 +186,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 	 * @date 20/7/2015
 	 * @update 21/7/2015 1/8/2015: Save new Exp Date Report to JSON file
 	 *         4/8/2015: Change "save new" into "Save list"
+	 *         29/9/2015: Change to 2 cases: save new and edit function
 	 */
 	private void handleBtnSave() {
 		btnSave.setOnClickListener(new View.OnClickListener() {
@@ -201,33 +204,36 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 					defaultDateReport.setDate(defaultDate);
 					defaultDateReport.setCategoryID(spCategory
 							.getSelectedItemPosition());
-					defaultDateReport.setDescription(String.valueOf(edtDescription
-							.getText()));
+					defaultDateReport.setDescription(String
+							.valueOf(edtDescription.getText()));
 
 					ExpenseDateReportLab dateReportLab = ExpenseDateReportLab
 							.get(getActivity().getApplicationContext());
 					ExpenseCategoryLab catLab = ExpenseCategoryLab
 							.get(getActivity().getApplicationContext());
-					
+
 					if (dateReportLab.getDateReport(defaultDateReport.getID()) == null) {
 						// in case of Add new Expense
 						// Save new Date Report
 						dateReportLab.addExpDateReport(defaultDateReport);
 						// And update the amount of this category
-						catLab.addNewCatAmount(defaultDateReport.getCategoryID(),
+						catLab.addNewCatAmount(
+								defaultDateReport.getCategoryID(),
 								defaultDateReport.getAmount());
 					} else {
 						// In case of Edit current Expense
 						// update the amount of this category
-						catLab.updateCatAmount(defaultDateReport.getCategoryID(), oldAmount, defaultDateReport.getAmount());
+						catLab.updateCatAmount(
+								defaultDateReport.getCategoryID(), oldAmount,
+								defaultDateReport.getAmount());
 					}
-					
+
 					dateReportLab.saveListExpDateReport();
 					catLab.saveListCat();
 
 					// finish
 					getActivity().finish();
-					
+
 				} catch (Exception e) {
 					Toast.makeText(
 							getActivity().getApplicationContext(),
@@ -248,9 +254,10 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		btnCancel = (Button) v.findViewById(R.id.btn_cancel);
 		spCategory = (Spinner) v.findViewById(R.id.spinner_category);
 	}
-	
+
 	private void setTitleName() {
-		txtTitle.setText(getResources().getString(R.string.txt_add_expense_header));
+		txtTitle.setText(getResources().getString(
+				R.string.txt_add_expense_header));
 	}
 
 	private void setDefaultData() {
@@ -281,18 +288,15 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 		if (getActivity().getIntent().getSerializableExtra(
 				ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID) != null) {
 			// Add new Expense
-			defaultCatId = (Integer) getActivity().getIntent().getSerializableExtra(
-					ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
+			defaultCatId = (Integer) getActivity().getIntent()
+					.getSerializableExtra(
+							ExpenseFragment.INTENT_EXTRA_ADD_EXPENSE_CATID);
 		} else if (getActivity().getIntent().getSerializableExtra(
 				ExpenseDetailFragment.INTENT_EXTRA_EDIT_EXPENSE) != null) {
 			// Edit current Expense
 			defaultCatId = defaultDateReport.getCategoryID();
 		}
-
-		Category defaultCat = ExpenseCategoryLab.get(
-				getActivity().getApplicationContext()).getExpCategory(
-				defaultCatId);
-
+		
 		// set default category for spCategory (the order of list Exp Categories
 		// matches
 		// Category Arrays)

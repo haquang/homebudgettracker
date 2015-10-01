@@ -93,10 +93,18 @@ public class IncomeCategoryLab {
 		return null;
 	}
 	
-	public void updateCatAmount(int id, double addedAmount) {
+	public void addNewCatAmount(int id, double addedAmount) {
 		for (Category item : mListInCategories) {
 			if (item.getId() == id) {
 				item.setAmount(item.getAmount() + addedAmount);
+			}
+		}
+	}
+	
+	public void updateCatAmount(int catId, double oldAmount, double newAmount) {
+		for (Category item : mListInCategories) {
+			if (item.getId() == catId) {
+				item.setAmount(item.getAmount() - oldAmount + newAmount);
 			}
 		}
 	}

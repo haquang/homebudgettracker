@@ -9,6 +9,7 @@ package com.pulsardev.homebudgettracker.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 import android.content.Context;
 import android.util.Log;
@@ -89,5 +90,14 @@ public class IncomeDateReportLab {
 	 */
 	public void addInDateReport(DateReport newInDateReport) {
 		mListInDateReport.add(newInDateReport);
+	}
+	
+	public DateReport getDateReport (UUID id) {
+		for (DateReport item : mListInDateReport) {
+			if (item.getID().equals(id)) {
+				return item;
+			}
+		}
+		return null;
 	}
 }

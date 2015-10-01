@@ -29,6 +29,12 @@ public class AddActivity extends android.support.v4.app.FragmentActivity {
 					if (temp != null) {
 						// Edit Expense
 						fTransaction.add(R.id.add_container, new ExpenseAddFragment());
+					} else {
+						temp = i.getSerializableExtra(IncomeDetailFragment.INTENT_EXTRA_EDIT_INCOME);
+						if (temp != null) {
+							// Edit Income
+							fTransaction.add(R.id.add_container, new IncomeAddFragment());
+						}
 					}
 				}
 			}
