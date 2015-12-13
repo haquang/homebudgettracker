@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -14,9 +16,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pulsardev.homebudgettracker.control.DetailListAdapter;
 import com.pulsardev.homebudgettracker.model.Category;
@@ -101,9 +105,6 @@ public class ExpenseDetailFragment extends Fragment {
 			int default_cat_id = (Integer) getActivity().getIntent()
 					.getSerializableExtra(
 							ExpenseFragment.INTENT_EXTRA_EXPENSE_DETAIL_CATID);
-			Category defaultCat = ExpenseCategoryLab.get(
-					getActivity().getApplicationContext()).getExpCategory(
-					default_cat_id);
 			ArrayList<DateReport> listByCat = new ArrayList<DateReport>();
 			for (DateReport item : listExpDateReports) {
 				if (item.getCategoryID() == default_cat_id) {
@@ -156,6 +157,7 @@ public class ExpenseDetailFragment extends Fragment {
 	}
 	
 	private void setOnClickItemLDetail() {
+		// to Edit Expense
 		listViewExpenseDetail.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 			
 			@Override
@@ -166,6 +168,61 @@ public class ExpenseDetailFragment extends Fragment {
 				Intent i = new Intent(getActivity(), AddActivity.class);
 				i.putExtra(INTENT_EXTRA_EDIT_EXPENSE, currentId);
 				startActivity(i);
+				return false;
+			}
+		});
+		
+		// to Delete Expense
+		listViewExpenseDetail.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+					// Get child position
+					final int childPos = ExpandableListView.getPackedPositionChild(id);
+					final int groupPos = ExpandableListView.getPackedPositionGroup(id);
+					// Confirm dialog
+					AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+					alertDialog.setTitle("Delete report");
+					alertDialog.setMessage("Are you sure to delete this report?");
+					alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							DateReport currentDateReport = (DateReport) expDateReportAdapter.getChild(groupPos, childPos);
+							
+							ExpenseDateReportLab dateReportLab = ExpenseDateReportLab
+									.get(getActivity().getApplicationContext());
+							ExpenseCategoryLab catLab = ExpenseCategoryLab
+									.get(getActivity().getApplicationContext());
+							
+							// Delete Date Report from List
+							dateReportLab.deleteExpDateReport(currentDateReport);
+							// And update the amount of this category
+							catLab.deleteReportAmount(currentDateReport.getCategoryID(), currentDateReport.getAmount());
+							// Delete Date Report from ListView
+							expDateReportAdapter.deleteChild(groupPos, currentDateReport);
+							
+							// Tell users that Date Report has been deleted
+							Toast.makeText(getActivity(), "Report Deleted", Toast.LENGTH_SHORT).show();
+							
+							dateReportLab.saveListExpDateReport();
+							catLab.saveListCat();
+							
+							expDateReportAdapter.notifyDataSetChanged();
+						}
+					});
+					alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					alertDialog.create().show();
+					return true;
+				}
 				return false;
 			}
 		});

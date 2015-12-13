@@ -106,4 +106,12 @@ public class ExpenseDateReportLab {
 		}
 		return null;
 	}
+	
+	/**
+	 * delete a Exp Date Report from list
+	 * @param Date Report need to be deleted
+	 */
+	public void deleteExpDateReport(DateReport report) {
+		mListExpDateReport.remove(report);
+	}
 }

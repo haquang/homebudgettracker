@@ -217,7 +217,7 @@ public class ExpenseAddFragment extends android.support.v4.app.Fragment {
 						// Save new Date Report
 						dateReportLab.addExpDateReport(defaultDateReport);
 						// And update the amount of this category
-						catLab.addNewCatAmount(
+						catLab.addNewReportAmount(
 								defaultDateReport.getCategoryID(),
 								defaultDateReport.getAmount());
 					} else {

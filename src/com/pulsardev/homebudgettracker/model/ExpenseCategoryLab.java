@@ -99,7 +99,7 @@ public class ExpenseCategoryLab {
 		return null;
 	}
 	
-	public void addNewCatAmount(int catId, double addedAmount) {
+	public void addNewReportAmount(int catId, double addedAmount) {
 		for (Category item : mListExpCategories) {
 			if (item.getId() == catId) {
 				item.setAmount(item.getAmount() + addedAmount);
@@ -111,6 +111,14 @@ public class ExpenseCategoryLab {
 		for (Category item : mListExpCategories) {
 			if (item.getId() == catId) {
 				item.setAmount(item.getAmount() - oldAmount + newAmount);
+			}
+		}
+	}
+	
+	public void deleteReportAmount(int catId, double deletedAmount) {
+		for (Category item : mListExpCategories) {
+			if (item.getId() == catId) {
+				item.setAmount(item.getAmount() - deletedAmount);
 			}
 		}
 	}

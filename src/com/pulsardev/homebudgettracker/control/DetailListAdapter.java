@@ -109,5 +109,8 @@ public class DetailListAdapter extends BaseExpandableListAdapter {
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
-
+	
+	public void deleteChild(int groupPosition, DateReport deletedDateReport) {
+		groups.get(groupPosition).getListDateReport().remove(deletedDateReport);
+	}
 }
